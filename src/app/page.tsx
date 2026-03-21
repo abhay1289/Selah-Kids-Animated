@@ -10,7 +10,7 @@ import {
   useSpring,
   useInView,
 } from "motion/react";
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback, useMemo } from "react";
 import {
   Play,
   ArrowRight,
@@ -25,9 +25,32 @@ import {
   ChevronLeft,
   ChevronRight,
   Quote,
+  Flame,
+  Globe,
+  Rocket,
+  PartyPopper,
+  Clapperboard,
+  HandHeart,
+  Music2,
+  Music4,
+  Mic2,
+  Crown,
+  Smile,
+  Leaf,
 } from "lucide-react";
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < breakpoint);
+    check();
+    window.addEventListener("resize", check, { passive: true });
+    return () => window.removeEventListener("resize", check);
+  }, [breakpoint]);
+  return isMobile;
+}
 
 /* ── Shared Components ─────────────────────────────────── */
 
@@ -207,9 +230,10 @@ function SplitTextReveal({
   );
 }
 
-/* Confetti pieces */
+/* Confetti pieces — reduced on mobile for performance */
 function HeroConfetti({ revealed }: { revealed: boolean }) {
-  const confetti = [
+  const isMobile = useIsMobile();
+  const allConfetti = [
     { x: "5%", y: "10%", color: "#FF6B35", size: 10, shape: "circle", delay: 1.5, dur: 4 },
     { x: "15%", y: "25%", color: "#7C3AED", size: 14, shape: "rect", delay: 1.7, dur: 5 },
     { x: "85%", y: "15%", color: "#F59E0B", size: 12, shape: "circle", delay: 1.6, dur: 4.5 },
@@ -223,6 +247,7 @@ function HeroConfetti({ revealed }: { revealed: boolean }) {
     { x: "30%", y: "5%", color: "#EC4899", size: 7, shape: "triangle", delay: 2.3, dur: 4 },
     { x: "70%", y: "12%", color: "#3B82F6", size: 11, shape: "circle", delay: 1.7, dur: 5 },
   ];
+  const confetti = isMobile ? allConfetti.slice(0, 5) : allConfetti;
 
   return (
     <div className="absolute inset-0 pointer-events-none z-[5] overflow-hidden">
@@ -236,12 +261,12 @@ function HeroConfetti({ revealed }: { revealed: boolean }) {
           transition={{ delay: c.delay, type: "spring", stiffness: 120, damping: 10 }}
         >
           <motion.div
-            animate={{
+            animate={isMobile ? {} : {
               y: [0, -15, 0],
               rotate: [0, 180, 360],
               scale: [1, 1.1, 1],
             }}
-            transition={{ duration: c.dur, repeat: Infinity, ease: "easeInOut" }}
+            transition={isMobile ? {} : { duration: c.dur, repeat: Infinity, ease: "easeInOut" }}
             style={{
               width: c.size,
               height: c.size,
@@ -324,34 +349,36 @@ function HeroDoodles({ revealed }: { revealed: boolean }) {
   );
 }
 
-/* Sticker-style floating labels */
+/* Sticker-style floating labels — reduced on mobile */
 function HeroStickers({ revealed }: { revealed: boolean }) {
-  const stickers = [
-    { text: "🎵", x: "8%", y: "35%", rotate: -12, delay: 2.0, color: "#FF6B35" },
-    { text: "✨", x: "88%", y: "40%", rotate: 8, delay: 2.2, color: "#7C3AED" },
-    { text: "🌟", x: "12%", y: "55%", rotate: 15, delay: 2.4, color: "#F59E0B" },
-    { text: "💜", x: "85%", y: "65%", rotate: -8, delay: 2.6, color: "#EC4899" },
-    { text: "🎶", x: "5%", y: "80%", rotate: 10, delay: 2.8, color: "#10B981" },
-    { text: "⭐", x: "93%", y: "80%", rotate: -15, delay: 2.3, color: "#3B82F6" },
+  const isMobile = useIsMobile();
+  const allStickers: { icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>; x: string; y: string; rotate: number; delay: number; color: string }[] = [
+    { icon: Music, x: "8%", y: "35%", rotate: -12, delay: 2.0, color: "#FF6B35" },
+    { icon: Sparkles, x: "88%", y: "40%", rotate: 8, delay: 2.2, color: "#7C3AED" },
+    { icon: Star, x: "12%", y: "55%", rotate: 15, delay: 2.4, color: "#F59E0B" },
+    { icon: Heart, x: "85%", y: "65%", rotate: -8, delay: 2.6, color: "#EC4899" },
+    { icon: Music2, x: "5%", y: "80%", rotate: 10, delay: 2.8, color: "#10B981" },
+    { icon: Crown, x: "93%", y: "80%", rotate: -15, delay: 2.3, color: "#3B82F6" },
   ];
+  const stickers = isMobile ? allStickers.slice(0, 3) : allStickers;
 
   return (
     <div className="absolute inset-0 pointer-events-none z-[6] overflow-hidden">
       {stickers.map((s, i) => (
         <motion.div
           key={i}
-          className="absolute text-2xl sm:text-3xl"
+          className="absolute"
           style={{ left: s.x, top: s.y }}
           initial={{ opacity: 0, scale: 0, rotate: s.rotate + 45 }}
           animate={revealed ? { opacity: 0.7, scale: 1, rotate: s.rotate } : {}}
           transition={{ delay: s.delay, type: "spring", stiffness: 200, damping: 12 }}
         >
           <motion.span
-            animate={{ y: [0, -8, 0], rotate: [s.rotate, s.rotate + 5, s.rotate] }}
-            transition={{ duration: 4 + i * 0.5, repeat: Infinity, ease: "easeInOut" }}
+            animate={isMobile ? {} : { y: [0, -8, 0], rotate: [s.rotate, s.rotate + 5, s.rotate] }}
+            transition={isMobile ? {} : { duration: 4 + i * 0.5, repeat: Infinity, ease: "easeInOut" }}
             className="block"
           >
-            {s.text}
+            <s.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" style={{ color: s.color }} />
           </motion.span>
         </motion.div>
       ))}
@@ -504,7 +531,7 @@ function HeroSection() {
               animate={revealed ? { opacity: 1, scale: 1 } : {}}
               transition={{ delay: 1.5, type: "spring", stiffness: 200, damping: 12 }}
             >
-              Andy ⭐
+              Andy <Star className="inline h-3 w-3" fill="currentColor" />
             </motion.div>
           </motion.div>
         </motion.div>
@@ -542,7 +569,7 @@ function HeroSection() {
               animate={revealed ? { opacity: 1, scale: 1 } : {}}
               transition={{ delay: 1.7, type: "spring", stiffness: 200, damping: 12 }}
             >
-              Libni 🎵
+              Libni <Music className="inline h-3 w-3" />
             </motion.div>
           </motion.div>
         </motion.div>
@@ -583,7 +610,7 @@ function HeroSection() {
               animate={revealed ? { opacity: 1, scale: 1 } : {}}
               transition={{ delay: 1.9, type: "spring", stiffness: 200, damping: 12 }}
             >
-              Shiloh 💚
+              Shiloh <Leaf className="inline h-3 w-3" />
             </motion.div>
           </motion.div>
         </motion.div>
@@ -668,7 +695,7 @@ function HeroSection() {
           className="mt-8 max-w-xl text-center text-[15px] sm:text-[18px] text-[#2D1B69]/55 leading-[1.8] font-medium"
         >
           Original Bible songs with <span className="text-[#FF6B35] font-bold">stunning 3D animation</span> that
-          get your little ones up, moving &amp; falling in love with <span className="text-[#7C3AED] font-bold">God&apos;s word</span> 🎉
+          get your little ones up, moving &amp; falling in love with <span className="text-[#7C3AED] font-bold">God&apos;s word</span> <PartyPopper className="inline h-4 w-4 text-[#F59E0B]" />
         </motion.p>
 
         {/* CTAs */}
@@ -698,7 +725,7 @@ function HeroSection() {
               className="group flex items-center gap-3 rounded-full border-2 border-dashed border-[#7C3AED]/20 bg-white/60 backdrop-blur-xl px-7 py-4 text-[15px] font-bold text-[#2D1B69] shadow-[0_4px_16px_rgba(0,0,0,0.04)] transition-all duration-400 hover:bg-white hover:border-[#7C3AED]/30 hover:shadow-[0_12px_40px_rgba(45,27,105,0.1)]"
             >
               <Youtube className="h-5 w-5 text-red-500 transition-transform duration-300 group-hover:scale-110" />
-              Subscribe Free 🎉
+              Subscribe Free <PartyPopper className="inline h-4 w-4" />
             </a>
           </motion.div>
         </motion.div>
@@ -740,12 +767,12 @@ function HeroSection() {
    ══════════════════════════════════════════════════════════ */
 function StoryMarquee() {
   const items = [
-    { text: "Bible Songs", icon: BookOpen, emoji: "📖" },
-    { text: "3D Animation", icon: Tv, emoji: "🎬" },
-    { text: "Family Worship", icon: Users, emoji: "👨‍👩‍👧‍👦" },
-    { text: "Scripture Memory", icon: Star, emoji: "⭐" },
-    { text: "Joyful Music", icon: Music, emoji: "🎵" },
-    { text: "Faith Adventures", icon: Heart, emoji: "💜" },
+    { text: "Bible Songs", icon: BookOpen },
+    { text: "3D Animation", icon: Tv },
+    { text: "Family Worship", icon: Users },
+    { text: "Scripture Memory", icon: Star },
+    { text: "Joyful Music", icon: Music },
+    { text: "Faith Adventures", icon: Heart },
   ];
 
   return (
@@ -754,11 +781,11 @@ function StoryMarquee() {
         <div className="flex animate-marquee whitespace-nowrap">
           {[...items, ...items, ...items, ...items].map((item, i) => (
             <div key={i} className="flex items-center gap-3 mx-8 group/m cursor-default">
-              <span className="text-lg transition-transform duration-300 group-hover/m:scale-125">{item.emoji}</span>
+              <item.icon className="h-4 w-4 text-[#FF6B35] transition-transform duration-300 group-hover/m:scale-125" />
               <span className="text-[14px] sm:text-[17px] font-bold text-white/85 tracking-wide transition-colors duration-300 group-hover/m:text-[#FF6B35]">
                 {item.text}
               </span>
-              <span className="text-[#FF6B35] text-lg transition-transform duration-500 group-hover/m:rotate-90">✦</span>
+              <Sparkles className="h-3.5 w-3.5 text-[#FF6B35] transition-transform duration-500 group-hover/m:rotate-90" />
             </div>
           ))}
         </div>
@@ -781,7 +808,7 @@ function StoryIntro() {
     "We", "believe", "every", "child", "deserves",
     "music", "that", "lifts", "their", "spirit,",
     "fills", "their", "heart,", "and", "plants",
-    "God's", "word", "deep", "inside", "them.", "✨"
+    "God's", "word", "deep", "inside", "them."
   ];
 
   const highlightWords = new Set(["child", "music", "spirit,", "heart,", "God's"]);
@@ -924,7 +951,7 @@ function FeaturedVideo() {
             transition={{ delay: 0.2, duration: 0.8, ease: EASE }}
           >
             <span className="sticker inline-flex items-center gap-2 rounded-full bg-[#FF6B35]/15 border-2 border-dashed border-[#FF6B35]/25 px-5 py-2.5 text-[11px] sm:text-[13px] font-bold tracking-[0.12em] uppercase text-[#FF6B35] mb-5">
-              <Sparkles className="h-3.5 w-3.5" /> World Premiere ✨
+              <Sparkles className="h-3.5 w-3.5" /> World Premiere
             </span>
           </motion.div>
           <motion.h2
@@ -934,7 +961,7 @@ function FeaturedVideo() {
             transition={{ delay: 0.4, duration: 0.8, ease: EASE }}
           >
             Now Showing<br />
-            <span className="italic text-[#FF6B35]">&ldquo;The Good News&rdquo;</span> 🎬
+            <span className="italic text-[#FF6B35]">&ldquo;The Good News&rdquo;</span> <Clapperboard className="inline h-6 w-6 sm:h-8 sm:w-8 text-[#FF6B35]/60" />
           </motion.h2>
         </div>
 
@@ -955,7 +982,7 @@ function FeaturedVideo() {
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
               className="sticker bg-[#F59E0B] text-white text-[10px] sm:text-[12px] font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-2xl hand-drawn shadow-lg"
             >
-              🌟 Brand New!
+              <Star className="inline h-3 w-3" fill="currentColor" /> Brand New!
             </motion.div>
           </motion.div>
           <motion.div
@@ -969,7 +996,7 @@ function FeaturedVideo() {
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               className="sticker bg-[#7C3AED] text-white text-[10px] sm:text-[12px] font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-2xl hand-drawn shadow-lg"
             >
-              🎵 Original Song
+              <Music className="inline h-3 w-3" /> Original Song
             </motion.div>
           </motion.div>
           <motion.div
@@ -983,7 +1010,7 @@ function FeaturedVideo() {
               transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
               className="sticker bg-[#10B981] text-white text-[10px] sm:text-[12px] font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-2xl hand-drawn shadow-lg"
             >
-              ✨ 3D Animated
+              <Sparkles className="inline h-3 w-3" /> 3D Animated
             </motion.div>
           </motion.div>
 
@@ -1103,7 +1130,7 @@ function FeaturedVideo() {
                     href="/videos"
                     className="hidden sm:flex items-center gap-2 rounded-full bg-white/10 border border-dashed border-white/15 px-5 py-3 text-[13px] font-bold text-white/80 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 hover:text-white hover:-translate-y-0.5"
                   >
-                    All Videos 🎬 <ArrowRight className="h-3.5 w-3.5" />
+                    All Videos <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>
 
@@ -1143,7 +1170,6 @@ const features = [
     color: "#FF6B35",
     bgColor: "#FFF0E8",
     image: "https://images.squarespace-cdn.com/content/v1/685a82804538a6024d2a31d4/7ab0e946-8af6-421e-8273-2780d960ad77/TGN_SingleFrames+%283%29.png",
-    emoji: "📖",
   },
   {
     num: "02",
@@ -1154,7 +1180,6 @@ const features = [
     color: "#7C3AED",
     bgColor: "#F3EEFF",
     image: "https://images.squarespace-cdn.com/content/v1/685a82804538a6024d2a31d4/6ca859c4-a380-41e6-854e-57cf764fe6a9/TGN_SingleFrames+%282%29.png",
-    emoji: "🎬",
   },
   {
     num: "03",
@@ -1165,7 +1190,6 @@ const features = [
     color: "#10B981",
     bgColor: "#ECFDF5",
     image: "https://images.squarespace-cdn.com/content/v1/685a82804538a6024d2a31d4/ee53d250-5a7d-4c65-9e45-69d732337873/TGN_SingleFrames+%287%29.png",
-    emoji: "👨‍👩‍👧‍👦",
   },
 ];
 
@@ -1175,11 +1199,11 @@ function FeaturesSection() {
       <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-8">
         <RevealOnScroll className="text-center mb-10 sm:mb-14">
           <SectionBadge color="#7C3AED">
-            <Sparkles className="h-3.5 w-3.5" /> What makes us special ✨
+            <Sparkles className="h-3.5 w-3.5" /> What makes us special
           </SectionBadge>
           <SectionHeading>
             More than just<br />
-            <span className="italic text-[#FF6B35]">kids music</span> 🎵
+            <span className="italic text-[#FF6B35]">kids music</span> <Music className="inline h-7 w-7 sm:h-9 sm:w-9 text-[#FF6B35]/50" />
           </SectionHeading>
         </RevealOnScroll>
 
@@ -1217,7 +1241,7 @@ function FeaturesSection() {
                     className="text-[12px] font-bold tracking-[0.15em] uppercase tracking-hover"
                     style={{ color: f.color }}
                   >
-                    {f.label} {f.emoji}
+                    {f.label}
                   </span>
                 </div>
 
@@ -1260,21 +1284,24 @@ const videoItems = [
     title: "The Good News",
     desc: "Sharing God\u2019s love with the world",
     thumbnail: "https://images.squarespace-cdn.com/content/v1/685a82804538a6024d2a31d4/6ca859c4-a380-41e6-854e-57cf764fe6a9/TGN_SingleFrames+%282%29.png",
-    tag: "Newest 🔥",
+    tag: "Newest",
+    tagIcon: Flame,
     tagColor: "#FF6B35",
   },
   {
     title: "Jesus Me Ama",
     desc: "A beautiful Spanish worship song",
     thumbnail: "https://images.squarespace-cdn.com/content/v1/685a82804538a6024d2a31d4/7ab0e946-8af6-421e-8273-2780d960ad77/TGN_SingleFrames+%283%29.png",
-    tag: "Espa\u00f1ol 🇪🇸",
+    tag: "Espa\u00f1ol",
+    tagIcon: Globe,
     tagColor: "#7C3AED",
   },
   {
     title: "Worship Together",
     desc: "Joyful family praise & worship",
     thumbnail: "https://images.squarespace-cdn.com/content/v1/685a82804538a6024d2a31d4/ee53d250-5a7d-4c65-9e45-69d732337873/TGN_SingleFrames+%287%29.png",
-    tag: "Popular ⭐",
+    tag: "Popular",
+    tagIcon: Star,
     tagColor: "#10B981",
   },
 ];
@@ -1290,9 +1317,9 @@ function VideoGallery() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10">
           <RevealOnScroll>
             <SectionBadge color="#FF6B35">
-              <Play className="h-3.5 w-3.5" fill="currentColor" /> The collection 🎬
+              <Play className="h-3.5 w-3.5" fill="currentColor" /> The collection
             </SectionBadge>
-            <SectionHeading>Watch &amp; Worship 🙌</SectionHeading>
+            <SectionHeading>Watch &amp; Worship</SectionHeading>
           </RevealOnScroll>
           <RevealOnScroll delay={0.1}>
             <Link
@@ -1332,10 +1359,10 @@ function VideoGallery() {
                       </div>
                     </motion.div>
                     <div
-                      className="sticker absolute top-3 left-3 rounded-full px-3 py-1.5 text-[10px] font-bold text-white uppercase tracking-wide"
+                      className="sticker absolute top-3 left-3 flex items-center gap-1 rounded-full px-3 py-1.5 text-[10px] font-bold text-white uppercase tracking-wide"
                       style={{ backgroundColor: v.tagColor }}
                     >
-                      {v.tag}
+                      <v.tagIcon className="h-3 w-3" fill="currentColor" /> {v.tag}
                     </div>
                     {/* Duration badge */}
                     <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm rounded-full px-2.5 py-1 text-[10px] font-bold text-white/80">
@@ -1363,7 +1390,7 @@ function VideoGallery() {
             href="/videos"
             className="inline-flex items-center gap-2 rounded-full bg-[#FF6B35] px-7 py-3.5 text-[14px] font-bold text-white shadow-md"
           >
-            See all videos 🎬 <ArrowRight className="h-4 w-4" />
+            See all videos <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </div>
@@ -1382,7 +1409,7 @@ const characters = [
     image: "https://images.squarespace-cdn.com/content/v1/685a82804538a6024d2a31d4/6ca859c4-a380-41e6-854e-57cf764fe6a9/TGN_SingleFrames+%282%29.png",
     color: "#FF6B35",
     bgGradient: "from-[#FFF0E8] to-[#FFE0CC]",
-    emoji: "⭐",
+    roleIcon: Star,
   },
   {
     name: "Libni",
@@ -1391,7 +1418,7 @@ const characters = [
     image: "https://images.squarespace-cdn.com/content/v1/685a82804538a6024d2a31d4/7ab0e946-8af6-421e-8273-2780d960ad77/TGN_SingleFrames+%283%29.png",
     color: "#7C3AED",
     bgGradient: "from-[#F3EEFF] to-[#E8DEFF]",
-    emoji: "🎵",
+    roleIcon: Music,
   },
   {
     name: "Shiloh",
@@ -1400,7 +1427,7 @@ const characters = [
     image: "https://images.squarespace-cdn.com/content/v1/685a82804538a6024d2a31d4/ee53d250-5a7d-4c65-9e45-69d732337873/TGN_SingleFrames+%287%29.png",
     color: "#10B981",
     bgGradient: "from-[#ECFDF5] to-[#D1FAE5]",
-    emoji: "💚",
+    roleIcon: Leaf,
   },
 ];
 
@@ -1428,11 +1455,11 @@ function CharactersSection() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-10">
           <RevealOnScroll>
             <SectionBadge color="#FF6B35">
-              <Heart className="h-3.5 w-3.5" fill="currentColor" /> Meet the stars 🌟
+              <Heart className="h-3.5 w-3.5" fill="currentColor" /> Meet the stars
             </SectionBadge>
             <SectionHeading className="text-white">
               Your kids&apos; new<br />
-              <span className="italic text-[#FF6B35]">best friends</span> 💜
+              <span className="italic text-[#FF6B35]">best friends</span>
             </SectionHeading>
           </RevealOnScroll>
 
@@ -1498,7 +1525,7 @@ function CharactersSection() {
                     className="inline-block text-[11px] font-bold tracking-[0.18em] uppercase tracking-hover"
                     style={{ color: c.color }}
                   >
-                    {c.role} {c.emoji}
+                    {c.role} <c.roleIcon className="inline h-3 w-3 ml-1" style={{ color: c.color }} />
                   </span>
                   <h3 className="mt-1.5 font-heading text-[clamp(2.2rem,5vw,3.5rem)] text-[#2D1B69] leading-[0.92] tracking-tight heading-shadow">
                     {c.name}
@@ -1536,10 +1563,10 @@ function CharactersSection() {
    ══════════════════════════════════════════════════════════ */
 function StatsSection() {
   const stats = [
-    { value: 50, suffix: "K+", label: "Happy Families", color: "#FF6B35", icon: Heart, emoji: "👨‍👩‍👧‍👦" },
-    { value: 20, suffix: "+", label: "Worship Songs", color: "#7C3AED", icon: Music, emoji: "🎵" },
-    { value: 2, suffix: "", label: "Languages", color: "#10B981", icon: Star, emoji: "🌍" },
-    { value: 100, suffix: "%", label: "Bible Based", color: "#F59E0B", icon: BookOpen, emoji: "📖" },
+    { value: 50, suffix: "K+", label: "Happy Families", color: "#FF6B35", icon: Users },
+    { value: 20, suffix: "+", label: "Worship Songs", color: "#7C3AED", icon: Music },
+    { value: 2, suffix: "", label: "Languages", color: "#10B981", icon: Globe },
+    { value: 100, suffix: "%", label: "Bible Based", color: "#F59E0B", icon: BookOpen },
   ];
 
   return (
@@ -1557,7 +1584,7 @@ function StatsSection() {
                     className="inline-flex h-14 w-14 items-center justify-center rounded-2xl hand-drawn"
                     style={{ backgroundColor: `${s.color}12` }}
                   >
-                    <span className="text-2xl">{s.emoji}</span>
+                    <s.icon className="h-6 w-6" style={{ color: s.color }} />
                   </div>
                   {/* Subtle glow ring */}
                   <div
@@ -1626,11 +1653,11 @@ function TestimonialsSection() {
       <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-8">
         <RevealOnScroll className="text-center mb-10">
           <SectionBadge color="#10B981">
-            <Star className="h-3.5 w-3.5" fill="currentColor" /> Loved by families 💜
+            <Star className="h-3.5 w-3.5" fill="currentColor" /> Loved by families
           </SectionBadge>
           <SectionHeading>
             What parents<br />
-            <span className="italic text-[#FF6B35]">are saying</span> 🥰
+            <span className="italic text-[#FF6B35]">are saying</span>
           </SectionHeading>
         </RevealOnScroll>
 
@@ -1749,14 +1776,14 @@ function CTASection() {
             <h2 className="font-heading text-[clamp(2.8rem,7vw,5.5rem)] text-white leading-[0.9] tracking-tight" style={{ textShadow: "0 4px 60px rgba(255,107,53,0.15)" }}>
               Start the
               <br />
-              <span className="italic text-[#FF6B35]">adventure</span> 🚀
+              <span className="italic text-[#FF6B35]">adventure</span> <Rocket className="inline h-8 w-8 sm:h-10 sm:w-10 text-[#FF6B35]/60" />
             </h2>
           </RevealOnScroll>
 
           <RevealOnScroll delay={0.08}>
             <p className="mt-7 text-[16px] sm:text-[18px] text-white/45 leading-relaxed max-w-lg mx-auto font-medium">
               Subscribe to our YouTube channel and be the first to see new songs,
-              characters, and worship videos your family will love 🎉
+              characters, and worship videos your family will love
             </p>
           </RevealOnScroll>
 
@@ -1771,7 +1798,7 @@ function CTASection() {
                 whileTap={{ scale: 0.97 }}
               >
                 <Youtube className="h-5 w-5" />
-                Subscribe Now 🎵
+                Subscribe Now <Music className="inline h-4 w-4" />
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
               </motion.a>
               <motion.div whileHover={{ y: -4 }} whileTap={{ scale: 0.97 }}>
@@ -1779,7 +1806,7 @@ function CTASection() {
                   href="/about"
                   className="flex items-center gap-2 rounded-full border-2 border-dashed border-white/12 bg-white/5 px-8 py-4 text-[15px] font-bold text-white/50 transition-all duration-300 hover:bg-white/10 hover:text-white/70 hover:border-white/20"
                 >
-                  Our Story 💜
+                  Our Story <Heart className="inline h-4 w-4 text-[#7C3AED]" />
                 </Link>
               </motion.div>
             </div>
@@ -1821,11 +1848,11 @@ function PageFooter() {
                   <circle cx="18" cy="16" r="3" stroke="currentColor" strokeWidth="2.5" />
                 </svg>
               </motion.div>
-              <span className="text-[17px] font-bold text-white tracking-tight transition-colors duration-300 group-hover/logo:text-[#FF6B35]">Selah Kids ✨</span>
+              <span className="text-[17px] font-bold text-white tracking-tight transition-colors duration-300 group-hover/logo:text-[#FF6B35]">Selah Kids</span>
             </div>
             <p className="mt-4 text-[13px] text-white/25 max-w-xs leading-relaxed">
               Faith-based kids music with stunning 3D animation.
-              Original Bible songs the whole family will love 🎵
+              Original Bible songs the whole family will love.
             </p>
           </div>
 
@@ -1859,7 +1886,7 @@ function PageFooter() {
             &copy; {new Date().getFullYear()} Selah Kids. All rights reserved.
           </p>
           <p className="text-[11px] text-white/8 font-medium">
-            Made with 💜 for families everywhere
+            Made with <Heart className="inline h-3 w-3 text-[#7C3AED]" fill="currentColor" /> for families everywhere
           </p>
         </div>
       </div>
