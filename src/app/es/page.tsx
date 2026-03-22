@@ -2,28 +2,20 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useInView } from "motion/react";
-import { useRef } from "react";
-import { Globe, Play, ArrowRight, Youtube, Music, Heart, Star, Users } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { Globe, Play, ArrowRight, Youtube, Music, Heart, Star, Users, Sparkles, type LucideIcon } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
+import {
+  Reveal, StaggerContainer, StaggerItem, MagneticWrap, PlayfulButton, CinematicReveal, HandwrittenNote, WavyUnderline, SectionGrain,
+  BlurFadeIn, FloatingElement, TiltCard, SlideIn, ScrollScale, ClipReveal, CharacterCameo,
+  SPRING_BOUNCY, EASE, SCENES,
+} from "@/components/storybook-primitives";
 import { useLanguage } from "@/context/language";
 
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-
-function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-  return (
-    <motion.div ref={ref} initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.45, ease: EASE, delay }} className={className}>
-      {children}
-    </motion.div>
-  );
-}
-
 const features = [
-  { icon: Music, title: "Canciones Originales", desc: "Letras originales basadas en la Biblia que los ninos pueden cantar y recordar.", color: "#FF6B35" },
-  { icon: Star, title: "Animacion de Calidad", desc: "Animacion 3D de nivel cinematografico que cautiva a los mas pequenos.", color: "#7C3AED" },
-  { icon: Users, title: "Para Toda la Familia", desc: "Musica de adoracion que reune a toda la familia en alabanza gozosa.", color: "#10B981" },
+  { icon: Music, title: "Canciones Originales", desc: "Letras originales basadas en la Biblia que los ninos pueden cantar y recordar.", color: "#F02D8A", bg: "#FFF0E8", emoji: Music, rotate: "-1.5deg" },
+  { icon: Star, title: "Animacion de Calidad", desc: "Animacion 3D de nivel cinematografico que cautiva a los mas pequenos.", color: "#7B3FA0", bg: "#FCEEF5", emoji: Sparkles, rotate: "1deg" },
+  { icon: Users, title: "Para Toda la Familia", desc: "Musica de adoracion que reune a toda la familia en alabanza gozosa.", color: "#4A4A4A", bg: "#E8F5E9", emoji: Users, rotate: "-0.5deg" },
 ];
 
 export default function EspanolPage() {
@@ -36,64 +28,120 @@ export default function EspanolPage() {
         title={t("es.title")}
         highlight={t("es.highlight")}
         description={t("es.desc")}
+        scene={SCENES.vibrant}
       />
 
       {/* Featured Video */}
-      <section className="relative py-20 sm:py-28 bg-mesh-warm overflow-hidden section-grain">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8">
-          <Reveal>
-            <div className="rounded-3xl bg-white p-6 sm:p-8 border border-[rgba(0,0,0,0.04)] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.05)] shadow-[0_8px_40px_rgba(0,0,0,0.04)]">
-              <div className="relative overflow-hidden rounded-2xl mb-6">
-                <Image
-                  src="https://images.squarespace-cdn.com/content/v1/685a82804538a6024d2a31d4/7ab0e946-8af6-421e-8273-2780d960ad77/TGN_SingleFrames+%283%29.png"
-                  alt="Jesus Me Ama" width={1200} height={675} className="w-full aspect-video object-cover"
-                />
-                <div className="absolute inset-0 flex items-center justify-center bg-[#1C4425]/10">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/95 shadow-lg">
-                    <Play className="h-8 w-8 text-[#FF6B35] ml-1" fill="currentColor" />
+      <section className="relative py-16 sm:py-24 bg-[#FFFDF5] overflow-hidden paper-texture">
+        <SectionGrain />
+        <FloatingElement className="absolute top-20 right-[6%] text-[#00B5B8]/8 pointer-events-none z-[2]" amplitude={14} duration={7}><Music className="h-8 w-8" /></FloatingElement>
+
+        <div className="relative z-10 mx-auto max-w-4xl px-6 lg:px-10">
+          <ScrollScale>
+            <TiltCard intensity={3}>
+              <div className="relative rounded-[20px] bg-white p-6 sm:p-8 border-3 border-[#F09EBA] shadow-[6px_6px_0_#F09EBA]">
+                <motion.div className="absolute -top-2 left-8 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(-2deg)" }} />
+                <motion.div className="absolute -top-2 right-8 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(3deg)" }} />
+
+                <ClipReveal direction="center">
+                  <div className="relative overflow-hidden rounded-[16px] mb-6 border-2 border-[#F09EBA]/40">
+                    <Image
+                      src="/TGN_SingleFrames+(3).png"
+                      alt="Jesus Me Ama" width={1200} height={675} className="w-full aspect-video object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                    <div className="absolute inset-0" style={{ boxShadow: "inset 0 0 60px rgba(0,0,0,0.15)" }} />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <MagneticWrap strength={0.2}>
+                        <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.85 }} transition={SPRING_BOUNCY}>
+                          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm border border-white/20">
+                            <Play className="h-8 w-8 text-white ml-1" fill="currentColor" />
+                          </div>
+                        </motion.div>
+                      </MagneticWrap>
+                    </div>
+                    <motion.span
+                      className="absolute top-4 left-4 inline-flex items-center gap-1.5 rounded-full bg-[#00B5B8] px-4 py-2 text-[11px] font-badge text-white border border-white/20"
+                      whileHover={{ scale: 1.05, rotate: 2 }}
+                      transition={SPRING_BOUNCY}
+                    >
+                      <Globe className="h-3 w-3" /> Espanol
+                    </motion.span>
                   </div>
-                </div>
-                <div className="sticker absolute top-4 left-4 flex items-center gap-1.5 rounded-full bg-[#7C3AED] px-4 py-2 text-[11px] font-bold text-white uppercase">
-                  <Globe className="h-3 w-3" /> Espanol
-                </div>
+                </ClipReveal>
+
+                <BlurFadeIn delay={0.1}>
+                  <h3 className="font-subheading text-[clamp(1.5rem,3vw,2rem)] leading-[0.95] mb-3">
+                    <span style={{ color: "#E8890C" }}>Jesus</span> <span style={{ color: "#F02D8A" }}>Me</span> <span style={{ color: "#4A6FCC" }}>Ama</span>{" "}
+                    <span className="relative inline-block" style={{ color: "#00B5B8" }}>
+                      (Good News Espanol)
+                      <WavyUnderline color="#00B5B8" opacity={0.3} />
+                    </span>
+                  </h3>
+                </BlurFadeIn>
+                <BlurFadeIn delay={0.2}>
+                  <p className="text-[15px] text-[#8B7E74] leading-[1.8] font-medium mb-4">
+                    Una cancion hermosa que comparte el amor de Dios con los mas pequenos. Disponible ahora en nuestro canal de YouTube.
+                  </p>
+                  <HandwrittenNote className="text-[16px] text-[#00B5B8]/40 block mb-6" rotate={-2}>
+                    — una cancion que toca el corazon <Heart className="h-3 w-3 inline" />
+                  </HandwrittenNote>
+                </BlurFadeIn>
+                <BlurFadeIn delay={0.3}>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <PlayfulButton
+                      href="https://www.youtube.com/@SelahKidsEspa%C3%B1ol"
+                      external
+                      variant="primary"
+                      icon={<Youtube className="h-4 w-4" />}
+                    >
+                      Ver en YouTube
+                    </PlayfulButton>
+                    <PlayfulButton href="/watch" variant="ghost" icon={<ArrowRight className="h-4 w-4" />}>
+                      Ver Todos los Videos
+                    </PlayfulButton>
+                  </div>
+                </BlurFadeIn>
               </div>
-              <h3 className="font-heading text-[clamp(1.25rem,2.5vw,1.75rem)] text-[#1C4425] leading-[0.95] tracking-tight mb-3">
-                Jesus Me Ama <span className="italic text-[#7C3AED]">(Good News Espanol)</span>
-              </h3>
-              <p className="text-[15px] text-[#64786C]/55 leading-[1.7] mb-6">
-                Una cancion hermosa que comparte el amor de Dios con los mas pequenos. Disponible ahora en nuestro canal de YouTube.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-3">
-                <a href="https://www.youtube.com/@SelahKidsEspa%C3%B1ol" target="_blank" rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 rounded-full bg-[#FF6B35] px-7 py-3.5 text-[14px] font-bold text-white shadow-lg transition-all hover:-translate-y-0.5">
-                  <Youtube className="h-4 w-4" /> Ver en YouTube
-                </a>
-                <Link href="/watch"
-                  className="flex items-center justify-center gap-2 rounded-full border border-[rgba(0,0,0,0.04)] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.05)] px-7 py-3 text-[14px] font-bold text-[#1C4425]/50 transition-all hover:text-[#1C4425] hover:border-[#1C4425]/15">
-                  Ver Todos los Videos <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            </div>
-          </Reveal>
+            </TiltCard>
+          </ScrollScale>
         </div>
       </section>
 
       {/* Features */}
-      <section className="relative py-16 sm:py-20 bg-[#FFF8F0] overflow-hidden">
-        <div className="mx-auto max-w-5xl px-6 lg:px-8">
-          <div className="grid sm:grid-cols-3 gap-6">
-            {features.map((f, i) => (
-              <Reveal key={f.title} delay={i * 0.08}>
-                <div className="rounded-3xl bg-white p-7 border border-[rgba(0,0,0,0.04)] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.05)] text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.06)]">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl mx-auto mb-4" style={{ backgroundColor: `${f.color}12` }}>
-                    <f.icon className="h-5 w-5" style={{ color: f.color }} />
-                  </div>
-                  <h3 className="text-[16px] font-bold text-[#1C4425] mb-2">{f.title}</h3>
-                  <p className="text-[16px] text-[#64786C]/60 leading-[28px]">{f.desc}</p>
-                </div>
-              </Reveal>
+      <section className="relative py-16 sm:py-20 bg-[#FFF5F0] overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none striped-bg" />
+        <SectionGrain />
+        <CharacterCameo character="shiloh" side="right" className="top-20" />
+        <FloatingElement className="absolute bottom-20 left-[5%] text-[#F02D8A]/8 pointer-events-none z-[2]" amplitude={10} duration={6} delay={1}><Star className="h-7 w-7" /></FloatingElement>
+
+        <div className="relative z-10 mx-auto max-w-5xl px-6 lg:px-10">
+          <StaggerContainer className="grid sm:grid-cols-3 gap-6">
+            {features.map((f) => (
+              <StaggerItem key={f.title}>
+                <TiltCard intensity={6}>
+                  <motion.div
+                    className="relative rounded-[20px] border-3 border-[#F09EBA] p-7 text-center shadow-[5px_5px_0_#F09EBA] cursor-default"
+                    style={{ backgroundColor: f.bg, transform: `rotate(${f.rotate})` }}
+                    whileHover={{ y: -10, rotate: 0, scale: 1.02, transition: SPRING_BOUNCY }}
+                  >
+                    <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-12 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(2deg)" }} />
+                    <motion.span className="absolute top-4 right-4 text-2xl z-10" whileHover={{ scale: 1.3, rotate: 15 }} transition={SPRING_BOUNCY}><f.emoji className="h-5 w-5" /></motion.span>
+                    <motion.div
+                      className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-[#F09EBA] mx-auto mb-4"
+                      style={{ backgroundColor: `${f.color}15` }}
+                      whileHover={{ rotate: 15, scale: 1.1 }}
+                      transition={SPRING_BOUNCY}
+                    >
+                      <f.icon className="h-5 w-5" style={{ color: f.color }} />
+                    </motion.div>
+                    <h3 className="text-[16px] font-subheading text-[#4A4A4A] mb-2">{f.title}</h3>
+                    <p className="text-[14px] text-[#8B7E74] leading-[1.75] font-medium">{f.desc}</p>
+                  </motion.div>
+                </TiltCard>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </section>
     </>

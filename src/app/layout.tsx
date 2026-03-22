@@ -1,30 +1,48 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Nunito, Fredoka, Caveat, Lora } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { LoadingScreen } from "@/components/loading-screen";
 import { LanguageProvider } from "@/context/language";
 
-const jakarta = Plus_Jakarta_Sans({
+const nunito = Nunito({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "600", "700", "800"],
   display: "swap",
   preload: true,
 });
 
-const jakartaHeading = Plus_Jakarta_Sans({
+const fredoka = Fredoka({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["700", "800"],
+  weight: ["500", "600", "700"],
   display: "swap",
   preload: true,
 });
+
+const caveat = Caveat({
+  variable: "--font-handwritten",
+  subsets: ["latin"],
+  weight: ["400", "600"],
+  display: "swap",
+});
+
+const lora = Lora({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#FF6B35",
+  themeColor: "#F02D8A",
 };
 
 export const metadata: Metadata = {
@@ -53,8 +71,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${jakarta.variable} ${jakartaHeading.variable} antialiased`}>
+      <body className={`${nunito.variable} ${fredoka.variable} ${caveat.variable} ${lora.variable} antialiased`}>
         <LanguageProvider>
+          <LoadingScreen />
           <a href="#main-content" className="skip-link">
             Skip to main content
           </a>

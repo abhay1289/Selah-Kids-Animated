@@ -1,24 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { motion, useInView } from "motion/react";
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { useRef, useState } from "react";
-import { Play, ArrowRight, Youtube, Tv, Music, Sparkles, Star, Globe, Flame } from "lucide-react";
+import { Play, ArrowRight, Youtube, Tv, Music, Sparkles, Star, Globe, Flame, Film } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
+import {
+  Reveal, StaggerContainer, StaggerItem, MagneticWrap, PlayfulButton, HandwrittenNote, WavyUnderline,
+  CinematicReveal, ScrapbookCard, SectionGrain, ParallaxLayer, BlurFadeIn, FloatingElement, SlideIn,
+  ClipReveal, TiltCard, ScrollScale, CharacterCameo,
+  EASE, SPRING_BOUNCY, SCENES,
+} from "@/components/storybook-primitives";
 import { useLanguage } from "@/context/language";
-
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-
-function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-  return (
-    <motion.div ref={ref} initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.45, ease: EASE, delay }} className={className}>
-      {children}
-    </motion.div>
-  );
-}
 
 const categories = [
   { id: "all", label: "All Videos", icon: Sparkles },
@@ -30,33 +23,33 @@ const categories = [
 const videos = [
   {
     id: "the-good-news", title: "The Good News", desc: "Sharing God's love with the world",
-    thumbnail: "https://images.squarespace-cdn.com/content/v1/685a82804538a6024d2a31d4/6ca859c4-a380-41e6-854e-57cf764fe6a9/TGN_SingleFrames+%282%29.png",
-    date: "Jun 26, 2025", category: "music", lang: "EN", tag: "Newest", tagIcon: Flame, tagColor: "#FF6B35",
+    thumbnail: "/TGN_SingleFrames+28229.png",
+    date: "Jun 26, 2025", category: "music", lang: "EN", tag: "Newest", tagIcon: Flame, tagColor: "#F02D8A",
   },
   {
     id: "jesus-me-ama", title: "Jesus Me Ama", desc: "A beautiful Spanish worship song",
-    thumbnail: "https://images.squarespace-cdn.com/content/v1/685a82804538a6024d2a31d4/7ab0e946-8af6-421e-8273-2780d960ad77/TGN_SingleFrames+%283%29.png",
-    date: "Jun 27, 2025", category: "music", lang: "ES", tag: "Espanol", tagIcon: Globe, tagColor: "#7C3AED",
+    thumbnail: "/TGN_SingleFrames+(3).png",
+    date: "Jun 27, 2025", category: "music", lang: "ES", tag: "Espanol", tagIcon: Globe, tagColor: "#00B5B8",
   },
   {
     id: "worship-together", title: "Worship Together", desc: "Joyful family praise & worship",
-    thumbnail: "https://images.squarespace-cdn.com/content/v1/685a82804538a6024d2a31d4/ee53d250-5a7d-4c65-9e45-69d732337873/TGN_SingleFrames+%287%29.png",
-    date: "Jun 27, 2025", category: "singalong", lang: "EN", tag: "Popular", tagIcon: Star, tagColor: "#10B981",
+    thumbnail: "/TGN_SingleFrames+(7).png",
+    date: "Jun 27, 2025", category: "singalong", lang: "EN", tag: "Popular", tagIcon: Star, tagColor: "#00B5B8",
   },
   {
     id: "gods-love", title: "God's Love", desc: "Learning about God's endless love",
-    thumbnail: "https://images.squarespace-cdn.com/content/v1/685a82804538a6024d2a31d4/9e08b001-db62-4ef2-871c-6b4bf4219b82/TGN_SingleFrames+%2813%29.png",
-    date: "Jun 26, 2025", category: "music", lang: "EN", tag: "Featured", tagIcon: Sparkles, tagColor: "#F59E0B",
+    thumbnail: "/TGN_SingleFrames+28329.png",
+    date: "Jun 26, 2025", category: "music", lang: "EN", tag: "Featured", tagIcon: Sparkles, tagColor: "#FFD700",
   },
   {
     id: "andys-adventure", title: "Andy & Shiloh's Adventure", desc: "A faith-filled journey through the garden",
-    thumbnail: "https://images.squarespace-cdn.com/content/v1/685a82804538a6024d2a31d4/0c40d911-8481-4c3a-803a-29b39e022b13/SK_Andy_Intro_Pose.png",
-    date: "Jun 25, 2025", category: "sensory", lang: "EN", tag: "Fan Favorite", tagIcon: Star, tagColor: "#FF6B35",
+    thumbnail: "/SK_Andy_Intro_Pose-removebg-preview.png",
+    date: "Jun 25, 2025", category: "sensory", lang: "EN", tag: "Fan Favorite", tagIcon: Star, tagColor: "#F02D8A",
   },
   {
     id: "libnis-song", title: "Libni's Worship Song", desc: "A joyful melody straight from the heart",
-    thumbnail: "https://images.squarespace-cdn.com/content/v1/685a82804538a6024d2a31d4/08f0ca39-3408-457f-b4d5-4f6ce93fd8d4/SK_Libni_Intro_Pose.png",
-    date: "Jun 25, 2025", category: "music", lang: "EN", tag: "New", tagIcon: Sparkles, tagColor: "#7C3AED",
+    thumbnail: "/SK_Libni_Intro_Pose-removebg-preview.png",
+    date: "Jun 25, 2025", category: "music", lang: "EN", tag: "New", tagIcon: Sparkles, tagColor: "#7B3FA0",
   },
 ];
 
@@ -64,6 +57,10 @@ export default function WatchPage() {
   const { t } = useLanguage();
   const [filter, setFilter] = useState("all");
   const filtered = filter === "all" ? videos : videos.filter((v) => v.category === filter);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+  const reduced = useReducedMotion();
+  const stripeBgY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -40]);
 
   return (
     <>
@@ -73,98 +70,162 @@ export default function WatchPage() {
         title={t("watch.title")}
         highlight={t("watch.highlight")}
         description={t("watch.desc")}
+        scene={SCENES.worship}
       />
 
       {/* Filter + Grid */}
-      <section className="relative py-20 sm:py-28 bg-mesh-warm overflow-hidden section-grain">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+      <section ref={sectionRef} className="relative py-16 sm:py-24 bg-[#FFF5F0] overflow-hidden">
+        <motion.div className="absolute inset-0 pointer-events-none striped-bg" style={{ y: stripeBgY }} />
+        <SectionGrain />
+
+        {/* Floating decorative elements */}
+        <FloatingElement className="absolute top-20 left-[8%] text-[#FFD700]/10 pointer-events-none z-[2]" amplitude={15} duration={7}><Music className="h-8 w-8" /></FloatingElement>
+        <FloatingElement className="absolute bottom-32 right-[6%] text-[#F02D8A]/10 pointer-events-none z-[2]" amplitude={10} duration={6} delay={2}><Star className="h-7 w-7" /></FloatingElement>
+
+        <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">
           {/* Filter bar */}
-          <Reveal className="flex flex-wrap justify-center gap-2 mb-12">
-            {categories.map((cat) => (
-              <button
+          <BlurFadeIn className="flex flex-wrap justify-center gap-2 mb-10">
+            {categories.map((cat, i) => (
+              <motion.button
                 key={cat.id}
                 onClick={() => setFilter(cat.id)}
-                className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-bold transition-all duration-150 ${
+                initial={{ opacity: 0, y: 15, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: 0.1 + i * 0.08, duration: 0.5, ease: EASE }}
+                whileHover={{ y: -3, scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                className={`font-btn flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] border-2 transition-all duration-150 ${
                   filter === cat.id
-                    ? "bg-[#FF6B35] text-white shadow-[0_4px_16px_rgba(255,107,53,0.25)]"
-                    : "bg-white text-[#1C4425]/40 border border-[rgba(0,0,0,0.04)] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.05)] hover:border-[#FF6B35]/20 hover:text-[#1C4425]"
+                    ? "bg-[#F02D8A] text-white border-[#F09EBA] shadow-[3px_3px_0_#F09EBA]"
+                    : "bg-[#FFFDF5] text-[#4A4A4A]/70 border-[#F09EBA]/50 hover:border-[#F09EBA] hover:text-[#4A4A4A]"
                 }`}
               >
                 <cat.icon className="h-3.5 w-3.5" />
                 {cat.label}
-              </button>
+              </motion.button>
             ))}
-          </Reveal>
+          </BlurFadeIn>
 
           {/* Video Grid */}
-          <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+          <StaggerContainer className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((v, i) => (
-              <Reveal key={v.id} delay={i * 0.06}>
-                <motion.div
-                  className="group cursor-pointer"
-                  whileHover={{ y: -6, transition: { type: "spring", stiffness: 300, damping: 20 } }}
-                >
-                  <div className="relative overflow-hidden rounded-3xl bg-white border border-[rgba(0,0,0,0.04)] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.05)] transition-all duration-200 group-hover:shadow-[0_16px_48px_rgba(0,0,0,0.08)] group-hover:border-[#E7E5E4]/60">
-                    <div className="relative overflow-hidden">
-                      <Image src={v.thumbnail} alt={v.title} width={800} height={600} className="w-full aspect-[4/3] object-cover transition-transform duration-250 group-hover:scale-105" />
-                      <div className="absolute inset-0 bg-[#1C4425]/0 group-hover:bg-[#1C4425]/20 transition-all duration-200" />
-                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200">
-                        <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/95 shadow-lg scale-75 group-hover:scale-100 transition-transform duration-200">
-                          <Play className="h-6 w-6 text-[#FF6B35] ml-0.5" fill="currentColor" />
+              <StaggerItem key={v.id}>
+                <TiltCard intensity={5}>
+                  <motion.div
+                    className="group cursor-pointer"
+                    whileHover={{ y: -8, rotate: 0.5 }}
+                    transition={SPRING_BOUNCY}
+                  >
+                    <div className="relative overflow-hidden rounded-[20px] bg-[#FFFDF5] border-3 border-[#F09EBA] shadow-[5px_5px_0_#F09EBA] transition-all duration-200 group-hover:shadow-[7px_7px_0_#F09EBA]">
+                      {/* Tape mark */}
+                      <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-20" style={{ transform: "rotate(1deg)" }} />
+                      <ClipReveal direction="bottom">
+                        <div className="relative overflow-hidden">
+                          <Image src={v.thumbnail} alt={v.title} width={800} height={600} className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-[1.08]" />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-300" />
+                          <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 60px rgba(0,0,0,0.2)" }} />
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <MagneticWrap strength={0.2}>
+                              <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.85 }} transition={SPRING_BOUNCY}>
+                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm border border-white/20">
+                                  <Play className="h-7 w-7 text-white ml-0.5" fill="currentColor" />
+                                </div>
+                              </motion.div>
+                            </MagneticWrap>
+                          </div>
+                          <div className="absolute top-3 left-3">
+                            <motion.span
+                              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[11px] font-badge text-[#4A4A4A] border border-[#F09EBA]/40"
+                              style={{ backgroundColor: v.tagColor + "cc" }}
+                              whileHover={{ scale: 1.1, rotate: 3 }}
+                              transition={SPRING_BOUNCY}
+                            >
+                              <v.tagIcon className="h-3 w-3" fill="currentColor" /> {v.tag}
+                            </motion.span>
+                          </div>
+                          <div className="absolute top-3 right-3 bg-[#FFFDF5] rounded-full px-2.5 py-1 text-[10px] font-bold text-[#4A4A4A]/60 uppercase border border-[#F09EBA]/30">
+                            {v.lang}
+                          </div>
+                          <div className="absolute bottom-3 right-3 bg-white/70 backdrop-blur-sm rounded-full px-2.5 py-1 text-[10px] font-bold text-[#4A4A4A]/60 font-mono">
+                            3:24
+                          </div>
+                        </div>
+                      </ClipReveal>
+                      <div className="p-5">
+                        <h3 className="text-[16px] font-subheading text-[#4A4A4A] group-hover:text-[#F02D8A] transition-colors duration-150">{v.title}</h3>
+                        <p className="mt-1 text-[13px] text-[#8B7E74]/60 font-medium">{v.desc}</p>
+                        <div className="mt-3 flex items-center justify-between">
+                          <span className="text-[11px] text-[#8B7E74]/60 font-medium">{v.date}</span>
+                          <motion.span
+                            className="flex items-center gap-1 text-[12px] font-bold opacity-0 group-hover:opacity-100 transition-all duration-150 text-[#F02D8A]"
+                            initial={{ x: -5 }}
+                            whileHover={{ x: 3 }}
+                          >
+                            Watch <ArrowRight className="h-3 w-3" />
+                          </motion.span>
                         </div>
                       </div>
-                      <div className="sticker absolute top-3 left-3 flex items-center gap-1 rounded-full px-3 py-1.5 text-[10px] font-bold text-white uppercase tracking-tight" style={{ backgroundColor: v.tagColor }}>
-                        <v.tagIcon className="h-3 w-3" fill="currentColor" /> {v.tag}
-                      </div>
-                      <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm rounded-full px-2.5 py-1 text-[10px] font-bold text-[#1C4425]/60 uppercase">
-                        {v.lang}
-                      </div>
-                      <div className="absolute bottom-3 right-3 bg-black/50 backdrop-blur-sm rounded-full px-2.5 py-1 text-[10px] font-bold text-white/80">
-                        3:24
-                      </div>
                     </div>
-                    <div className="p-5">
-                      <h3 className="text-[16px] font-bold text-[#1C4425] group-hover:text-[#FF6B35] transition-colors duration-150">{v.title}</h3>
-                      <p className="mt-1 text-[13px] text-[#64786C]/55 font-medium">{v.desc}</p>
-                      <div className="mt-2.5 flex items-center justify-between">
-                        <span className="text-[11px] text-[#64786C]/30 font-medium">{v.date}</span>
-                        <span className="flex items-center gap-1 text-[12px] font-bold opacity-0 group-hover:opacity-100 transition-all duration-150 text-[#FF6B35]">
-                          Watch <ArrowRight className="h-3 w-3" />
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </Reveal>
+                  </motion.div>
+                </TiltCard>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
 
           {/* YouTube CTA */}
-          <Reveal className="mt-16">
-            <div className="rounded-3xl bg-[#1C4425] p-8 sm:p-12 text-center overflow-hidden relative">
-              <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-[#FF6B35]/8 blur-[120px]" />
+          <ScrollScale className="mt-20">
+            <div className="relative rounded-[20px] overflow-hidden border-3 border-[#F09EBA] shadow-[6px_6px_0_#F09EBA]">
+              <div className="absolute inset-0 z-0">
+                <ParallaxLayer speed={0.1} className="absolute inset-0">
+                  <Image src={SCENES.cinematic} alt="" fill className="object-cover" sizes="100vw" />
+                </ParallaxLayer>
+                <div className="absolute inset-0 bg-[#F09EBA]/105" />
               </div>
-              <div className="relative z-10">
-                <h3 className="font-heading text-[clamp(1.25rem,2.5vw,1.75rem)] text-white leading-[0.95] tracking-tight mb-4">
-                  Subscribe on <span className="italic text-[#FF6B35]">YouTube</span>
-                </h3>
-                <p className="text-[15px] text-white/40 max-w-md mx-auto mb-8">
-                  Be the first to see new songs, characters, and worship videos.
-                </p>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                  <a href="https://www.youtube.com/@SelahKidsWorship?sub_confirmation=1" target="_blank" rel="noopener noreferrer"
-                    className="flex items-center gap-2 rounded-full bg-[#FF6B35] px-7 py-3.5 text-[14px] font-bold text-white shadow-lg transition-all hover:-translate-y-0.5">
-                    <Youtube className="h-4 w-4" /> English Channel
-                  </a>
-                  <a href="https://www.youtube.com/@SelahKidsEspa%C3%B1ol?sub_confirmation=1" target="_blank" rel="noopener noreferrer"
-                    className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-7 py-3 text-[14px] font-bold text-white/60 transition-all hover:bg-white/10 hover:text-white/80">
-                    <Globe className="h-4 w-4" /> Canal en Espanol
-                  </a>
-                </div>
+              <div className="absolute inset-0 z-[1] pointer-events-none film-grain opacity-[0.03]" />
+              <div className="relative z-10 p-8 sm:p-12 text-center">
+                <BlurFadeIn>
+                  <HandwrittenNote className="text-[20px] text-[#FFD700]/40 mb-3 block" rotate={-2}>
+                    don&apos;t miss a single episode! <Music className="h-3 w-3 inline" />
+                  </HandwrittenNote>
+                </BlurFadeIn>
+                <BlurFadeIn delay={0.15}>
+                  <h3 className="font-subheading text-[clamp(1.5rem,3vw,2.2rem)] leading-[0.95] mb-4">
+                    <span style={{ color: "#E8890C" }}>Subscribe</span> <span style={{ color: "#4A6FCC" }}>on</span>{" "}
+                    <span className="relative inline-block" style={{ color: "#F02D8A" }}>
+                      YouTube
+                      <WavyUnderline color="#F02D8A" opacity={0.4} />
+                    </span>
+                  </h3>
+                </BlurFadeIn>
+                <BlurFadeIn delay={0.25}>
+                  <p className="text-[15px] text-[#4A4A4A]/80 max-w-md mx-auto mb-8 font-medium">
+                    Be the first to see new songs, characters, and worship videos.
+                  </p>
+                </BlurFadeIn>
+                <BlurFadeIn delay={0.35}>
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <PlayfulButton
+                      href="https://www.youtube.com/@SelahKidsWorship?sub_confirmation=1"
+                      external
+                      variant="primary"
+                      icon={<Youtube className="h-4 w-4" />}
+                    >
+                      English Channel
+                    </PlayfulButton>
+                    <PlayfulButton
+                      href="https://www.youtube.com/@SelahKidsEspa%C3%B1ol?sub_confirmation=1"
+                      external
+                      variant="ghost"
+                      icon={<Globe className="h-4 w-4" />}
+                      className="text-[#4A4A4A]/80 border-[#F09EBA]/30 hover:text-[#4A4A4A]/700 hover:border-[#F09EBA]/60"
+                    >
+                      Canal en Espanol
+                    </PlayfulButton>
+                  </div>
+                </BlurFadeIn>
               </div>
             </div>
-          </Reveal>
+          </ScrollScale>
         </div>
       </section>
     </>

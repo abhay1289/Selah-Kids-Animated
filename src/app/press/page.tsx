@@ -1,22 +1,15 @@
 "use client";
 
-import { motion, useInView } from "motion/react";
-import { useRef } from "react";
-import { Newspaper, Download, Users, Palette, Image as ImageIcon, FileText, Sparkles } from "lucide-react";
+import Image from "next/image";
+import { motion } from "motion/react";
+import { Newspaper, Download, Users, Palette, Image as ImageIcon, FileText, Sparkles, Moon, User, Star, type LucideIcon } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
+import {
+  Reveal, StaggerContainer, StaggerItem, PlayfulButton, HandwrittenNote, WavyUnderline, SectionGrain, StampBadge,
+  BlurFadeIn, FloatingElement, TiltCard, SlideIn, ScrollScale, ParallaxLayer, CharacterCameo,
+  SPRING_BOUNCY, EASE, SCENES,
+} from "@/components/storybook-primitives";
 import { useLanguage } from "@/context/language";
-
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-
-function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-  return (
-    <motion.div ref={ref} initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.45, ease: EASE, delay }} className={className}>
-      {children}
-    </motion.div>
-  );
-}
 
 const quickFacts = [
   { label: "Founded", value: "2024" },
@@ -28,10 +21,10 @@ const quickFacts = [
 ];
 
 const brandAssets = [
-  { title: "Primary Logo", icon: ImageIcon, color: "#FF6B35" },
-  { title: "Logo on Dark", icon: ImageIcon, color: "#7C3AED" },
-  { title: "Character Pack", icon: Users, color: "#10B981" },
-  { title: "Color Palette", icon: Palette, color: "#F59E0B" },
+  { title: "Primary Logo", icon: ImageIcon, color: "#F02D8A", bg: "#FFF0E8", emoji: Palette },
+  { title: "Logo on Dark", icon: ImageIcon, color: "#4A4A4A", bg: "#E8F5E9", emoji: Moon },
+  { title: "Character Pack", icon: Users, color: "#7B3FA0", bg: "#FCEEF5", emoji: User },
+  { title: "Color Palette", icon: Palette, color: "#FFD700", bg: "#FEF9E7", emoji: Palette },
 ];
 
 export default function PressPage() {
@@ -44,75 +37,128 @@ export default function PressPage() {
         title={t("press.title")}
         highlight={t("press.highlight")}
         description={t("press.desc")}
+        scene={SCENES.cinematic}
       />
 
-      <section className="relative py-20 sm:py-28 bg-mesh-warm overflow-hidden section-grain">
-        <div className="mx-auto max-w-5xl px-6 lg:px-8">
+      <section className="relative py-16 sm:py-24 bg-[#FFFDF5] overflow-hidden paper-texture">
+        <SectionGrain />
+        <CharacterCameo character="andy" side="left" className="top-32" />
+        <FloatingElement className="absolute top-20 left-[6%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={12} duration={7}><Star className="h-8 w-8" /></FloatingElement>
+
+        <div className="relative z-10 mx-auto max-w-5xl px-6 lg:px-10">
           {/* Press Kit + Partnership */}
-          <div className="grid sm:grid-cols-2 gap-6 mb-14">
-            <Reveal>
-              <div className="rounded-3xl bg-white p-8 border border-[rgba(0,0,0,0.04)] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.05)] h-full flex flex-col">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FF6B35]/10 mb-5">
-                  <FileText className="h-5 w-5 text-[#FF6B35]" />
-                </div>
-                <h3 className="text-[18px] font-bold text-[#1C4425] mb-2">Press Kit</h3>
-                <p className="text-[14px] text-[#64786C]/55 leading-[1.7] mb-6 flex-1">
-                  Download our complete press kit including brand overview, founder bios, high-resolution imagery, and key talking points.
-                </p>
-                <button className="flex items-center gap-2 rounded-full bg-[#FF6B35] px-6 py-3 text-[13px] font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg self-start">
-                  <Download className="h-3.5 w-3.5" /> Download Press Kit
-                </button>
-              </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <div className="rounded-3xl bg-white p-8 border border-[rgba(0,0,0,0.04)] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.05)] h-full flex flex-col">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#7C3AED]/10 mb-5">
-                  <Users className="h-5 w-5 text-[#7C3AED]" />
-                </div>
-                <h3 className="text-[18px] font-bold text-[#1C4425] mb-2">Partnerships</h3>
-                <p className="text-[14px] text-[#64786C]/55 leading-[1.7] mb-6 flex-1">
-                  Interested in using Selah Kids in your church, school, or ministry? We would love to work with you to bring faith-filled music to more families.
-                </p>
-                <a href="mailto:info.selahkids@gmail.com" className="flex items-center gap-2 rounded-full bg-[#7C3AED] px-6 py-3 text-[13px] font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg self-start">
-                  <Sparkles className="h-3.5 w-3.5" /> Partner With Us
-                </a>
-              </div>
-            </Reveal>
+          <div className="grid sm:grid-cols-2 gap-6 mb-12">
+            <SlideIn from="left">
+              <TiltCard intensity={5}>
+                <motion.div
+                  className="relative rounded-[20px] border-3 border-[#F09EBA] p-8 shadow-[5px_5px_0_#F09EBA] h-full flex flex-col bg-[#FFF0E8]"
+                  style={{ transform: "rotate(-1deg)" }}
+                  whileHover={{ y: -8, rotate: 0, transition: SPRING_BOUNCY }}
+                >
+                  <motion.div className="absolute -top-2 left-6 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(-2deg)" }} />
+                  <motion.div
+                    className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-[#F09EBA] mb-5"
+                    style={{ backgroundColor: "#F02D8A15" }}
+                    whileHover={{ rotate: 15, scale: 1.1 }}
+                    transition={SPRING_BOUNCY}
+                  >
+                    <FileText className="h-5 w-5 text-[#F02D8A]" />
+                  </motion.div>
+                  <h3 className="text-[18px] font-subheading mb-2"><span style={{ color: "#F02D8A" }}>Press</span> <span style={{ color: "#4A6FCC" }}>Kit</span></h3>
+                  <p className="text-[14px] text-[#8B7E74] leading-[1.75] font-medium mb-6 flex-1">
+                    Download our complete press kit including brand overview, founder bios, high-resolution imagery, and key talking points.
+                  </p>
+                  <PlayfulButton href="#" variant="primary" icon={<Download className="h-3.5 w-3.5" />} className="text-[13px] px-5 py-2.5 self-start">
+                    Download Press Kit
+                  </PlayfulButton>
+                </motion.div>
+              </TiltCard>
+            </SlideIn>
+            <SlideIn from="right" delay={0.1}>
+              <TiltCard intensity={5}>
+                <motion.div
+                  className="relative rounded-[20px] border-3 border-[#F09EBA] p-8 shadow-[5px_5px_0_#F09EBA] h-full flex flex-col bg-[#FCEEF5]"
+                  style={{ transform: "rotate(1deg)" }}
+                  whileHover={{ y: -8, rotate: 0, transition: SPRING_BOUNCY }}
+                >
+                  <motion.div className="absolute -top-2 right-6 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(3deg)" }} />
+                  <motion.div
+                    className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-[#F09EBA] mb-5"
+                    style={{ backgroundColor: "#7B3FA015" }}
+                    whileHover={{ rotate: 15, scale: 1.1 }}
+                    transition={SPRING_BOUNCY}
+                  >
+                    <Users className="h-5 w-5 text-[#7B3FA0]" />
+                  </motion.div>
+                  <h3 className="text-[18px] font-subheading mb-2"><span style={{ color: "#E8890C" }}>Partner</span><span style={{ color: "#2DB84B" }}>ships</span></h3>
+                  <p className="text-[14px] text-[#8B7E74] leading-[1.75] font-medium mb-6 flex-1">
+                    Interested in using Selah Kids in your church, school, or ministry? We would love to work with you to bring faith-filled music to more families.
+                  </p>
+                  <PlayfulButton href="mailto:info.selahkids@gmail.com" variant="secondary" icon={<Sparkles className="h-3.5 w-3.5" />} className="text-[13px] px-5 py-2.5 self-start">
+                    Partner With Us
+                  </PlayfulButton>
+                </motion.div>
+              </TiltCard>
+            </SlideIn>
           </div>
 
           {/* Brand Assets */}
-          <Reveal>
-            <h3 className="font-heading text-[clamp(1.125rem,2vw,1.5rem)] text-[#1C4425] leading-[0.95] tracking-tight text-center mb-8">
-              Brand <span className="italic text-[#FF6B35]">Assets</span>
+          <BlurFadeIn className="text-center mb-10">
+            <h3 className="font-subheading text-[clamp(1.5rem,3vw,2.2rem)] leading-[0.95]">
+              <span style={{ color: "#4A6FCC" }}>Our</span><br />
+              <span className="relative inline-block" style={{ color: "#E8890C" }}>
+                Brand
+                <WavyUnderline color="#E8890C" />
+              </span>
             </h3>
-          </Reveal>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-14">
-            {brandAssets.map((a, i) => (
-              <Reveal key={a.title} delay={i * 0.06}>
-                <div className="rounded-2xl bg-white p-5 border border-[rgba(0,0,0,0.04)] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.05)] text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-md cursor-pointer">
-                  <div className="h-20 rounded-xl mb-3 flex items-center justify-center" style={{ backgroundColor: `${a.color}08` }}>
-                    <a.icon className="h-8 w-8" style={{ color: `${a.color}40` }} />
-                  </div>
-                  <span className="text-[13px] font-bold text-[#1C4425]/50">{a.title}</span>
-                </div>
-              </Reveal>
+          </BlurFadeIn>
+          <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+            {brandAssets.map((a) => (
+              <StaggerItem key={a.title}>
+                <TiltCard intensity={8}>
+                  <motion.div
+                    className="rounded-[16px] border-2 border-[#F09EBA]/50 p-5 text-center cursor-pointer hover:border-[#F09EBA] hover:shadow-[4px_4px_0_#F09EBA] transition-all duration-200"
+                    style={{ backgroundColor: a.bg }}
+                    whileHover={{ y: -6, rotate: 2 }}
+                    transition={SPRING_BOUNCY}
+                  >
+                    <motion.span className="text-2xl block mb-3" whileHover={{ scale: 1.3 }} transition={SPRING_BOUNCY}><a.emoji className="h-5 w-5" /></motion.span>
+                    <div className="h-14 rounded-lg mb-3 flex items-center justify-center border border-[#F09EBA]/30" style={{ backgroundColor: `${a.color}08` }}>
+                      <a.icon className="h-6 w-6" style={{ color: `${a.color}50` }} />
+                    </div>
+                    <span className="text-[13px] font-bold text-[#4A4A4A]/80">{a.title}</span>
+                  </motion.div>
+                </TiltCard>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
 
           {/* Quick Facts */}
-          <Reveal>
-            <div className="rounded-3xl bg-[#FFF0E8] border border-[#FF6B35]/12 p-8">
-              <h3 className="text-[16px] font-bold text-[#1C4425] mb-5">Quick Facts</h3>
-              <div className="grid sm:grid-cols-2 gap-4">
-                {quickFacts.map((f) => (
-                  <div key={f.label} className="flex gap-3">
-                    <span className="text-[13px] font-bold text-[#FF6B35] whitespace-nowrap">{f.label}:</span>
-                    <span className="text-[13px] text-[#64786C]/60">{f.value}</span>
-                  </div>
-                ))}
+          <ScrollScale>
+            <ParallaxLayer speed={0.05}>
+              <div className="relative rounded-[20px] border-3 border-[#F09EBA] p-8 bg-[#FEF9E7] shadow-[5px_5px_0_#F09EBA]" style={{ transform: "rotate(-0.5deg)" }}>
+                <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-16 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(1deg)" }} />
+                <h3 className="text-[16px] font-subheading mb-5 flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-[#E8890C]" /> <span style={{ color: "#E8890C" }}>Quick</span> <span style={{ color: "#F02D8A" }}>Facts</span>
+                </h3>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {quickFacts.map((f, fi) => (
+                    <motion.div
+                      key={f.label}
+                      className="flex gap-3"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: fi * 0.06, duration: 0.4 }}
+                    >
+                      <span className="text-[13px] font-extrabold text-[#F02D8A] whitespace-nowrap">{f.label}:</span>
+                      <span className="text-[13px] text-[#8B7E74] font-medium">{f.value}</span>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
-            </div>
-          </Reveal>
+            </ParallaxLayer>
+          </ScrollScale>
         </div>
       </section>
     </>

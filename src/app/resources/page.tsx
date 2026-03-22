@@ -1,33 +1,25 @@
 "use client";
 
-import { motion, useInView } from "motion/react";
-import { useRef } from "react";
-import { Download, FileText, Palette, BookOpen, Music, Sparkles, ArrowRight } from "lucide-react";
+import { motion } from "motion/react";
+import { Download, FileText, Palette, BookOpen, Music, Sparkles, ArrowRight, Globe, Pencil, Heart, Building, Home, Music2, Star, type LucideIcon } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
+import {
+  Reveal, StaggerContainer, StaggerItem, PlayfulButton, HandwrittenNote, WavyUnderline, SectionGrain,
+  BlurFadeIn, FloatingElement, TiltCard, ScrollScale, ParallaxLayer, CharacterCameo,
+  SPRING_BOUNCY, EASE, SCENES,
+} from "@/components/storybook-primitives";
 import { useLanguage } from "@/context/language";
 
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
-
-function Reveal({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-  return (
-    <motion.div ref={ref} initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.45, ease: EASE, delay }} className={className}>
-      {children}
-    </motion.div>
-  );
-}
-
 const resources = [
-  { title: "The Good News — Lyrics (EN)", desc: "Complete English lyrics for The Good News", icon: Music, color: "#FF6B35", type: "PDF" },
-  { title: "Jesus Me Ama — Lyrics (ES)", desc: "Letras completas en espanol", icon: Music, color: "#7C3AED", type: "PDF" },
-  { title: "Andy Coloring Page", desc: "Printable coloring sheet featuring Andy", icon: Palette, color: "#10B981", type: "PDF" },
-  { title: "Libni Coloring Page", desc: "Printable coloring sheet featuring Libni", icon: Palette, color: "#F59E0B", type: "PDF" },
-  { title: "Shiloh Coloring Page", desc: "Printable coloring sheet featuring Shiloh", icon: Palette, color: "#EC4899", type: "PDF" },
-  { title: "Bible Verse Memory Cards", desc: "Printable cards with key verses from our songs", icon: BookOpen, color: "#3B82F6", type: "PDF" },
-  { title: "Sunday School Guide", desc: "Complete guide for using Selah Kids in ministry", icon: FileText, color: "#FF6B35", type: "PDF" },
-  { title: "Family Worship Guide", desc: "Tips for family worship nights at home", icon: FileText, color: "#7C3AED", type: "PDF" },
-  { title: "Worship Together — Lyrics", desc: "Full lyrics for Worship Together", icon: Music, color: "#10B981", type: "PDF" },
+  { title: "The Good News — Lyrics (EN)", desc: "Complete English lyrics for The Good News", icon: Music, color: "#F02D8A", bg: "#FFF0E8", emoji: Music, rotate: "-1deg", type: "PDF" },
+  { title: "Jesus Me Ama — Lyrics (ES)", desc: "Letras completas en espanol", icon: Music, color: "#00B5B8", bg: "#E8F5F8", emoji: Globe, rotate: "1.5deg", type: "PDF" },
+  { title: "Andy Coloring Page", desc: "Printable coloring sheet featuring Andy", icon: Palette, color: "#4A4A4A", bg: "#E8F5E9", emoji: Pencil, rotate: "-0.5deg", type: "PDF" },
+  { title: "Libni Coloring Page", desc: "Printable coloring sheet featuring Libni", icon: Palette, color: "#7B3FA0", bg: "#FCEEF5", emoji: Palette, rotate: "1deg", type: "PDF" },
+  { title: "Shiloh Coloring Page", desc: "Printable coloring sheet featuring Shiloh", icon: Palette, color: "#FFD700", bg: "#FEF9E7", emoji: Heart, rotate: "-1.5deg", type: "PDF" },
+  { title: "Bible Verse Memory Cards", desc: "Printable cards with key verses from our songs", icon: BookOpen, color: "#4A4A4A", bg: "#E8F5E9", emoji: BookOpen, rotate: "0.5deg", type: "PDF" },
+  { title: "Sunday School Guide", desc: "Complete guide for using Selah Kids in ministry", icon: FileText, color: "#F02D8A", bg: "#FFF0E8", emoji: Building, rotate: "-1deg", type: "PDF" },
+  { title: "Family Worship Guide", desc: "Tips for family worship nights at home", icon: FileText, color: "#7B3FA0", bg: "#FCEEF5", emoji: Home, rotate: "1deg", type: "PDF" },
+  { title: "Worship Together — Lyrics", desc: "Full lyrics for Worship Together", icon: Music, color: "#00B5B8", bg: "#E8F5F8", emoji: Music2, rotate: "-0.5deg", type: "PDF" },
 ];
 
 export default function ResourcesPage() {
@@ -40,41 +32,77 @@ export default function ResourcesPage() {
         title={t("resources.title")}
         highlight={t("resources.highlight")}
         description={t("resources.desc")}
+        scene={SCENES.group}
       />
 
-      <section className="relative py-20 sm:py-28 bg-mesh-warm overflow-hidden section-grain">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {resources.map((r, i) => (
-              <Reveal key={r.title} delay={i * 0.05}>
-                <motion.div
-                  className="group cursor-pointer rounded-3xl bg-white p-7 border border-[rgba(0,0,0,0.04)] shadow-[0_2px_8px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.05)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.06)]"
-                  whileHover={{ y: -4 }}
-                >
-                  <div className="flex items-start justify-between mb-5">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl" style={{ backgroundColor: `${r.color}12` }}>
-                      <r.icon className="h-5 w-5" style={{ color: r.color }} />
-                    </div>
-                    <span className="rounded-full bg-[#1C4425]/5 px-3 py-1 text-[10px] font-bold text-[#1C4425]/40 uppercase">{r.type}</span>
-                  </div>
-                  <h3 className="text-[16px] font-bold text-[#1C4425] mb-1.5">{r.title}</h3>
-                  <p className="text-[16px] text-[#64786C]/60 leading-[28px] mb-5">{r.desc}</p>
-                  <button className="flex items-center gap-2 rounded-full border px-5 py-2.5 text-[13px] font-bold transition-all duration-150 group-hover:shadow-md" style={{ borderColor: `${r.color}25`, color: r.color }}>
-                    <Download className="h-3.5 w-3.5" />
-                    Download Free
-                  </button>
-                </motion.div>
-              </Reveal>
-            ))}
-          </div>
+      <section className="relative py-16 sm:py-24 bg-[#FFF5F0] overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none striped-bg" />
+        <SectionGrain />
+        <CharacterCameo character="shiloh" side="right" className="top-40" />
+        <FloatingElement className="absolute top-16 right-[5%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={14} duration={7}><Star className="h-8 w-8" /></FloatingElement>
+        <FloatingElement className="absolute bottom-24 left-[4%] text-[#F02D8A]/8 pointer-events-none z-[2]" amplitude={10} duration={6} delay={2}><Music className="h-7 w-7" /></FloatingElement>
 
-          <Reveal className="mt-14">
-            <div className="rounded-3xl bg-[#F3EEFF] border border-[#7C3AED]/15 p-7 text-center">
-              <Sparkles className="h-6 w-6 text-[#7C3AED] mx-auto mb-3" />
-              <h3 className="text-[17px] font-bold text-[#1C4425] mb-2">More Resources Coming Soon</h3>
-              <p className="text-[14px] text-[#64786C]/55">We are working on new coloring pages, activity sheets, and devotional guides. Stay tuned.</p>
-            </div>
-          </Reveal>
+        <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">
+          <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {resources.map((r) => (
+              <StaggerItem key={r.title}>
+                <TiltCard intensity={5}>
+                  <motion.div
+                    className="group cursor-pointer relative rounded-[20px] border-3 border-[#F09EBA] p-7 shadow-[5px_5px_0_#F09EBA]"
+                    style={{ backgroundColor: r.bg, transform: `rotate(${r.rotate})` }}
+                    whileHover={{ y: -10, rotate: 0, scale: 1.02, transition: SPRING_BOUNCY }}
+                  >
+                    <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-12 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(2deg)" }} />
+                    <motion.span className="absolute top-4 right-4 text-2xl z-10" whileHover={{ scale: 1.3, rotate: 15 }} transition={SPRING_BOUNCY}><r.emoji className="h-5 w-5" /></motion.span>
+
+                    <div className="flex items-start justify-between mb-5">
+                      <motion.div
+                        className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-[#F09EBA]"
+                        style={{ backgroundColor: `${r.color}15` }}
+                        whileHover={{ rotate: 15, scale: 1.1 }}
+                        transition={SPRING_BOUNCY}
+                      >
+                        <r.icon className="h-5 w-5" style={{ color: r.color }} />
+                      </motion.div>
+                      <span className="rounded-full bg-[#F09EBA]/10 border border-[#F09EBA]/30 px-3 py-1 text-[10px] font-badge text-[#4A4A4A]/70">{r.type}</span>
+                    </div>
+                    <h3 className="text-[16px] font-subheading text-[#4A4A4A] mb-1.5">{r.title}</h3>
+                    <p className="text-[14px] text-[#8B7E74] leading-[1.75] font-medium mb-5">{r.desc}</p>
+                    <motion.button
+                      className="font-btn flex items-center gap-2 rounded-full border-2 px-5 py-2.5 text-[13px] transition-all duration-150 group-hover:shadow-[3px_3px_0_#F09EBA]"
+                      style={{ borderColor: `${r.color}40`, color: r.color }}
+                      whileHover={{ y: -2 }}
+                      whileTap={{ scale: 0.96 }}
+                      transition={SPRING_BOUNCY}
+                    >
+                      <Download className="h-3.5 w-3.5" />
+                      Download Free
+                    </motion.button>
+                  </motion.div>
+                </TiltCard>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+
+          <ScrollScale className="mt-16">
+            <ParallaxLayer speed={0.05}>
+              <div className="relative rounded-[20px] border-3 border-[#F09EBA] p-7 text-center bg-[#FCEEF5] shadow-[5px_5px_0_#F09EBA]" style={{ transform: "rotate(-0.5deg)" }}>
+                <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-16 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(1deg)" }} />
+                <motion.span
+                  className="text-3xl block mb-3"
+                  animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.15, 1] }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                >
+                  <Sparkles className="h-7 w-7" />
+                </motion.span>
+                <h3 className="text-[17px] font-subheading mb-2"><span style={{ color: "#E8890C" }}>More</span> <span style={{ color: "#4A6FCC" }}>Resources</span> <span style={{ color: "#F02D8A" }}>Coming</span> <span style={{ color: "#2DB84B" }}>Soon</span></h3>
+                <p className="text-[14px] text-[#8B7E74] font-medium">We are working on new coloring pages, activity sheets, and devotional guides. Stay tuned.</p>
+                <HandwrittenNote className="text-[16px] mt-3 block text-[#7B3FA0]/40" rotate={-2}>
+                  — so many fun things ahead! <Music className="h-3 w-3 inline" />
+                </HandwrittenNote>
+              </div>
+            </ParallaxLayer>
+          </ScrollScale>
         </div>
       </section>
     </>
