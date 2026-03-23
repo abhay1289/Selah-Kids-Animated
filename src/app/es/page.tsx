@@ -39,12 +39,12 @@ export default function EspanolPage() {
         <div className="relative z-10 mx-auto max-w-4xl px-6 lg:px-10">
           <ScrollScale>
             <TiltCard intensity={3}>
-              <div className="relative rounded-[20px] bg-white p-6 sm:p-8 border-3 border-[#F09EBA] shadow-[6px_6px_0_#F09EBA]">
-                <motion.div className="absolute -top-2 left-8 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(-2deg)" }} />
-                <motion.div className="absolute -top-2 right-8 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(3deg)" }} />
+              <div className="group relative rounded-[20px] bg-white p-6 sm:p-8 border-3 border-[#F09EBA] shadow-[6px_6px_0_#F09EBA] border-glow">
+                <motion.div className="absolute -top-2 left-8 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(-2deg)" }} />
+                <motion.div className="absolute -top-2 right-8 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(3deg)" }} />
 
                 <ClipReveal direction="center">
-                  <div className="relative overflow-hidden rounded-[16px] mb-6 border-2 border-[#F09EBA]/40">
+                  <div className="relative overflow-hidden rounded-[16px] mb-6 border-2 border-[#F09EBA]/40 img-hover-zoom">
                     <Image
                       src="/TGN_SingleFrames+(3).png"
                       alt="Jesus Me Ama" width={1200} height={675} className="w-full aspect-video object-cover"
@@ -54,7 +54,7 @@ export default function EspanolPage() {
                     <div className="absolute inset-0 flex items-center justify-center">
                       <MagneticWrap strength={0.2}>
                         <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.85 }} transition={SPRING_BOUNCY}>
-                          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm border border-white/20">
+                          <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm border border-white/20 pulse-ring">
                             <Play className="h-8 w-8 text-white ml-1" fill="currentColor" />
                           </div>
                         </motion.div>
@@ -94,6 +94,7 @@ export default function EspanolPage() {
                       external
                       variant="primary"
                       icon={<Youtube className="h-4 w-4" />}
+                      className="btn-shimmer"
                     >
                       Ver en YouTube
                     </PlayfulButton>
@@ -121,12 +122,12 @@ export default function EspanolPage() {
               <StaggerItem key={f.title}>
                 <TiltCard intensity={6}>
                   <motion.div
-                    className="relative rounded-[20px] border-3 border-[#F09EBA] p-7 text-center shadow-[5px_5px_0_#F09EBA] cursor-default"
+                    className="group relative rounded-[20px] border-3 border-[#F09EBA] p-7 text-center shadow-[5px_5px_0_#F09EBA] cursor-default border-glow"
                     style={{ backgroundColor: f.bg, transform: `rotate(${f.rotate})` }}
                     whileHover={{ y: -10, rotate: 0, scale: 1.02, transition: SPRING_BOUNCY }}
                   >
-                    <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-12 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(2deg)" }} />
-                    <motion.span className="absolute top-4 right-4 text-2xl z-10" whileHover={{ scale: 1.3, rotate: 15 }} transition={SPRING_BOUNCY}><f.emoji className="h-5 w-5" /></motion.span>
+                    <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-12 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(2deg)" }} />
+                    <motion.span className="absolute top-4 right-4 text-2xl z-10 icon-hover-bounce" whileHover={{ scale: 1.3, rotate: 15 }} transition={SPRING_BOUNCY}><f.emoji className="h-5 w-5" /></motion.span>
                     <motion.div
                       className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-[#F09EBA] mx-auto mb-4"
                       style={{ backgroundColor: `${f.color}15` }}

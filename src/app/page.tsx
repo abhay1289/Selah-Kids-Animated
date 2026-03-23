@@ -1028,7 +1028,7 @@ function SceneShowcase() {
               <span style={{ color: "#E8890C" }}>Watch</span> <span style={{ color: "#4A6FCC" }}>the</span><br />
               <span className="relative" style={{ color: "#F02D8A" }}>
                 newest episode
-                <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#FFD700]/40" viewBox="0 0 200 12" preserveAspectRatio="none">
+                <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#FFD700]/40 wavy-draw" viewBox="0 0 200 12" preserveAspectRatio="none">
                   <path d="M0,8 Q50,0 100,8 T200,8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
                 </svg>
               </span>
@@ -1088,7 +1088,7 @@ function WhySection() {
             <span style={{ color: "#4A6FCC" }}>More</span> <span style={{ color: "#E8890C" }}>than</span> <span style={{ color: "#2DB84B" }}>just</span><br />
             <span className="relative inline-block" style={{ color: "#F02D8A" }}>
               kids music
-              <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#F02D8A]/30" viewBox="0 0 200 12" preserveAspectRatio="none">
+              <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#F02D8A]/30 wavy-draw" viewBox="0 0 200 12" preserveAspectRatio="none">
                 <path d="M0,8 Q50,0 100,8 T200,8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
               </svg>
             </span>
@@ -1175,7 +1175,7 @@ function CharactersSection() {
             <span style={{ color: "#F7941D" }}>Your</span> <span style={{ color: "#4A6FCC" }}>kids&apos;</span> <span style={{ color: "#2DB84B" }}>new</span><br />
             <span className="relative inline-block" style={{ color: "#F02D8A" }}>
               best friends
-              <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#F02D8A]/30" viewBox="0 0 200 12" preserveAspectRatio="none">
+              <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#F02D8A]/30 wavy-draw" viewBox="0 0 200 12" preserveAspectRatio="none">
                 <path d="M0,8 Q50,0 100,8 T200,8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
               </svg>
             </span>
@@ -1190,7 +1190,7 @@ function CharactersSection() {
                 style={{ backgroundColor: c.bg, transform: `rotate(${c.rotate})` }}
                 whileHover={{ y: -12, rotate: 0, scale: 1.03, transition: SPRING_BOUNCY }}
               >
-                <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-16 h-6 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(2deg)" }} />
+                <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-16 h-6 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(2deg)" }} />
                 <motion.span className="absolute top-4 right-4 z-10" style={{ color: c.color }} whileHover={{ scale: 1.3, rotate: 15 }} transition={SPRING_BOUNCY}><c.emoji className="h-5 w-5" /></motion.span>
                 <CharacterCardInteractive
                   src={c.image}
@@ -1213,7 +1213,7 @@ function CharactersSection() {
           <motion.div whileHover={{ x: 5 }} transition={SPRING}>
             <Link href="/characters" className="inline-flex items-center gap-2 text-[15px] font-bold text-[#F02D8A] hover:text-[#4A4A4A] transition-colors bouncy-link">
               <span className="font-handwritten text-[18px] rotate-[-3deg] mr-1">→</span>
-              Meet all characters <ChevronRight className="h-4 w-4" aria-hidden="true" />
+              Meet all characters <ChevronRight className="h-4 w-4 arrow-slide" aria-hidden="true" />
             </Link>
           </motion.div>
         </Reveal>
@@ -1370,7 +1370,7 @@ function TrustSection() {
               <span style={{ color: "#2DB84B" }}>Content</span> <span style={{ color: "#4A6FCC" }}>you</span><br />
               <span className="relative inline-block" style={{ color: "#F02D8A" }}>
                 can trust completely
-                <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#4A4A4A]/55" viewBox="0 0 200 12" preserveAspectRatio="none">
+                <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#4A4A4A]/55 wavy-draw" viewBox="0 0 200 12" preserveAspectRatio="none">
                   <path d="M0,8 Q50,0 100,8 T200,8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
                 </svg>
               </span>
@@ -1429,7 +1429,7 @@ function Testimonials() {
             <span style={{ color: "#E8890C" }}>What</span> <span style={{ color: "#4A6FCC" }}>parents</span> <span style={{ color: "#2DB84B" }}>are</span><br />
             <span className="relative inline-block" style={{ color: "#F02D8A" }}>
               saying
-              <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#FFD700]/40" viewBox="0 0 200 12" preserveAspectRatio="none">
+              <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#FFD700]/40 wavy-draw" viewBox="0 0 200 12" preserveAspectRatio="none">
                 <path d="M0,8 Q50,0 100,8 T200,8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
               </svg>
             </span>
@@ -1444,7 +1444,7 @@ function Testimonials() {
                 style={{ backgroundColor: t.bg, transform: `rotate(${t.rotate})` }}
                 whileHover={{ rotate: 0, y: -8, scale: 1.03, transition: SPRING_BOUNCY }}
               >
-                <div className="absolute -top-2 right-6 w-12 h-5 bg-[#FFD700]/35 rounded-sm z-10" />
+                <div className="absolute -top-2 right-6 w-12 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" />
                 <motion.span className="absolute -top-3 -left-2 z-10 text-[#F02D8A]" whileHover={{ scale: 1.3, rotate: 20 }} transition={SPRING_BOUNCY}><t.emoji className="h-5 w-5" /></motion.span>
                 <div>
                   <div className="flex gap-0.5 mb-3">
@@ -1534,10 +1534,10 @@ function CTASection({ onCtaClick }: { onCtaClick?: (e: React.MouseEvent) => void
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={onCtaClick}
-                    className="btn-playful font-btn anim-pulse-glow inline-flex items-center gap-3 rounded-full border-2 px-7 py-3.5 text-[15px] tracking-wide bg-[#F02D8A] text-white border-[#F09EBA] shadow-[4px_4px_0_#F09EBA] hover:shadow-[6px_6px_0_#F09EBA]"
+                    className="btn-playful btn-shimmer font-btn anim-pulse-glow inline-flex items-center gap-3 rounded-full border-2 px-7 py-3.5 text-[15px] tracking-wide bg-[#F02D8A] text-white border-[#F09EBA] shadow-[4px_4px_0_#F09EBA] hover:shadow-[6px_6px_0_#F09EBA]"
                   >
                     <Youtube className="h-5 w-5 text-red-400" aria-hidden="true" />
-                    Subscribe Now <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    Subscribe Now <ArrowRight className="h-4 w-4 arrow-slide" aria-hidden="true" />
                   </a>
                 </motion.div>
               </MagneticWrap>

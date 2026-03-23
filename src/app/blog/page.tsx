@@ -67,7 +67,7 @@ export default function BlogPage() {
                   filter === cat.id
                     ? "bg-[#F02D8A] text-white border-[#F09EBA] shadow-[3px_3px_0_#F09EBA]"
                     : "bg-[#FFFDF5] text-[#4A4A4A]/70 border-[#F09EBA]/50 hover:border-[#F09EBA] hover:text-[#4A4A4A]"
-                }`}
+                } focus-ring`}
               >
                 {cat.label}
               </motion.button>
@@ -80,12 +80,12 @@ export default function BlogPage() {
               <StaggerItem key={post.id}>
                 <TiltCard intensity={5}>
                   <motion.article
-                    className="group cursor-pointer relative rounded-[20px] border-3 border-[#F09EBA] overflow-hidden shadow-[5px_5px_0_#F09EBA]"
+                    className="group cursor-pointer relative rounded-[20px] border-3 border-[#F09EBA] overflow-hidden shadow-[5px_5px_0_#F09EBA] border-glow"
                     style={{ backgroundColor: post.bg, transform: `rotate(${post.rotate})` }}
                     whileHover={{ y: -10, rotate: 0, scale: 1.02, transition: SPRING_BOUNCY }}
                   >
-                    <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(2deg)" }} />
-                    <motion.span className="absolute top-4 right-4 text-2xl z-10" whileHover={{ scale: 1.3, rotate: 15 }} transition={SPRING_BOUNCY}><post.emoji className="h-5 w-5" /></motion.span>
+                    <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(2deg)" }} />
+                    <motion.span className="absolute top-4 right-4 text-2xl z-10 icon-hover-bounce" whileHover={{ scale: 1.3, rotate: 15 }} transition={SPRING_BOUNCY}><post.emoji className="h-5 w-5" /></motion.span>
 
                     <div className="p-6 pb-0 flex items-center justify-center h-[100px]">
                       <motion.div
@@ -116,7 +116,7 @@ export default function BlogPage() {
                         initial={{ x: -5 }}
                         whileHover={{ x: 3 }}
                       >
-                        Read more <ArrowRight className="h-3 w-3" />
+                        Read more <ArrowRight className="h-3 w-3 arrow-slide" />
                       </motion.span>
                     </div>
                   </motion.article>

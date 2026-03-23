@@ -98,7 +98,7 @@ export default function WatchPage() {
                   filter === cat.id
                     ? "bg-[#F02D8A] text-white border-[#F09EBA] shadow-[3px_3px_0_#F09EBA]"
                     : "bg-[#FFFDF5] text-[#4A4A4A]/70 border-[#F09EBA]/50 hover:border-[#F09EBA] hover:text-[#4A4A4A]"
-                }`}
+                } focus-ring`}
               >
                 <cat.icon className="h-3.5 w-3.5" />
                 {cat.label}
@@ -116,9 +116,9 @@ export default function WatchPage() {
                     whileHover={{ y: -8, rotate: 0.5 }}
                     transition={SPRING_BOUNCY}
                   >
-                    <div className="relative overflow-hidden rounded-[20px] bg-[#FFFDF5] border-3 border-[#F09EBA] shadow-[5px_5px_0_#F09EBA] transition-all duration-200 group-hover:shadow-[7px_7px_0_#F09EBA]">
+                    <div className="relative overflow-hidden rounded-[20px] bg-[#FFFDF5] border-3 border-[#F09EBA] shadow-[5px_5px_0_#F09EBA] transition-all duration-200 group-hover:shadow-[7px_7px_0_#F09EBA] border-glow">
                       {/* Tape mark */}
-                      <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-20" style={{ transform: "rotate(1deg)" }} />
+                      <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-20 tape-wiggle" style={{ transform: "rotate(1deg)" }} />
                       <ClipReveal direction="bottom">
                         <div className="relative overflow-hidden">
                           <Image src={v.thumbnail} alt={v.title} width={800} height={600} className="w-full aspect-[4/3] object-cover transition-transform duration-700 group-hover:scale-[1.08]" />
@@ -127,7 +127,7 @@ export default function WatchPage() {
                           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <MagneticWrap strength={0.2}>
                               <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.85 }} transition={SPRING_BOUNCY}>
-                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm border border-white/20">
+                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm border border-white/20 pulse-ring">
                                   <Play className="h-7 w-7 text-white ml-0.5" fill="currentColor" />
                                 </div>
                               </motion.div>
@@ -161,7 +161,7 @@ export default function WatchPage() {
                             initial={{ x: -5 }}
                             whileHover={{ x: 3 }}
                           >
-                            Watch <ArrowRight className="h-3 w-3" />
+                            Watch <ArrowRight className="h-3 w-3 arrow-slide" />
                           </motion.span>
                         </div>
                       </div>
@@ -174,7 +174,7 @@ export default function WatchPage() {
 
           {/* YouTube CTA */}
           <ScrollScale className="mt-20">
-            <div className="relative rounded-[20px] overflow-hidden border-3 border-[#F09EBA] shadow-[6px_6px_0_#F09EBA]">
+            <div className="relative rounded-[20px] overflow-hidden border-3 border-[#F09EBA] shadow-[6px_6px_0_#F09EBA] border-glow">
               <div className="absolute inset-0 z-0">
                 <ParallaxLayer speed={0.1} className="absolute inset-0">
                   <Image src={SCENES.cinematic} alt="" fill className="object-cover" sizes="100vw" />
@@ -209,6 +209,7 @@ export default function WatchPage() {
                       external
                       variant="primary"
                       icon={<Youtube className="h-4 w-4" />}
+                      className="btn-shimmer"
                     >
                       English Channel
                     </PlayfulButton>

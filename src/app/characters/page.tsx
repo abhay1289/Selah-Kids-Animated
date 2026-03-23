@@ -90,7 +90,7 @@ export default function CharactersPage() {
                           </motion.span>
 
                           <ClipReveal direction="center">
-                            <div className="relative rounded-[16px] overflow-hidden border-2 border-[#F09EBA]/40 mb-6 aspect-[4/3]">
+                            <div className="relative rounded-[16px] overflow-hidden border-2 border-[#F09EBA]/40 mb-6 aspect-[4/3] img-hover-zoom">
                               <Image src={c.scene} alt={`${c.name}'s world`} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
                               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                               <div className="absolute inset-0" style={{ boxShadow: "inset 0 0 60px rgba(0,0,0,0.15)" }} />
@@ -151,8 +151,8 @@ export default function CharactersPage() {
                     {/* Verse */}
                     <BlurFadeIn delay={0.3}>
                       <ParallaxLayer speed={0.05}>
-                        <div className="rounded-[16px] p-5 mb-6 border-2 border-[#F09EBA]/30 bg-[#FEF9E7]" style={{ transform: "rotate(-0.5deg)" }}>
-                          <motion.div className="absolute -top-2 right-6 w-10 h-5 bg-[#FFD700]/35 rounded-sm" style={{ transform: "rotate(3deg)" }} />
+                        <div className="group rounded-[16px] p-5 mb-6 border-2 border-[#F09EBA]/30 bg-[#FEF9E7] border-glow" style={{ transform: "rotate(-0.5deg)" }}>
+                          <motion.div className="absolute -top-2 right-6 w-10 h-5 bg-[#FFD700]/35 rounded-sm tape-wiggle" style={{ transform: "rotate(3deg)" }} />
                           <p className="font-serif text-[15px] text-[#4A4A4A]/60 leading-[1.7] italic mb-2">
                             &ldquo;{c.verse.text}&rdquo;
                           </p>

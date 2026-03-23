@@ -51,11 +51,11 @@ export default function PressPage() {
             <SlideIn from="left">
               <TiltCard intensity={5}>
                 <motion.div
-                  className="relative rounded-[20px] border-3 border-[#F09EBA] p-8 shadow-[5px_5px_0_#F09EBA] h-full flex flex-col bg-[#FFF0E8]"
+                  className="group relative rounded-[20px] border-3 border-[#F09EBA] p-8 shadow-[5px_5px_0_#F09EBA] h-full flex flex-col bg-[#FFF0E8] border-glow"
                   style={{ transform: "rotate(-1deg)" }}
                   whileHover={{ y: -8, rotate: 0, transition: SPRING_BOUNCY }}
                 >
-                  <motion.div className="absolute -top-2 left-6 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(-2deg)" }} />
+                  <motion.div className="absolute -top-2 left-6 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(-2deg)" }} />
                   <motion.div
                     className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-[#F09EBA] mb-5"
                     style={{ backgroundColor: "#F02D8A15" }}
@@ -68,7 +68,7 @@ export default function PressPage() {
                   <p className="text-[14px] text-[#8B7E74] leading-[1.75] font-medium mb-6 flex-1">
                     Download our complete press kit including brand overview, founder bios, high-resolution imagery, and key talking points.
                   </p>
-                  <PlayfulButton href="#" variant="primary" icon={<Download className="h-3.5 w-3.5" />} className="text-[13px] px-5 py-2.5 self-start">
+                  <PlayfulButton href="#" variant="primary" icon={<Download className="h-3.5 w-3.5" />} className="text-[13px] px-5 py-2.5 self-start btn-shimmer">
                     Download Press Kit
                   </PlayfulButton>
                 </motion.div>
@@ -77,11 +77,11 @@ export default function PressPage() {
             <SlideIn from="right" delay={0.1}>
               <TiltCard intensity={5}>
                 <motion.div
-                  className="relative rounded-[20px] border-3 border-[#F09EBA] p-8 shadow-[5px_5px_0_#F09EBA] h-full flex flex-col bg-[#FCEEF5]"
+                  className="group relative rounded-[20px] border-3 border-[#F09EBA] p-8 shadow-[5px_5px_0_#F09EBA] h-full flex flex-col bg-[#FCEEF5] border-glow"
                   style={{ transform: "rotate(1deg)" }}
                   whileHover={{ y: -8, rotate: 0, transition: SPRING_BOUNCY }}
                 >
-                  <motion.div className="absolute -top-2 right-6 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(3deg)" }} />
+                  <motion.div className="absolute -top-2 right-6 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(3deg)" }} />
                   <motion.div
                     className="flex h-12 w-12 items-center justify-center rounded-lg border-2 border-[#F09EBA] mb-5"
                     style={{ backgroundColor: "#7B3FA015" }}
@@ -117,7 +117,7 @@ export default function PressPage() {
               <StaggerItem key={a.title}>
                 <TiltCard intensity={8}>
                   <motion.div
-                    className="rounded-[16px] border-2 border-[#F09EBA]/50 p-5 text-center cursor-pointer hover:border-[#F09EBA] hover:shadow-[4px_4px_0_#F09EBA] transition-all duration-200"
+                    className="rounded-[16px] border-2 border-[#F09EBA]/50 p-5 text-center cursor-pointer hover:border-[#F09EBA] hover:shadow-[4px_4px_0_#F09EBA] transition-all duration-200 border-glow"
                     style={{ backgroundColor: a.bg }}
                     whileHover={{ y: -6, rotate: 2 }}
                     transition={SPRING_BOUNCY}
@@ -136,8 +136,8 @@ export default function PressPage() {
           {/* Quick Facts */}
           <ScrollScale>
             <ParallaxLayer speed={0.05}>
-              <div className="relative rounded-[20px] border-3 border-[#F09EBA] p-8 bg-[#FEF9E7] shadow-[5px_5px_0_#F09EBA]" style={{ transform: "rotate(-0.5deg)" }}>
-                <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-16 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(1deg)" }} />
+              <div className="group relative rounded-[20px] border-3 border-[#F09EBA] p-8 bg-[#FEF9E7] shadow-[5px_5px_0_#F09EBA] border-glow" style={{ transform: "rotate(-0.5deg)" }}>
+                <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-16 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(1deg)" }} />
                 <h3 className="text-[16px] font-subheading mb-5 flex items-center gap-2">
                   <Sparkles className="h-4 w-4 text-[#E8890C]" /> <span style={{ color: "#E8890C" }}>Quick</span> <span style={{ color: "#F02D8A" }}>Facts</span>
                 </h3>

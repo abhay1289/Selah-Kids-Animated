@@ -91,7 +91,7 @@ export function PageHero({
           animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
           transition={{ duration: 0.6, ease: EASE, type: "spring", stiffness: 300, damping: 20 }}
         >
-          <span className="inline-flex items-center gap-2 rounded-full border-2 border-white/20 bg-white/10 backdrop-blur-sm px-5 py-2.5 text-[12px] font-badge text-[#FFD700] mb-7">
+          <span className="inline-flex items-center gap-2 rounded-full border-2 border-white/20 bg-white/10 backdrop-blur-sm px-5 py-2.5 text-[12px] font-badge text-[#FFD700] mb-7 transition-all duration-300 hover:bg-white/15 hover:border-white/30 hover:scale-105 cursor-default">
             {BadgeIcon && <BadgeIcon className="h-3.5 w-3.5" />}
             {badge}
           </span>
@@ -104,11 +104,12 @@ export function PageHero({
             return (
               <motion.span
                 key={i}
-                className="inline-block mr-[0.25em]"
+                className="inline-block mr-[0.25em] cursor-default"
                 style={{ color: heroColors[i % heroColors.length] }}
                 initial={{ opacity: 0, y: 40, filter: "blur(8px)", rotateX: 40 }}
                 animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)", rotateX: 0 } : {}}
                 transition={{ delay: 0.1 + i * 0.06, duration: 0.7, ease: EASE }}
+                whileHover={{ scale: 1.08, y: -3, transition: { type: "spring", stiffness: 400, damping: 15 } }}
               >
                 {word}
               </motion.span>
@@ -163,13 +164,19 @@ export function PageHero({
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 1.2, duration: 0.6 }}
         >
-          <motion.span
-            className="font-handwritten text-[15px] text-white/60"
+          <motion.button
+            className="font-handwritten text-[15px] text-white/60 cursor-pointer hover:text-white/80 transition-colors"
             animate={reduced ? {} : { y: [0, 8, 0], opacity: [0.3, 0.6, 0.3] }}
             transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+            onClick={() => {
+              const next = ref.current?.nextElementSibling;
+              if (next) next.scrollIntoView({ behavior: "smooth" });
+            }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
             ↓ scroll to explore ↓
-          </motion.span>
+          </motion.button>
         </motion.div>
       </motion.div>
 

@@ -41,7 +41,7 @@ function AccordionSection({ section, index }: { section: typeof sections[0]; ind
     <BlurFadeIn delay={index * 0.1}>
       <TiltCard intensity={3}>
         <motion.div
-          className="rounded-[20px] border-3 border-[#F09EBA] overflow-hidden shadow-[5px_5px_0_#F09EBA] transition-all duration-200"
+          className="rounded-[20px] border-3 border-[#F09EBA] overflow-hidden shadow-[5px_5px_0_#F09EBA] transition-all duration-200 border-glow"
           style={{ backgroundColor: open ? section.bg : "#FFFDF5" }}
           whileHover={{ y: -3 }}
           transition={SPRING_BOUNCY}
@@ -51,7 +51,7 @@ function AccordionSection({ section, index }: { section: typeof sections[0]; ind
               onClick={() => setOpen(!open)}
               aria-expanded={open}
               aria-controls={panelId}
-              className="w-full flex items-center gap-4 p-6 sm:p-7 text-left"
+              className="w-full flex items-center gap-4 p-6 sm:p-7 text-left focus-ring"
             >
               <motion.div
                 className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border-2 border-[#F09EBA]"
@@ -123,7 +123,7 @@ export default function ParentsPage() {
               <StaggerItem key={badge.label}>
                 <TiltCard intensity={8}>
                   <motion.div
-                    className="flex flex-col items-center text-center gap-3 rounded-[16px] bg-white p-5 border-2 border-[#F09EBA]/50 hover:border-[#F09EBA] hover:shadow-[4px_4px_0_#F09EBA] transition-all duration-200 cursor-default"
+                    className="flex flex-col items-center text-center gap-3 rounded-[16px] bg-white p-5 border-2 border-[#F09EBA]/50 hover:border-[#F09EBA] hover:shadow-[4px_4px_0_#F09EBA] transition-all duration-200 cursor-default border-glow"
                     whileHover={{ y: -6, rotate: 2 }}
                     transition={SPRING_BOUNCY}
                   >

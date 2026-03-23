@@ -73,14 +73,14 @@ export default function AboutPage() {
               <div className="grid grid-cols-2 gap-4">
                 <ClipReveal direction="left">
                   <TiltCard intensity={6}>
-                    <div className="rounded-[20px] overflow-hidden border-3 border-[#F09EBA] shadow-[5px_5px_0_#F09EBA]">
+                    <div className="rounded-[20px] overflow-hidden border-3 border-[#F09EBA] shadow-[5px_5px_0_#F09EBA] border-glow img-hover-zoom">
                       <Image src={SCENES.vibrant} alt="Selah Kids Animation" width={400} height={400} className="w-full h-full object-cover" />
                     </div>
                   </TiltCard>
                 </ClipReveal>
                 <ClipReveal direction="right">
                   <TiltCard intensity={6}>
-                    <div className="mt-8 rounded-[20px] overflow-hidden border-3 border-[#F09EBA] shadow-[5px_5px_0_#F09EBA]">
+                    <div className="mt-8 rounded-[20px] overflow-hidden border-3 border-[#F09EBA] shadow-[5px_5px_0_#F09EBA] border-glow img-hover-zoom">
                       <Image src={SCENES.adventure} alt="Selah Kids Characters" width={400} height={400} className="w-full h-full object-cover" />
                     </div>
                   </TiltCard>
@@ -102,7 +102,7 @@ export default function AboutPage() {
             <SlideIn from="left" className="flex-1 w-full order-2 lg:order-1">
               <ScrollScale>
                 <TiltCard intensity={5}>
-                  <div className="relative rounded-[20px] overflow-hidden border-3 border-white/10">
+                  <div className="relative rounded-[20px] overflow-hidden border-3 border-white/10 img-hover-zoom">
                     <Image src={SCENES.worship} alt="Stunning Animation" width={800} height={600} className="w-full object-cover" />
                     <div className="absolute inset-0" style={{ boxShadow: "inset 0 0 80px rgba(0,0,0,0.3)" }} />
                   </div>
@@ -164,12 +164,12 @@ export default function AboutPage() {
               <StaggerItem key={v.title}>
                 <TiltCard intensity={5}>
                   <motion.div
-                    className="relative rounded-[20px] border-3 border-[#F09EBA] p-7 shadow-[5px_5px_0_#F09EBA] cursor-default"
+                    className="group relative rounded-[20px] border-3 border-[#F09EBA] p-7 shadow-[5px_5px_0_#F09EBA] cursor-default border-glow"
                     style={{ backgroundColor: v.bg, transform: `rotate(${v.rotate})` }}
                     whileHover={{ y: -8, rotate: 0, scale: 1.02, transition: SPRING_BOUNCY }}
                   >
-                    <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(2deg)" }} />
-                    <motion.span className="absolute top-4 right-4 text-2xl" whileHover={{ scale: 1.3, rotate: 15 }} transition={SPRING_BOUNCY}><v.emoji className="h-5 w-5" /></motion.span>
+                    <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(2deg)" }} />
+                    <motion.span className="absolute top-4 right-4 text-2xl icon-hover-bounce" whileHover={{ scale: 1.3, rotate: 15 }} transition={SPRING_BOUNCY}><v.emoji className="h-5 w-5" /></motion.span>
                     <div className="flex items-center gap-3 mb-4">
                       <motion.div
                         className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-[#F09EBA]"

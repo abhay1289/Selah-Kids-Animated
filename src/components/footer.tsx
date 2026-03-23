@@ -63,7 +63,7 @@ export function Footer() {
             <div className="flex items-center gap-2 mt-5">
               {socials.map((s) => (
                 <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
-                  className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-[#F09EBA]/40 text-[#4A4A4A] transition-all duration-150 ease-out hover:bg-[#F02D8A]/15 hover:text-[#F02D8A] hover:border-[#F02D8A]/30"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-[#F09EBA]/40 text-[#4A4A4A] transition-all duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:bg-[#F02D8A]/15 hover:text-[#F02D8A] hover:border-[#F02D8A]/30 hover:-translate-y-1 hover:scale-110 icon-hover-wiggle focus-ring"
                   aria-label={s.label}>
                   <s.icon className="h-4 w-4" />
                 </a>
@@ -76,7 +76,7 @@ export function Footer() {
             <h4 className="text-[12px] font-badge text-[#F7941D] mb-4">{t("footer.explore")}</h4>
             <nav aria-label="Explore" className="flex flex-col gap-2.5">
               {explore.map((l) => (
-                <Link key={l.href} href={l.href} className="text-[13px] font-medium text-[#4A4A4A] hover:text-[#F02D8A] transition-colors duration-150 py-0.5">
+                <Link key={l.href} href={l.href} className="text-[13px] font-medium text-[#4A4A4A] hover:text-[#F02D8A] transition-all duration-200 py-0.5 link-underline hover:translate-x-1">
                   {t(l.labelKey)}
                 </Link>
               ))}
@@ -88,7 +88,7 @@ export function Footer() {
             <h4 className="text-[12px] font-badge text-[#00B5B8] mb-4">{t("footer.resources")}</h4>
             <nav aria-label="Resources" className="flex flex-col gap-2.5">
               {resources.map((l) => (
-                <Link key={l.href} href={l.href} className="text-[13px] font-medium text-[#4A4A4A] hover:text-[#F02D8A] transition-colors duration-150 py-0.5">
+                <Link key={l.href} href={l.href} className="text-[13px] font-medium text-[#4A4A4A] hover:text-[#F02D8A] transition-all duration-200 py-0.5 link-underline hover:translate-x-1">
                   {t(l.labelKey)}
                 </Link>
               ))}
@@ -111,12 +111,12 @@ export function Footer() {
         <div className="mt-14 pt-5 border-t border-[#F09EBA]/30 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <p className="text-[11px] text-[#4A4A4A] font-medium">&copy; {new Date().getFullYear()} Selah Kids. {t("footer.rights")}</p>
           <div className="flex items-center gap-4">
-            <Link href="/press" className="text-[11px] text-[#4A4A4A] font-medium hover:text-[#F02D8A] transition-colors">{t("footer.privacy")}</Link>
-            <Link href="/press" className="text-[11px] text-[#4A4A4A] font-medium hover:text-[#F02D8A] transition-colors">{t("footer.terms")}</Link>
-            <Link href="/parents" className="text-[11px] text-[#4A4A4A] font-medium hover:text-[#F02D8A] transition-colors">{t("footer.coppa")}</Link>
+            <Link href="/press" className="text-[11px] text-[#4A4A4A] font-medium hover:text-[#F02D8A] transition-colors link-underline">{t("footer.privacy")}</Link>
+            <Link href="/press" className="text-[11px] text-[#4A4A4A] font-medium hover:text-[#F02D8A] transition-colors link-underline">{t("footer.terms")}</Link>
+            <Link href="/parents" className="text-[11px] text-[#4A4A4A] font-medium hover:text-[#F02D8A] transition-colors link-underline">{t("footer.coppa")}</Link>
           </div>
           <p className="text-[11px] text-[#4A4A4A] font-medium flex items-center gap-1">
-            {t("footer.made")} <Heart className="h-3 w-3 text-[#F02D8A]" fill="currentColor" /> {t("footer.families")}
+            {t("footer.made")} <Heart className="h-3 w-3 text-[#F02D8A] heartbeat" fill="currentColor" /> {t("footer.families")}
           </p>
         </div>
       </motion.div>

@@ -47,9 +47,9 @@ export default function DonatePage() {
           {/* Donation Card */}
           <ScrollScale>
             <TiltCard intensity={3}>
-              <div className="relative rounded-[20px] bg-white p-8 sm:p-10 border-3 border-[#F09EBA] shadow-[6px_6px_0_#F09EBA]">
-                <motion.div className="absolute -top-2 left-8 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(-3deg)" }} />
-                <motion.div className="absolute -top-2 right-8 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(2deg)" }} />
+              <div className="group relative rounded-[20px] bg-white p-8 sm:p-10 border-3 border-[#F09EBA] shadow-[6px_6px_0_#F09EBA] border-glow">
+                <motion.div className="absolute -top-2 left-8 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(-3deg)" }} />
+                <motion.div className="absolute -top-2 right-8 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(2deg)" }} />
 
                 <BlurFadeIn>
                   <HandwrittenNote className="text-[16px] text-[#F02D8A]/50 block text-center mb-6" rotate={-2}>
@@ -70,7 +70,7 @@ export default function DonatePage() {
                             freq === f
                               ? "bg-[#F02D8A] text-white shadow-[2px_2px_0_#F09EBA] border border-[#F09EBA]"
                               : "text-[#4A4A4A]/70 hover:text-[#4A4A4A]"
-                          }`}
+                          } focus-ring`}
                         >
                           {f}
                         </motion.button>
@@ -89,7 +89,7 @@ export default function DonatePage() {
                         initial={{ opacity: 0, scale: 0.8, y: 10 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         transition={{ delay: 0.3 + ai * 0.06, duration: 0.4, ease: EASE }}
-                        className={`rounded-[16px] py-5 text-center font-btn text-[22px] border-2 transition-all duration-150 ${
+                        className={`rounded-[16px] py-5 text-center font-btn text-[22px] border-2 transition-all duration-150 focus-ring ${
                           selected === a
                             ? "bg-[#F02D8A]/10 border-[#F02D8A] text-[#F02D8A] shadow-[3px_3px_0_#F09EBA]"
                             : "bg-white border-[#F09EBA]/50 text-[#4A4A4A]/70 hover:border-[#F09EBA] hover:text-[#4A4A4A]"
@@ -106,7 +106,7 @@ export default function DonatePage() {
                 {/* CTA */}
                 <BlurFadeIn delay={0.35}>
                   <motion.button
-                    className="w-full font-btn flex items-center justify-center gap-2 rounded-full bg-[#F02D8A] border-2 border-[#F09EBA] py-4.5 text-[16px] text-white shadow-[4px_4px_0_#F09EBA]"
+                    className="w-full font-btn flex items-center justify-center gap-2 rounded-full bg-[#F02D8A] border-2 border-[#F09EBA] py-4.5 text-[16px] text-white shadow-[4px_4px_0_#F09EBA] btn-shimmer focus-ring"
                     whileHover={{ y: -3 }}
                     whileTap={{ scale: 0.98, y: 0 }}
                     transition={SPRING_BOUNCY}
@@ -138,12 +138,12 @@ export default function DonatePage() {
                 <StaggerItem key={imp.amount}>
                   <TiltCard intensity={7}>
                     <motion.div
-                      className="relative rounded-[20px] border-3 border-[#F09EBA] p-6 text-center shadow-[4px_4px_0_#F09EBA] cursor-default"
+                      className="group relative rounded-[20px] border-3 border-[#F09EBA] p-6 text-center shadow-[4px_4px_0_#F09EBA] cursor-default border-glow"
                       style={{ backgroundColor: imp.bg }}
                       whileHover={{ y: -8, rotate: 2 }}
                       transition={SPRING_BOUNCY}
                     >
-                      <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-12 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(1deg)" }} />
+                      <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-12 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(1deg)" }} />
                       <motion.span
                         className="text-2xl block mb-3"
                         animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}

@@ -48,9 +48,9 @@ export default function ContactPage() {
             {/* Form */}
             <SlideIn from="left" className="lg:col-span-3">
               <TiltCard intensity={2}>
-                <div className="relative rounded-[20px] bg-white p-7 sm:p-9 border-3 border-[#F09EBA] shadow-[6px_6px_0_#F09EBA]">
-                  <motion.div className="absolute -top-2 left-8 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(-2deg)" }} />
-                  <motion.div className="absolute -top-2 right-8 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(3deg)" }} />
+                <div className="group relative rounded-[20px] bg-white p-7 sm:p-9 border-3 border-[#F09EBA] shadow-[6px_6px_0_#F09EBA] border-glow">
+                  <motion.div className="absolute -top-2 left-8 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(-2deg)" }} />
+                  <motion.div className="absolute -top-2 right-8 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(3deg)" }} />
 
                   {submitted ? (
                     <div className="flex flex-col items-center py-16 text-center">
@@ -73,7 +73,7 @@ export default function ContactPage() {
                       </BlurFadeIn>
                       <motion.button
                         onClick={() => setSubmitted(false)}
-                        className="font-btn rounded-full border-2 border-[#F09EBA]/50 px-6 py-2.5 text-[13px] text-[#4A4A4A]/70 hover:border-[#F09EBA] hover:text-[#4A4A4A] transition-all"
+                        className="font-btn rounded-full border-2 border-[#F09EBA]/50 px-6 py-2.5 text-[13px] text-[#4A4A4A]/70 hover:border-[#F09EBA] hover:text-[#4A4A4A] transition-all focus-ring"
                         whileHover={{ y: -2 }}
                         transition={SPRING_BOUNCY}
                       >
@@ -92,30 +92,30 @@ export default function ContactPage() {
                         <div className="grid sm:grid-cols-2 gap-4">
                           <div>
                             <label htmlFor="name" className="block text-[12px] font-badge text-[#4A4A4A]/70 mb-1.5">Name</label>
-                            <input id="name" required aria-required="true" className="w-full rounded-[12px] border-2 border-[#F09EBA]/50 bg-[#FFFDF5] px-4 py-3 text-[14px] text-[#4A4A4A] outline-none transition-all duration-150 focus:border-[#F02D8A] focus:shadow-[3px_3px_0_rgba(239,123,91,0.15)]" placeholder="Your name" />
+                            <input id="name" required aria-required="true" className="w-full rounded-[12px] border-2 border-[#F09EBA]/50 bg-[#FFFDF5] px-4 py-3 text-[14px] text-[#4A4A4A] outline-none transition-all duration-150 focus:border-[#F02D8A] focus:shadow-[3px_3px_0_rgba(239,123,91,0.15)] border-glow focus-ring" placeholder="Your name" />
                           </div>
                           <div>
                             <label htmlFor="email" className="block text-[12px] font-badge text-[#4A4A4A]/70 mb-1.5">Email</label>
-                            <input id="email" type="email" required aria-required="true" autoComplete="email" className="w-full rounded-[12px] border-2 border-[#F09EBA]/50 bg-[#FFFDF5] px-4 py-3 text-[14px] text-[#4A4A4A] outline-none transition-all duration-150 focus:border-[#F02D8A] focus:shadow-[3px_3px_0_rgba(239,123,91,0.15)]" placeholder="you@example.com" />
+                            <input id="email" type="email" required aria-required="true" autoComplete="email" className="w-full rounded-[12px] border-2 border-[#F09EBA]/50 bg-[#FFFDF5] px-4 py-3 text-[14px] text-[#4A4A4A] outline-none transition-all duration-150 focus:border-[#F02D8A] focus:shadow-[3px_3px_0_rgba(239,123,91,0.15)] border-glow focus-ring" placeholder="you@example.com" />
                           </div>
                         </div>
                       </BlurFadeIn>
                       <BlurFadeIn delay={0.15}>
                         <div>
                           <label htmlFor="subject" className="block text-[12px] font-badge text-[#4A4A4A]/70 mb-1.5">Subject</label>
-                          <input id="subject" required className="w-full rounded-[12px] border-2 border-[#F09EBA]/50 bg-[#FFFDF5] px-4 py-3 text-[14px] text-[#4A4A4A] outline-none transition-all focus:border-[#F02D8A] focus:shadow-[3px_3px_0_rgba(239,123,91,0.15)]" placeholder="What is this about?" />
+                          <input id="subject" required className="w-full rounded-[12px] border-2 border-[#F09EBA]/50 bg-[#FFFDF5] px-4 py-3 text-[14px] text-[#4A4A4A] outline-none transition-all focus:border-[#F02D8A] focus:shadow-[3px_3px_0_rgba(239,123,91,0.15)] border-glow focus-ring" placeholder="What is this about?" />
                         </div>
                       </BlurFadeIn>
                       <BlurFadeIn delay={0.2}>
                         <div>
                           <label htmlFor="message" className="block text-[12px] font-badge text-[#4A4A4A]/70 mb-1.5">Message</label>
-                          <textarea id="message" rows={5} required className="w-full rounded-[12px] border-2 border-[#F09EBA]/50 bg-[#FFFDF5] px-4 py-3 text-[14px] text-[#4A4A4A] outline-none transition-all resize-none focus:border-[#F02D8A] focus:shadow-[3px_3px_0_rgba(239,123,91,0.15)]" placeholder="Tell us what's on your heart..." />
+                          <textarea id="message" rows={5} required className="w-full rounded-[12px] border-2 border-[#F09EBA]/50 bg-[#FFFDF5] px-4 py-3 text-[14px] text-[#4A4A4A] outline-none transition-all resize-none focus:border-[#F02D8A] focus:shadow-[3px_3px_0_rgba(239,123,91,0.15)] border-glow focus-ring" placeholder="Tell us what's on your heart..." />
                         </div>
                       </BlurFadeIn>
                       <BlurFadeIn delay={0.25}>
                         <motion.button
                           type="submit"
-                          className="w-full font-btn flex items-center justify-center gap-2 rounded-full bg-[#F02D8A] border-2 border-[#F09EBA] py-4 text-[15px] text-white shadow-[4px_4px_0_#F09EBA]"
+                          className="w-full font-btn flex items-center justify-center gap-2 rounded-full bg-[#F02D8A] border-2 border-[#F09EBA] py-4 text-[15px] text-white shadow-[4px_4px_0_#F09EBA] btn-shimmer focus-ring"
                           whileHover={{ y: -3 }}
                           whileTap={{ scale: 0.98, y: 0 }}
                           transition={SPRING_BOUNCY}
@@ -137,7 +137,7 @@ export default function ContactPage() {
                   <BlurFadeIn key={ct.title} delay={i * 0.1}>
                     <TiltCard intensity={6}>
                       <motion.div
-                        className="relative rounded-[16px] border-2 border-[#F09EBA]/40 p-5 hover:border-[#F09EBA] hover:shadow-[4px_4px_0_#F09EBA] transition-all duration-200 cursor-default"
+                        className="relative rounded-[16px] border-2 border-[#F09EBA]/40 p-5 hover:border-[#F09EBA] hover:shadow-[4px_4px_0_#F09EBA] transition-all duration-200 cursor-default border-glow"
                         style={{ backgroundColor: ct.bg }}
                         whileHover={{ y: -4, rotate: 1 }}
                         transition={SPRING_BOUNCY}
@@ -153,7 +153,7 @@ export default function ContactPage() {
                           </motion.div>
                           <div>
                             <h4 className="text-[14px] font-subheading text-[#4A4A4A] mb-0.5">{ct.title}</h4>
-                            <a href={`mailto:${ct.email}`} className="text-[13px] font-medium hover:underline" style={{ color: ct.color }}>{ct.email}</a>
+                            <a href={`mailto:${ct.email}`} className="text-[13px] font-medium link-underline" style={{ color: ct.color }}>{ct.email}</a>
                           </div>
                           <motion.span
                             className="ml-auto text-lg"
@@ -178,7 +178,7 @@ export default function ContactPage() {
                           href={s.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-[#F09EBA]/50 bg-white text-[#4A4A4A]/65 hover:border-[#F09EBA] transition-all duration-150"
+                          className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-[#F09EBA]/50 bg-white text-[#4A4A4A]/65 hover:border-[#F09EBA] transition-all duration-150 focus-ring icon-hover-bounce"
                           aria-label={s.label}
                           initial={{ opacity: 0, scale: 0.7 }}
                           animate={{ opacity: 1, scale: 1 }}

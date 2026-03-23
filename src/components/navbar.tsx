@@ -76,7 +76,7 @@ export function Navbar() {
         <div className="mx-auto flex h-[68px] max-w-7xl items-center justify-between px-5 lg:px-8">
           {/* Logo */}
           <Link href="/" className="flex items-center group">
-            <div className="relative h-9 w-28 sm:h-10 sm:w-32 transition-transform duration-150 ease-out group-hover:scale-105">
+            <div className="relative h-9 w-28 sm:h-10 sm:w-32 transition-transform duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:scale-105 group-hover:rotate-[-1deg]">
               <Image
                 src="/SK_Logo_FN.png"
                 alt="Selah Kids"
@@ -94,7 +94,7 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 aria-current={pathname === link.href ? "page" : undefined}
-                className={`font-nav rounded-full px-3.5 py-2 text-[13px] transition-all duration-150 ${
+                className={`font-nav rounded-full px-3.5 py-2 text-[13px] transition-all duration-200 link-underline focus-ring ${
                   pathname === link.href
                     ? "text-[#F02D8A] bg-[#F02D8A]/8"
                     : "text-[#4A4A4A]/75 hover:text-[#4A4A4A] hover:bg-[#F09EBA]/8"
@@ -136,7 +136,7 @@ export function Navbar() {
 
             <Link
               href="/donate"
-              className="font-btn flex items-center gap-2 rounded-full bg-[#F02D8A] border-2 border-[#F09EBA] px-5 py-2 text-[13px] text-white shadow-[2px_2px_0_#F09EBA] transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_#F09EBA]"
+              className="font-btn flex items-center gap-2 rounded-full bg-[#F02D8A] border-2 border-[#F09EBA] px-5 py-2 text-[13px] text-white shadow-[2px_2px_0_#F09EBA] transition-all duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-1 hover:shadow-[4px_4px_0_#F09EBA] hover:scale-[1.03] active:translate-y-0 active:shadow-[2px_2px_0_#F09EBA] active:scale-[0.97] btn-shimmer focus-ring"
             >
               <Heart className="h-3.5 w-3.5" fill="currentColor" />
               {t("nav.donate")}
@@ -156,7 +156,9 @@ export function Navbar() {
 
       {/* Mobile drawer */}
       {open && (
-        <div className="fixed inset-0 z-[60] bg-[#FFFDF5] xl:hidden" role="dialog" aria-modal="true" aria-label="Navigation menu">
+        <>
+          <div className="fixed inset-0 z-[59] bg-black/20 backdrop-blur-sm xl:hidden animate-[fade-in_0.2s_ease]" onClick={() => setOpen(false)} />
+          <div className="fixed inset-y-0 right-0 z-[60] w-full max-w-sm bg-[#FFFDF5] xl:hidden shadow-2xl animate-[slide-in-right_0.3s_cubic-bezier(0.16,1,0.3,1)]" role="dialog" aria-modal="true" aria-label="Navigation menu">
           <div className="flex h-full flex-col">
             <div className="flex items-center justify-between px-5 py-4">
               <Link href="/" className="flex items-center" onClick={() => setOpen(false)}>
@@ -178,7 +180,7 @@ export function Navbar() {
               </button>
             </div>
 
-            <nav className="flex flex-1 flex-col items-center justify-center gap-1 px-8">
+            <nav className="flex flex-1 flex-col items-center justify-center gap-1 px-8 stagger-in">
               {primaryLinks.map((link) => (
                 <Link
                   key={link.href}
@@ -246,6 +248,7 @@ export function Navbar() {
             </nav>
           </div>
         </div>
+        </>
       )}
     </>
   );

@@ -48,12 +48,12 @@ export default function ResourcesPage() {
               <StaggerItem key={r.title}>
                 <TiltCard intensity={5}>
                   <motion.div
-                    className="group cursor-pointer relative rounded-[20px] border-3 border-[#F09EBA] p-7 shadow-[5px_5px_0_#F09EBA]"
+                    className="group cursor-pointer relative rounded-[20px] border-3 border-[#F09EBA] p-7 shadow-[5px_5px_0_#F09EBA] border-glow"
                     style={{ backgroundColor: r.bg, transform: `rotate(${r.rotate})` }}
                     whileHover={{ y: -10, rotate: 0, scale: 1.02, transition: SPRING_BOUNCY }}
                   >
-                    <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-12 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(2deg)" }} />
-                    <motion.span className="absolute top-4 right-4 text-2xl z-10" whileHover={{ scale: 1.3, rotate: 15 }} transition={SPRING_BOUNCY}><r.emoji className="h-5 w-5" /></motion.span>
+                    <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-12 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(2deg)" }} />
+                    <motion.span className="absolute top-4 right-4 text-2xl z-10 icon-hover-bounce" whileHover={{ scale: 1.3, rotate: 15 }} transition={SPRING_BOUNCY}><r.emoji className="h-5 w-5" /></motion.span>
 
                     <div className="flex items-start justify-between mb-5">
                       <motion.div
@@ -69,7 +69,7 @@ export default function ResourcesPage() {
                     <h3 className="text-[16px] font-subheading text-[#4A4A4A] mb-1.5">{r.title}</h3>
                     <p className="text-[14px] text-[#8B7E74] leading-[1.75] font-medium mb-5">{r.desc}</p>
                     <motion.button
-                      className="font-btn flex items-center gap-2 rounded-full border-2 px-5 py-2.5 text-[13px] transition-all duration-150 group-hover:shadow-[3px_3px_0_#F09EBA]"
+                      className="font-btn flex items-center gap-2 rounded-full border-2 px-5 py-2.5 text-[13px] transition-all duration-150 group-hover:shadow-[3px_3px_0_#F09EBA] focus-ring"
                       style={{ borderColor: `${r.color}40`, color: r.color }}
                       whileHover={{ y: -2 }}
                       whileTap={{ scale: 0.96 }}
@@ -86,8 +86,8 @@ export default function ResourcesPage() {
 
           <ScrollScale className="mt-16">
             <ParallaxLayer speed={0.05}>
-              <div className="relative rounded-[20px] border-3 border-[#F09EBA] p-7 text-center bg-[#FCEEF5] shadow-[5px_5px_0_#F09EBA]" style={{ transform: "rotate(-0.5deg)" }}>
-                <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-16 h-5 bg-[#FFD700]/35 rounded-sm z-10" style={{ transform: "rotate(1deg)" }} />
+              <div className="group relative rounded-[20px] border-3 border-[#F09EBA] p-7 text-center bg-[#FCEEF5] shadow-[5px_5px_0_#F09EBA] border-glow" style={{ transform: "rotate(-0.5deg)" }}>
+                <motion.div className="absolute -top-2 left-1/2 -translate-x-1/2 w-16 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(1deg)" }} />
                 <motion.span
                   className="text-3xl block mb-3"
                   animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.15, 1] }}
