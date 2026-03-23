@@ -112,7 +112,7 @@ export function Navbar() {
                 onClick={() => setLang("en")}
                 role="radio"
                 aria-checked={lang === "en"}
-                className={`rounded-full px-3 py-1.5 text-[12px] font-bold transition-all duration-150 ${
+                className={`font-nav rounded-full px-3 py-1.5 text-[12px] transition-all duration-150 ${
                   lang === "en"
                     ? "bg-white text-[#4A4A4A] shadow-sm"
                     : "text-[#4A4A4A]/70 hover:text-[#4A4A4A]/90"
@@ -124,7 +124,7 @@ export function Navbar() {
                 onClick={() => setLang("es")}
                 role="radio"
                 aria-checked={lang === "es"}
-                className={`rounded-full px-3 py-1.5 text-[12px] font-bold transition-all duration-150 ${
+                className={`font-nav rounded-full px-3 py-1.5 text-[12px] transition-all duration-150 ${
                   lang === "es"
                     ? "bg-white text-[#4A4A4A] shadow-sm"
                     : "text-[#4A4A4A]/70 hover:text-[#4A4A4A]/90"
@@ -204,7 +204,7 @@ export function Navbar() {
                 <div className="flex items-center rounded-full bg-[#F09EBA]/8 p-0.5">
                   <button
                     onClick={() => setLang("en")}
-                    className={`rounded-full px-4 py-2 text-[14px] font-bold transition-all duration-150 ${
+                    className={`font-nav rounded-full px-4 py-2 text-[14px] transition-all duration-150 ${
                       lang === "en"
                         ? "bg-white text-[#4A4A4A] shadow-sm"
                         : "text-[#4A4A4A]/70"
@@ -214,7 +214,7 @@ export function Navbar() {
                   </button>
                   <button
                     onClick={() => setLang("es")}
-                    className={`rounded-full px-4 py-2 text-[14px] font-bold transition-all duration-150 ${
+                    className={`font-nav rounded-full px-4 py-2 text-[14px] transition-all duration-150 ${
                       lang === "es"
                         ? "bg-white text-[#4A4A4A] shadow-sm"
                         : "text-[#4A4A4A]/70"

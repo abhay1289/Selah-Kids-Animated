@@ -19,7 +19,7 @@ const translations: Record<string, Record<Lang, string>> = {
   "nav.parents": { en: "For Parents", es: "Para Padres" },
   "nav.resources": { en: "Resources", es: "Recursos" },
   "nav.blog": { en: "Blog", es: "Blog" },
-  "nav.donate": { en: "Donate", es: "Donar" },
+  "nav.donate": { en: "Donor", es: "Donante" },
   "nav.subscribe": { en: "Subscribe on YouTube", es: "Suscribirse en YouTube" },
 
   /* ── Footer ── */
