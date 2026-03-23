@@ -59,7 +59,7 @@ export function Footer() {
               </div>
               <span className="font-heading text-[16px] text-[#4A4A4A] tracking-tight">Selah Kids</span>
             </div>
-            <p className="text-[13px] text-[#4A4A4A] leading-relaxed max-w-[240px]">{t("footer.desc")}</p>
+            <p className="font-nav text-[13px] text-[#4A4A4A] leading-relaxed max-w-[240px]">{t("footer.desc")}</p>
             <div className="flex items-center gap-2 mt-5">
               {socials.map((s) => (
                 <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
@@ -76,7 +76,7 @@ export function Footer() {
             <h4 className="text-[12px] font-badge text-[#F7941D] mb-4">{t("footer.explore")}</h4>
             <nav aria-label="Explore" className="flex flex-col gap-2.5">
               {explore.map((l) => (
-                <Link key={l.href} href={l.href} className="text-[13px] font-medium text-[#4A4A4A] hover:text-[#F02D8A] transition-all duration-200 py-0.5 link-underline hover:translate-x-1">
+                <Link key={l.href} href={l.href} className="font-nav text-[13px] text-[#4A4A4A] hover:text-[#F02D8A] transition-all duration-200 py-0.5 link-underline hover:translate-x-1">
                   {t(l.labelKey)}
                 </Link>
               ))}
@@ -88,7 +88,7 @@ export function Footer() {
             <h4 className="text-[12px] font-badge text-[#00B5B8] mb-4">{t("footer.resources")}</h4>
             <nav aria-label="Resources" className="flex flex-col gap-2.5">
               {resources.map((l) => (
-                <Link key={l.href} href={l.href} className="text-[13px] font-medium text-[#4A4A4A] hover:text-[#F02D8A] transition-all duration-200 py-0.5 link-underline hover:translate-x-1">
+                <Link key={l.href} href={l.href} className="font-nav text-[13px] text-[#4A4A4A] hover:text-[#F02D8A] transition-all duration-200 py-0.5 link-underline hover:translate-x-1">
                   {t(l.labelKey)}
                 </Link>
               ))}
@@ -98,24 +98,24 @@ export function Footer() {
           {/* Connect */}
           <div>
             <h4 className="text-[12px] font-badge text-[#7B3FA0] mb-4">{t("footer.connect")}</h4>
-            <a href="mailto:info.selahkids@gmail.com" className="text-[13px] font-medium text-[#4A4A4A] hover:text-[#F02D8A] transition-colors duration-150 block mb-3">
+            <a href="mailto:info.selahkids@gmail.com" className="font-nav text-[13px] text-[#4A4A4A] hover:text-[#F02D8A] transition-colors duration-150 block mb-3">
               info.selahkids@gmail.com
             </a>
             <div className="flex flex-col gap-2">
-              <a href="https://www.youtube.com/@SelahKidsWorship" target="_blank" rel="noopener noreferrer" className="text-[13px] font-medium text-[#4A4A4A] hover:text-[#F02D8A] transition-colors duration-150">YouTube (English)</a>
-              <a href="https://www.youtube.com/@SelahKidsEspa%C3%B1ol" target="_blank" rel="noopener noreferrer" className="text-[13px] font-medium text-[#4A4A4A] hover:text-[#F02D8A] transition-colors duration-150">YouTube (Espanol)</a>
+              <a href="https://www.youtube.com/@SelahKidsWorship" target="_blank" rel="noopener noreferrer" className="font-nav text-[13px] text-[#4A4A4A] hover:text-[#F02D8A] transition-colors duration-150">YouTube (English)</a>
+              <a href="https://www.youtube.com/@SelahKidsEspa%C3%B1ol" target="_blank" rel="noopener noreferrer" className="font-nav text-[13px] text-[#4A4A4A] hover:text-[#F02D8A] transition-colors duration-150">YouTube (Espanol)</a>
             </div>
           </div>
         </div>
 
         <div className="mt-14 pt-5 border-t border-[#F09EBA]/30 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <p className="text-[11px] text-[#4A4A4A] font-medium">&copy; {new Date().getFullYear()} Selah Kids. {t("footer.rights")}</p>
+          <p className="font-nav text-[11px] text-[#4A4A4A]">&copy; {new Date().getFullYear()} Selah Kids. {t("footer.rights")}</p>
           <div className="flex items-center gap-4">
-            <Link href="/press" className="text-[11px] text-[#4A4A4A] font-medium hover:text-[#F02D8A] transition-colors link-underline">{t("footer.privacy")}</Link>
-            <Link href="/press" className="text-[11px] text-[#4A4A4A] font-medium hover:text-[#F02D8A] transition-colors link-underline">{t("footer.terms")}</Link>
-            <Link href="/parents" className="text-[11px] text-[#4A4A4A] font-medium hover:text-[#F02D8A] transition-colors link-underline">{t("footer.coppa")}</Link>
+            <Link href="/press" className="font-nav text-[11px] text-[#4A4A4A] hover:text-[#F02D8A] transition-colors link-underline">{t("footer.privacy")}</Link>
+            <Link href="/press" className="font-nav text-[11px] text-[#4A4A4A] hover:text-[#F02D8A] transition-colors link-underline">{t("footer.terms")}</Link>
+            <Link href="/parents" className="font-nav text-[11px] text-[#4A4A4A] hover:text-[#F02D8A] transition-colors link-underline">{t("footer.coppa")}</Link>
           </div>
-          <p className="text-[11px] text-[#4A4A4A] font-medium flex items-center gap-1">
+          <p className="font-nav text-[11px] text-[#4A4A4A] flex items-center gap-1">
             {t("footer.made")} <Heart className="h-3 w-3 text-[#F02D8A] heartbeat" fill="currentColor" /> {t("footer.families")}
           </p>
         </div>
