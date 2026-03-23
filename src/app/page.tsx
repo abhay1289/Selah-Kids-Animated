@@ -1739,7 +1739,7 @@ function CTASection({ onCtaClick }: { onCtaClick?: (e: React.MouseEvent) => void
                     onClick={onCtaClick}
                     className="btn-playful btn-shimmer font-btn anim-pulse-glow inline-flex items-center gap-3 rounded-full border-2 px-7 py-3.5 text-[15px] tracking-wide bg-[#F02D8A] text-white border-[#F09EBA] shadow-[4px_4px_0_#F09EBA] hover:shadow-[6px_6px_0_#F09EBA]"
                   >
-                    <Youtube className="h-5 w-5 text-red-400" aria-hidden="true" />
+                    <Youtube className="h-5 w-5 text-white" aria-hidden="true" />
                     {t("home.cta.btn")} <ArrowRight className="h-4 w-4 arrow-slide" aria-hidden="true" />
                   </a>
                 </motion.div>
