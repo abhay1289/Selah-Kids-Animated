@@ -1098,12 +1098,22 @@ function SceneShowcase() {
 
   return (
     <section ref={containerRef} className="relative py-16 sm:py-24 bg-[#FFFDF5] overflow-hidden paper-texture">
+      {/* Ambient section particles */}
+      {!reduced && (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="section-mesh w-[300px] h-[300px] top-[10%] left-[-5%]" style={{ background: "rgba(240,45,138,0.15)", "--mesh-dur": "10s" } as React.CSSProperties} />
+          <div className="section-mesh w-[250px] h-[250px] bottom-[5%] right-[-3%]" style={{ background: "rgba(74,111,204,0.12)", "--mesh-dur": "12s", animationDelay: "-4s" } as React.CSSProperties} />
+          <div className="section-particle w-2 h-2 bg-[#F02D8A]" style={{ left: "8%", top: "20%", "--amb-dur": "8s", "--amb-o": "0.08" } as React.CSSProperties} />
+          <div className="section-particle w-1.5 h-1.5 bg-[#FFD700]" style={{ left: "85%", top: "40%", "--amb-dur": "11s", "--amb-o": "0.06", animationDelay: "-3s" } as React.CSSProperties} />
+          <div className="section-particle w-2.5 h-2.5 bg-[#4A6FCC]" style={{ left: "45%", top: "75%", "--amb-dur": "9s", "--amb-o": "0.05", animationDelay: "-6s" } as React.CSSProperties} />
+        </div>
+      )}
       <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           {/* Cinematic video card */}
           <Reveal direction="left" className="flex-1 w-full">
             <CinematicReveal>
-              <div className="relative rounded-[20px] overflow-hidden border-3 border-[#F09EBA] shadow-[6px_6px_0_#F09EBA] group cursor-pointer">
+              <div className="relative rounded-[20px] overflow-hidden border-3 border-[#F09EBA] shadow-[6px_6px_0_#F09EBA] card-shadow-glow group cursor-pointer">
                 <div className="relative aspect-video bg-[#FFF0E8]">
                   <Image src={SCENES.worship} alt="The Good News - Worship scene" width={1920} height={1080} loading="lazy" sizes="(max-width: 1024px) 100vw, 50vw" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -1198,6 +1208,7 @@ function SceneShowcase() {
    4. WHY SELAH — Storytelling pillars with cinematic images
    ════════════════════════════════════════════════════════════ */
 function WhySection() {
+  const reduced = useReducedMotion();
   const pillars = [
     {
       num: "01", badge: "Scripture First", title: "Every lyric rooted in God\u2019s word",
@@ -1219,6 +1230,16 @@ function WhySection() {
   return (
     <section className="relative py-16 sm:py-24 bg-[#FFF5F0] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none striped-bg" />
+      {!reduced && (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="section-mesh w-[350px] h-[350px] top-[20%] right-[-8%]" style={{ background: "rgba(247,148,29,0.12)", "--mesh-dur": "14s" } as React.CSSProperties} />
+          <div className="section-sparkle" style={{ left: "12%", top: "15%", "--sparkle-color": "#FFD700", "--sparkle-dur": "6s" } as React.CSSProperties} />
+          <div className="section-sparkle" style={{ left: "88%", top: "60%", "--sparkle-color": "#F02D8A", "--sparkle-dur": "8s", animationDelay: "-3s" } as React.CSSProperties} />
+          <div className="section-sparkle" style={{ left: "50%", top: "85%", "--sparkle-color": "#4A6FCC", "--sparkle-dur": "7s", animationDelay: "-5s" } as React.CSSProperties} />
+          <div className="section-particle w-2 h-2 bg-[#2DB84B]" style={{ left: "5%", top: "50%", "--amb-dur": "12s", "--amb-o": "0.07" } as React.CSSProperties} />
+          <div className="section-particle w-1.5 h-1.5 bg-[#F7941D]" style={{ left: "92%", top: "30%", "--amb-dur": "10s", "--amb-o": "0.06", animationDelay: "-4s" } as React.CSSProperties} />
+        </div>
+      )}
       <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">
         <Reveal className="text-center mb-10">
           <h2 className="font-hero-section text-[clamp(2.2rem,5.5vw,4rem)]">
@@ -1278,7 +1299,7 @@ function WhySection() {
                       whileHover={{ rotate: 15, scale: 1.1 }}
                       transition={SPRING_BOUNCY}
                     >
-                      <p.icon className="h-5 w-5" style={{ color: p.color }} aria-hidden="true" />
+                      <p.icon className="h-5 w-5 icon-idle" style={{ color: p.color }} aria-hidden="true" />
                     </motion.div>
                     <span className="text-[12px] font-badge" style={{ color: p.color }}>{p.badge}</span>
                   </div>
@@ -1298,6 +1319,7 @@ function WhySection() {
    5. CHARACTERS — Interactive scrapbook + cinematic entrance
    ════════════════════════════════════════════════════════════ */
 function CharactersSection() {
+  const reduced = useReducedMotion();
   const chars = [
     { name: "Andy", role: "The Brave Leader", desc: "Leads every adventure with courage and unstoppable faith. Always first to step up!", image: CHARACTERS.andy, color: "#F7941D", bg: "#FFF5E6", rotate: "-3deg", emoji: Crown, speech: "Be brave!", reaction: "jump" as const },
     { name: "Libni", role: "The Joyful Singer", desc: "Her voice lights up every song. She finds the bright side in everything!", image: CHARACTERS.libni, color: "#F02D8A", bg: "#FFF0F6", rotate: "2deg", emoji: Music, speech: "Sing with me!", reaction: "wave" as const },
@@ -1306,6 +1328,16 @@ function CharactersSection() {
 
   return (
     <section className="relative py-16 sm:py-24 bg-[#FFFDF5] overflow-hidden paper-texture">
+      {!reduced && (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="section-mesh w-[280px] h-[280px] top-[5%] left-[50%] -translate-x-1/2" style={{ background: "rgba(255,215,0,0.10)", "--mesh-dur": "9s" } as React.CSSProperties} />
+          <div className="section-sparkle" style={{ left: "20%", top: "10%", "--sparkle-color": "#F7941D", "--sparkle-dur": "5s" } as React.CSSProperties} />
+          <div className="section-sparkle" style={{ left: "75%", top: "80%", "--sparkle-color": "#F02D8A", "--sparkle-dur": "7s", animationDelay: "-2s" } as React.CSSProperties} />
+          <div className="section-sparkle" style={{ left: "40%", top: "90%", "--sparkle-color": "#4A6FCC", "--sparkle-dur": "6s", animationDelay: "-4s" } as React.CSSProperties} />
+          <div className="section-particle w-2 h-2 bg-[#F02D8A]" style={{ left: "90%", top: "15%", "--amb-dur": "11s", "--amb-o": "0.07" } as React.CSSProperties} />
+          <div className="section-particle w-2 h-2 bg-[#FFD700]" style={{ left: "3%", top: "70%", "--amb-dur": "9s", "--amb-o": "0.06", animationDelay: "-5s" } as React.CSSProperties} />
+        </div>
+      )}
       <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">
         <Reveal className="text-center mb-12">
           <h2 className="font-hero-section text-[clamp(2.2rem,5.5vw,4rem)]">
@@ -1323,7 +1355,7 @@ function CharactersSection() {
           {chars.map((c, i) => (
             <StaggerItem key={c.name}>
               <motion.div
-                className="relative rounded-[20px] p-6 sm:p-8 overflow-hidden border-3 border-[#F09EBA] shadow-[5px_5px_0_#F09EBA] cursor-default group"
+                className="relative rounded-[20px] p-6 sm:p-8 overflow-hidden border-3 border-[#F09EBA] shadow-[5px_5px_0_#F09EBA] card-shadow-glow cursor-default group"
                 style={{ backgroundColor: c.bg, transform: `rotate(${c.rotate})` }}
                 whileHover={{ y: -12, rotate: 0, scale: 1.03, transition: SPRING_BOUNCY }}
               >
@@ -1423,6 +1455,7 @@ function ImmersiveScene() {
    7. VIDEO GALLERY — Cinematic cards
    ════════════════════════════════════════════════════════════ */
 function VideoGallery() {
+  const reduced = useReducedMotion();
   const videos = [
     { title: "The Good News", desc: "Sharing God\u2019s love with the world", thumb: SCENES.worship, tag: "Newest", tagColor: "#FFD700", tagIcon: Zap },
     { title: "Jesus Me Ama", desc: "A beautiful Spanish worship song", thumb: SCENES.group, tag: "Espanol", tagColor: "#00B5B8", tagIcon: Globe },
@@ -1435,6 +1468,14 @@ function VideoGallery() {
         <Image src={SCENES.landscape} alt="" fill className="object-cover" sizes="100vw" />
       </div>
       <div className="absolute inset-0 z-[1] pointer-events-none film-grain opacity-[0.02]" />
+      {!reduced && (
+        <div className="absolute inset-0 z-[2] pointer-events-none overflow-hidden">
+          <div className="section-mesh w-[400px] h-[400px] top-[-10%] right-[-10%]" style={{ background: "rgba(240,45,138,0.08)", "--mesh-dur": "11s" } as React.CSSProperties} />
+          <div className="section-mesh w-[300px] h-[300px] bottom-[-5%] left-[-5%]" style={{ background: "rgba(255,215,0,0.07)", "--mesh-dur": "13s", animationDelay: "-5s" } as React.CSSProperties} />
+          <div className="section-particle w-2 h-2 bg-[#E8192C]" style={{ left: "10%", top: "25%", "--amb-dur": "10s", "--amb-o": "0.08" } as React.CSSProperties} />
+          <div className="section-particle w-1.5 h-1.5 bg-[#FFD700]" style={{ left: "80%", top: "70%", "--amb-dur": "8s", "--amb-o": "0.07", animationDelay: "-3s" } as React.CSSProperties} />
+        </div>
+      )}
 
       <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
@@ -1491,6 +1532,7 @@ function VideoGallery() {
    8. TRUST — Parent approval
    ════════════════════════════════════════════════════════════ */
 function TrustSection() {
+  const reduced = useReducedMotion();
   const items = [
     { icon: Shield, title: "Ad-Free & Safe", desc: "No ads, no distractions. Just wholesome content you can trust.", color: "#4A6FCC", emoji: ShieldCheck },
     { icon: BookOpen, title: "Scripture-Based", desc: "Every lyric reviewed for biblical accuracy and integrity.", color: "#2DB84B", emoji: BookOpen },
@@ -1500,6 +1542,14 @@ function TrustSection() {
 
   return (
     <section className="relative py-16 sm:py-24 bg-[#FFFDF5] overflow-hidden paper-texture">
+      {!reduced && (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="section-mesh w-[320px] h-[320px] top-[15%] left-[-8%]" style={{ background: "rgba(45,184,75,0.10)", "--mesh-dur": "10s" } as React.CSSProperties} />
+          <div className="section-sparkle" style={{ left: "85%", top: "20%", "--sparkle-color": "#2DB84B", "--sparkle-dur": "6s" } as React.CSSProperties} />
+          <div className="section-sparkle" style={{ left: "15%", top: "75%", "--sparkle-color": "#7B3FA0", "--sparkle-dur": "8s", animationDelay: "-3s" } as React.CSSProperties} />
+          <div className="section-particle w-2 h-2 bg-[#4A6FCC]" style={{ left: "92%", top: "50%", "--amb-dur": "9s", "--amb-o": "0.06" } as React.CSSProperties} />
+        </div>
+      )}
       <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <Reveal>
@@ -1525,12 +1575,12 @@ function TrustSection() {
             {items.map((item) => (
               <StaggerItem key={item.title}>
                 <motion.div
-                  className="rounded-[16px] bg-white border-2 border-[#F09EBA]/50 p-6 hover:border-[#F09EBA] hover:shadow-[4px_4px_0_#F09EBA] transition-all duration-200 group cursor-default"
+                  className="rounded-[16px] bg-white border-2 border-[#F09EBA]/50 p-6 hover:border-[#F09EBA] card-shadow-glow transition-all duration-200 group cursor-default"
                   whileHover={{ y: -6, rotate: 1, transition: SPRING_BOUNCY }}
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <motion.div className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-[#F09EBA]/50 group-hover:border-[#F09EBA] transition-colors" whileHover={{ rotate: 15, scale: 1.15 }} transition={SPRING_BOUNCY}>
-                      <item.icon className="h-5 w-5" style={{ color: item.color }} aria-hidden="true" />
+                    <motion.div className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-[#F09EBA]/50 border-animate group-hover:border-[#F09EBA] transition-colors" whileHover={{ rotate: 15, scale: 1.15 }} transition={SPRING_BOUNCY}>
+                      <item.icon className="h-5 w-5 icon-idle" style={{ color: item.color }} aria-hidden="true" />
                     </motion.div>
                     <item.emoji className="h-5 w-5" style={{ color: item.color }} aria-hidden="true" />
                   </div>
@@ -1550,6 +1600,7 @@ function TrustSection() {
    9. TESTIMONIALS — Stacked notes
    ════════════════════════════════════════════════════════════ */
 function Testimonials() {
+  const reduced = useReducedMotion();
   const items = [
     { text: "My kids sing these songs ALL day long. Finally, worship music they actually love!", author: "Sarah M.", role: "Mom of 3", rotate: "-2deg", bg: "#FFF5E6" },
     { text: "The animation quality is incredible. My kids are learning scripture without even realizing it.", author: "David R.", role: "Dad of 2", rotate: "1.5deg", bg: "#EAFAF0" },
@@ -1560,6 +1611,14 @@ function Testimonials() {
   return (
     <section className="relative py-16 sm:py-24 bg-[#FFF5F0] overflow-hidden">
       <div className="absolute inset-0 pointer-events-none striped-bg" />
+      {!reduced && (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="section-mesh w-[250px] h-[250px] top-[10%] right-[5%]" style={{ background: "rgba(247,148,29,0.08)", "--mesh-dur": "11s" } as React.CSSProperties} />
+          <div className="section-sparkle" style={{ left: "5%", top: "30%", "--sparkle-color": "#FFD700", "--sparkle-dur": "5s" } as React.CSSProperties} />
+          <div className="section-sparkle" style={{ left: "95%", top: "70%", "--sparkle-color": "#F02D8A", "--sparkle-dur": "7s", animationDelay: "-2s" } as React.CSSProperties} />
+          <div className="section-particle w-1.5 h-1.5 bg-[#2DB84B]" style={{ left: "50%", top: "90%", "--amb-dur": "10s", "--amb-o": "0.06" } as React.CSSProperties} />
+        </div>
+      )}
       <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">
         <Reveal className="text-center mb-10">
           <h2 className="font-hero-section text-[clamp(2rem,5vw,3.5rem)]">
@@ -1577,7 +1636,7 @@ function Testimonials() {
           {items.map((t, i) => (
             <StaggerItem key={i}>
               <motion.div
-                className="relative rounded-[16px] border-2 border-[#F09EBA] p-6 h-full flex flex-col justify-between shadow-[4px_4px_0_#F09EBA] cursor-default"
+                className="relative rounded-[16px] border-2 border-[#F09EBA] p-6 h-full flex flex-col justify-between shadow-[4px_4px_0_#F09EBA] card-shadow-glow cursor-default"
                 style={{ backgroundColor: t.bg, transform: `rotate(${t.rotate})` }}
                 whileHover={{ rotate: 0, y: -8, scale: 1.03, transition: SPRING_BOUNCY }}
               >
