@@ -41,6 +41,7 @@ import {
   Baby,
 } from "lucide-react";
 import { WaveDivider, useParticleBurst, ParticleBurstLayer } from "@/components/storybook-effects";
+import { useLanguage } from "@/context/language";
 
 const StarRain = dynamic(() => import("@/components/storybook-effects").then(m => ({ default: m.StarRain })), { ssr: false });
 
@@ -483,6 +484,7 @@ function HeroSection() {
   const spotlightRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const [ready, setReady] = useState(false);
+  const { t } = useLanguage();
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
 
   const bgY = useTransform(scrollYProgress, [0, 1], [0, 80]);
@@ -739,7 +741,7 @@ function HeroSection() {
               animate={ready ? { opacity: 1, y: 0, scale: 1 } : {}}
               transition={{ delay: 0.05, duration: 0.5, ease: EASE }}
               whileHover={{ scale: 1.05, y: -2 }}
-              className="mb-6 inline-flex items-center gap-2 rounded-full border-2 border-dashed border-[#FF6B9D]/40 bg-white/60 backdrop-blur-sm px-5 py-2 text-[11px] font-badge text-[#FF6B9D] cursor-default"
+              className="mb-6 inline-flex items-center gap-2 rounded-full border-2 border-[#F02D8A]/20 bg-gradient-to-r from-[#FFF0F5] to-[#FFEBD9] backdrop-blur-sm px-5 py-2.5 text-[11px] font-badge text-[#F02D8A] cursor-default shadow-[0_2px_12px_rgba(240,45,138,0.1)]"
             >
               <motion.span
                 animate={reduced ? {} : { rotate: [0, 15, -15, 0], scale: [1, 1.2, 0.9, 1] }}
@@ -747,7 +749,7 @@ function HeroSection() {
               >
                 <Sparkles className="h-3.5 w-3.5" />
               </motion.span>
-              Faith-Filled Kids Music
+              {t("home.badge")}
             </motion.div>
 
             {/* Headline: 2 lines — "Where Faith" / "meets Fun!" */}
@@ -768,12 +770,12 @@ function HeroSection() {
                   transition={{ delay: 0.15, duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
                   whileHover={{ scale: 1.08, rotate: -3, transition: { duration: 0.2 } }}
                 >
-                  Where
+                  {t("home.hero.line1").split(" ")[0]}&nbsp;
                 </motion.span>
-                <SplitLetters text="Faith" color="#FF6B9D" delay={0.3} ready={ready} />
+                <SplitLetters text={t("home.hero.line1").split(" ").slice(1).join(" ")} color="#FF6B9D" delay={0.3} ready={ready} />
               </motion.span>
 
-              {/* Line 2: "meets Fun!" — slight downward tilt */}
+              {/* Line 2 */}
               <motion.span
                 className="block"
                 style={{ transform: "rotate(1.5deg)" }}
@@ -789,9 +791,9 @@ function HeroSection() {
                   transition={{ delay: 0.55, duration: 0.6, ease: [0.34, 1.56, 0.64, 1] }}
                   whileHover={{ scale: 1.08, rotate: 3, transition: { duration: 0.2 } }}
                 >
-                  meets
+                  {t("home.hero.line2").split(" ")[0]}&nbsp;
                 </motion.span>
-                <SplitLetters text="Fun!" color="#E8890C" delay={0.65} ready={ready} />
+                <SplitLetters text={t("home.hero.line2").split(" ").slice(1).join(" ")} color="#E8890C" delay={0.65} ready={ready} />
               </motion.span>
             </h1>
 
@@ -824,14 +826,15 @@ function HeroSection() {
               transition={{ delay: 1.05, duration: 0.7, ease: EASE }}
               className="mt-4 text-[15px] sm:text-[17px] text-[#4A4A4A]/55 leading-[1.8] font-medium max-w-lg font-serif italic mx-auto lg:mx-0"
             >
-              Once upon a screen, three little friends discovered that God&apos;s word sounds even better as a{" "}
+              {t("home.hero.subtitle1")}{" "}
               <motion.span
                 className="text-[#4A6FCC] font-bold not-italic relative cursor-default"
                 whileHover={{ color: "#FF6B9D" }}
                 transition={{ duration: 0.3 }}
               >
-                cinema-quality adventure
-              </motion.span>.
+                {t("home.hero.subtitle2")}
+              </motion.span>{" "}
+              {t("home.hero.subtitle3")}.
             </motion.p>
             {/* 7. CTA buttons */}
             <motion.div
@@ -850,7 +853,7 @@ function HeroSection() {
                     <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
                       <Play className="h-4 w-4 ml-0.5" fill="currentColor" aria-hidden="true" />
                     </span>
-                    Watch the Story
+                    {t("home.hero.cta1")}
                   </Link>
                 </motion.div>
               </MagneticWrap>
@@ -864,7 +867,7 @@ function HeroSection() {
                     className="btn-playful font-btn inline-flex items-center gap-3 rounded-full bg-white/80 text-[#4A4A4A] border-3 border-[#F09EBA]/50 hover:border-[#F02D8A]/50 px-7 py-3.5 text-[15px] tracking-wide transition-all duration-150"
                   >
                     <Youtube className="h-5 w-5 text-[#E8192C]" aria-hidden="true" />
-                    Subscribe Free
+                    {t("home.hero.cta2")}
                   </a>
                 </motion.div>
               </MagneticWrap>
@@ -1092,6 +1095,7 @@ function TickerStrip() {
 function SceneShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+  const { t } = useLanguage();
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start end", "end start"] });
   const imageY = useTransform(scrollYProgress, [0, 0.5], [80, 0]);
   const imageScale = useTransform(scrollYProgress, [0, 0.3, 0.7], [0.82, 1, 1]);
@@ -1169,32 +1173,31 @@ function SceneShowcase() {
           {/* Right — Narrative text */}
           <Reveal delay={0.15} className="flex-1">
             <span className="inline-flex items-center gap-2 text-[12px] font-badge text-[#F02D8A] mb-4">
-              <Film className="h-3.5 w-3.5" /> Latest Episode
+              <Film className="h-3.5 w-3.5" /> {t("home.scene.badge")}
             </span>
             <h2 className="font-hero-section text-[clamp(2rem,5vw,3.5rem)]">
-              <span style={{ color: "#E8890C" }}>Watch</span> <span style={{ color: "#4A6FCC" }}>the</span><br />
+              <span style={{ color: "#E8890C" }}>{t("home.scene.title1")}</span> <span style={{ color: "#4A6FCC" }}>{t("home.scene.title2")}</span><br />
               <span className="relative" style={{ color: "#F02D8A" }}>
-                newest episode
+                {t("home.scene.highlight")}
                 <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#FFD700]/40 wavy-draw" viewBox="0 0 200 12" preserveAspectRatio="none">
                   <path d="M0,8 Q50,0 100,8 T200,8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
                 </svg>
               </span>
             </h2>
             <p className="mt-6 text-[16px] text-[#8B7E74] leading-[1.85] max-w-md font-medium">
-              One day, Andy whispered to Libni and Shiloh:{" "}
-              <em className="text-[#4A4A4A] font-extrabold not-italic">&ldquo;Let&apos;s tell everyone The Good News!&rdquo;</em>{" "}
-              And so the adventure began...
+              {t("home.scene.desc")}{" "}
+              <em className="text-[#4A4A4A] font-extrabold not-italic">&ldquo;{t("home.scene.quote")}&rdquo;</em>
             </p>
             <motion.span
               className="inline-block mt-3 text-[18px] font-handwritten text-[#F02D8A]/60 rotate-[-3deg]"
               animate={{ rotate: [-3, -1, -3] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
-              Their favorite episode! <Heart className="h-3 w-3 inline" />
+              {t("home.scene.note")} <Heart className="h-3 w-3 inline" />
             </motion.span>
             <div className="mt-8">
               <PlayfulButton href="/watch" variant="secondary" icon={<Play className="h-4 w-4" fill="currentColor" />}>
-                All Videos <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                {t("home.scene.btn")} <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
               </PlayfulButton>
             </div>
           </Reveal>
@@ -1209,20 +1212,21 @@ function SceneShowcase() {
    ════════════════════════════════════════════════════════════ */
 function WhySection() {
   const reduced = useReducedMotion();
+  const { t } = useLanguage();
   const pillars = [
     {
-      num: "01", badge: "Scripture First", title: "Every lyric rooted in God\u2019s word",
-      desc: "Our songs are built on real Bible verses, turning scripture into melodies your kids can\u2019t stop singing.",
+      num: "01", badge: t("home.why.p1.badge"), title: t("home.why.p1.title"),
+      desc: t("home.why.p1.desc"),
       icon: BookOpen, color: "#2DB84B", bg: "#EAFAF0", scene: SCENES.landscape, character: CHARACTERS.libni, handNote: "Real verses!",
     },
     {
-      num: "02", badge: "Cinema Quality", title: "Animation that rivals the big studios",
-      desc: "Every frame crafted by world-class animators. Vibrant 3D worlds that captivate tiny eyes and spark boundless imagination.",
+      num: "02", badge: t("home.why.p2.badge"), title: t("home.why.p2.title"),
+      desc: t("home.why.p2.desc"),
       icon: Palette, color: "#F7941D", bg: "#FFF5E6", scene: SCENES.vibrant, character: CHARACTERS.andy, handNote: "So beautiful!",
     },
     {
-      num: "03", badge: "Family Worship", title: "Songs the whole family will love",
-      desc: "Dance parties, car rides, bedtime worship — moments that bring everyone together. Music parents genuinely enjoy.",
+      num: "03", badge: t("home.why.p3.badge"), title: t("home.why.p3.title"),
+      desc: t("home.why.p3.desc"),
       icon: Heart, color: "#F02D8A", bg: "#FFF0F6", scene: SCENES.adventure, character: CHARACTERS.shiloh, handNote: "Family time!",
     },
   ];
@@ -1243,9 +1247,9 @@ function WhySection() {
       <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">
         <Reveal className="text-center mb-10">
           <h2 className="font-hero-section text-[clamp(2.2rem,5.5vw,4rem)]">
-            <span style={{ color: "#4A6FCC" }}>More</span> <span style={{ color: "#E8890C" }}>than</span> <span style={{ color: "#2DB84B" }}>just</span><br />
+            <span style={{ color: "#4A6FCC" }}>{t("home.why.title1")}</span> <span style={{ color: "#E8890C" }}>{t("home.why.title2")}</span> <span style={{ color: "#2DB84B" }}>{t("home.why.title3")}</span><br />
             <span className="relative inline-block" style={{ color: "#F02D8A" }}>
-              kids music
+              {t("home.why.highlight")}
               <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#F02D8A]/30 wavy-draw" viewBox="0 0 200 12" preserveAspectRatio="none">
                 <path d="M0,8 Q50,0 100,8 T200,8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
               </svg>
@@ -1255,7 +1259,7 @@ function WhySection() {
             className="mt-4 text-[20px] font-handwritten text-[#8B7E74]/60 rotate-[-2deg]"
             animate={{ rotate: [-2, 0, -2] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          >( it&apos;s a whole world! )</motion.p>
+          >( {t("home.why.note")} )</motion.p>
         </Reveal>
 
         <div className="space-y-20 sm:space-y-28">
@@ -1320,6 +1324,7 @@ function WhySection() {
    ════════════════════════════════════════════════════════════ */
 function CharactersSection() {
   const reduced = useReducedMotion();
+  const { t } = useLanguage();
   const chars = [
     { name: "Andy", role: "The Brave Leader", desc: "Leads every adventure with courage and unstoppable faith. Always first to step up!", image: CHARACTERS.andy, color: "#F7941D", bg: "#FFF5E6", rotate: "-3deg", emoji: Crown, speech: "Be brave!", reaction: "jump" as const },
     { name: "Libni", role: "The Joyful Singer", desc: "Her voice lights up every song. She finds the bright side in everything!", image: CHARACTERS.libni, color: "#F02D8A", bg: "#FFF0F6", rotate: "2deg", emoji: Music, speech: "Sing with me!", reaction: "wave" as const },
@@ -1341,9 +1346,9 @@ function CharactersSection() {
       <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">
         <Reveal className="text-center mb-12">
           <h2 className="font-hero-section text-[clamp(2.2rem,5.5vw,4rem)]">
-            <span style={{ color: "#F7941D" }}>Your</span> <span style={{ color: "#4A6FCC" }}>kids&apos;</span> <span style={{ color: "#2DB84B" }}>new</span><br />
+            <span style={{ color: "#F7941D" }}>{t("home.chars.title1")}</span> <span style={{ color: "#4A6FCC" }}>{t("home.chars.title2")}</span> <span style={{ color: "#2DB84B" }}>{t("home.chars.title3")}</span><br />
             <span className="relative inline-block" style={{ color: "#F02D8A" }}>
-              best friends
+              {t("home.chars.highlight")}
               <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#F02D8A]/30 wavy-draw" viewBox="0 0 200 12" preserveAspectRatio="none">
                 <path d="M0,8 Q50,0 100,8 T200,8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
               </svg>
@@ -1382,7 +1387,7 @@ function CharactersSection() {
           <motion.div whileHover={{ x: 5 }} transition={SPRING}>
             <Link href="/characters" className="inline-flex items-center gap-2 text-[15px] font-bold text-[#F02D8A] hover:text-[#4A4A4A] transition-colors bouncy-link">
               <span className="font-handwritten text-[18px] rotate-[-3deg] mr-1">→</span>
-              Meet all characters <ChevronRight className="h-4 w-4 arrow-slide" aria-hidden="true" />
+              {t("home.chars.link")} <ChevronRight className="h-4 w-4 arrow-slide" aria-hidden="true" />
             </Link>
           </motion.div>
         </Reveal>
@@ -1397,6 +1402,7 @@ function CharactersSection() {
 function ImmersiveScene() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+  const { t } = useLanguage();
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
 
   const imgScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.15, 1, 1.05]);
@@ -1432,11 +1438,10 @@ function ImmersiveScene() {
             className="w-16 h-px bg-[#FFD700]/50 mx-auto mb-8 origin-center"
           />
           <h2 className="font-hero-section text-[clamp(2.5rem,7vw,5rem)] drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]">
-            <span style={{ color: "#E8890C" }}>A world</span> <span style={{ color: "#4A6FCC" }}>built</span><br /><span style={{ color: "#F02D8A" }}>for wonder</span>
+            <span style={{ color: "#E8890C" }}>{t("home.immersive.title1")}</span> <span style={{ color: "#4A6FCC" }}>{t("home.immersive.title2")}</span><br /><span style={{ color: "#F02D8A" }}>{t("home.immersive.highlight")}</span>
           </h2>
           <p className="mt-6 text-[16px] sm:text-[18px] text-white leading-[1.85] font-medium max-w-lg mx-auto font-serif italic drop-shadow-[0_1px_4px_rgba(0,0,0,0.3)]">
-            &ldquo;And in this magical land, every mountain was painted by hand,
-            every star placed with purpose, and every story whispered the truth.&rdquo;
+            &ldquo;{t("home.immersive.quote")}&rdquo;
           </p>
           <motion.div
             initial={{ scaleX: 0 }}
@@ -1456,6 +1461,7 @@ function ImmersiveScene() {
    ════════════════════════════════════════════════════════════ */
 function VideoGallery() {
   const reduced = useReducedMotion();
+  const { t } = useLanguage();
   const videos = [
     { title: "The Good News", desc: "Sharing God\u2019s love with the world", thumb: SCENES.worship, tag: "Newest", tagColor: "#FFD700", tagIcon: Zap },
     { title: "Jesus Me Ama", desc: "A beautiful Spanish worship song", thumb: SCENES.group, tag: "Espanol", tagColor: "#00B5B8", tagIcon: Globe },
@@ -1481,14 +1487,14 @@ function VideoGallery() {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 mb-12">
           <Reveal>
             <span className="inline-flex items-center gap-2 text-[12px] font-badge text-[#F7941D] mb-4">
-              <Film className="h-3.5 w-3.5" /> The Collection
+              <Film className="h-3.5 w-3.5" /> {t("home.video.badge")}
             </span>
-            <h2 className="font-hero-section text-[clamp(2rem,5vw,3.5rem)]"><span style={{ color: "#E8890C" }}>Watch</span> <span style={{ color: "#F02D8A" }}>&amp;</span> <span style={{ color: "#4A6FCC" }}>Worship</span></h2>
-            <span className="font-handwritten text-[18px] text-[#4A4A4A]/65 ml-2 inline-block rotate-[-2deg]">( grab the popcorn! )</span>
+            <h2 className="font-hero-section text-[clamp(2rem,5vw,3.5rem)]"><span style={{ color: "#E8890C" }}>{t("home.video.title1")}</span> <span style={{ color: "#F02D8A" }}>{t("home.video.title2")}</span> <span style={{ color: "#4A6FCC" }}>{t("home.video.title3")}</span></h2>
+            <span className="font-handwritten text-[18px] text-[#4A4A4A]/65 ml-2 inline-block rotate-[-2deg]">( {t("home.video.note")} )</span>
           </Reveal>
           <Reveal delay={0.1}>
             <PlayfulButton href="/watch" variant="primary" className="text-[13px] px-6 py-3">
-              See all videos <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+              {t("home.video.btn")} <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
             </PlayfulButton>
           </Reveal>
         </div>
@@ -1533,11 +1539,12 @@ function VideoGallery() {
    ════════════════════════════════════════════════════════════ */
 function TrustSection() {
   const reduced = useReducedMotion();
+  const { t } = useLanguage();
   const items = [
-    { icon: Shield, title: "Ad-Free & Safe", desc: "No ads, no distractions. Just wholesome content you can trust.", color: "#4A6FCC", emoji: ShieldCheck },
-    { icon: BookOpen, title: "Scripture-Based", desc: "Every lyric reviewed for biblical accuracy and integrity.", color: "#2DB84B", emoji: BookOpen },
-    { icon: Globe, title: "English & Spanish", desc: "Bilingual worship so every family can praise together.", color: "#00B5B8", emoji: Globe },
-    { icon: Volume2, title: "Ages 0–8", desc: "Age-appropriate content for little hearts and minds.", color: "#7B3FA0", emoji: Baby },
+    { icon: Shield, title: t("home.trust.adfree"), desc: t("home.trust.adfree.desc"), color: "#4A6FCC", emoji: ShieldCheck },
+    { icon: BookOpen, title: t("home.trust.scripture"), desc: t("home.trust.scripture.desc"), color: "#2DB84B", emoji: BookOpen },
+    { icon: Globe, title: t("home.trust.bilingual"), desc: t("home.trust.bilingual.desc"), color: "#00B5B8", emoji: Globe },
+    { icon: Volume2, title: t("home.trust.ages"), desc: t("home.trust.ages.desc"), color: "#7B3FA0", emoji: Baby },
   ];
 
   return (
@@ -1554,22 +1561,22 @@ function TrustSection() {
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <Reveal>
             <h2 className="font-hero-section text-[clamp(2rem,4.5vw,3.2rem)]">
-              <span style={{ color: "#2DB84B" }}>Content</span> <span style={{ color: "#4A6FCC" }}>you</span><br />
+              <span style={{ color: "#2DB84B" }}>{t("home.trust.title1")}</span> <span style={{ color: "#4A6FCC" }}>{t("home.trust.title2")}</span><br />
               <span className="relative inline-block" style={{ color: "#F02D8A" }}>
-                can trust completely
+                {t("home.trust.highlight")}
                 <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#4A4A4A]/55 wavy-draw" viewBox="0 0 200 12" preserveAspectRatio="none">
                   <path d="M0,8 Q50,0 100,8 T200,8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
                 </svg>
               </span>
             </h2>
             <p className="mt-5 text-[16px] text-[#8B7E74] leading-[1.85] max-w-lg font-medium">
-              We&apos;re parents too. Every song, every frame, every word is created with the same care we&apos;d want for our own children.
+              {t("home.trust.desc")}
             </p>
             <motion.span
               className="inline-block mt-3 font-handwritten text-[18px] text-[#8B7E74]/70 rotate-[-2deg]"
               animate={{ rotate: [-2, 0, -2] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            >-- made by parents, for parents <Heart className="h-3 w-3 inline" fill="currentColor" /></motion.span>
+            >-- {t("home.trust.note")} <Heart className="h-3 w-3 inline" fill="currentColor" /></motion.span>
           </Reveal>
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {items.map((item) => (
@@ -1601,6 +1608,7 @@ function TrustSection() {
    ════════════════════════════════════════════════════════════ */
 function Testimonials() {
   const reduced = useReducedMotion();
+  const { t } = useLanguage();
   const items = [
     { text: "My kids sing these songs ALL day long. Finally, worship music they actually love!", author: "Sarah M.", role: "Mom of 3", rotate: "-2deg", bg: "#FFF5E6" },
     { text: "The animation quality is incredible. My kids are learning scripture without even realizing it.", author: "David R.", role: "Dad of 2", rotate: "1.5deg", bg: "#EAFAF0" },
@@ -1622,9 +1630,9 @@ function Testimonials() {
       <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">
         <Reveal className="text-center mb-10">
           <h2 className="font-hero-section text-[clamp(2rem,5vw,3.5rem)]">
-            <span style={{ color: "#E8890C" }}>What</span> <span style={{ color: "#4A6FCC" }}>parents</span> <span style={{ color: "#2DB84B" }}>are</span><br />
+            <span style={{ color: "#E8890C" }}>{t("home.testimonials.title1")}</span> <span style={{ color: "#4A6FCC" }}>{t("home.testimonials.title2")}</span> <span style={{ color: "#2DB84B" }}>{t("home.testimonials.title3")}</span><br />
             <span className="relative inline-block" style={{ color: "#F02D8A" }}>
-              saying
+              {t("home.testimonials.highlight")}
               <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#FFD700]/40 wavy-draw" viewBox="0 0 200 12" preserveAspectRatio="none">
                 <path d="M0,8 Q50,0 100,8 T200,8" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
               </svg>
@@ -1669,6 +1677,7 @@ function Testimonials() {
    10. CTA — Cinematic finale
    ════════════════════════════════════════════════════════════ */
 function CTASection({ onCtaClick }: { onCtaClick?: (e: React.MouseEvent) => void }) {
+  const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
@@ -1706,19 +1715,18 @@ function CTASection({ onCtaClick }: { onCtaClick?: (e: React.MouseEvent) => void
               className="inline-block font-handwritten text-[22px] sm:text-[26px] text-white/90 mb-4 rotate-[-3deg]"
               animate={{ rotate: [-3, -1, -3] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            >Ready? Let&apos;s go! <Music className="h-4 w-4 inline" /></motion.span>
+            >{t("home.cta.note")} <Music className="h-4 w-4 inline" /></motion.span>
             <h2 className="font-hero-section text-[clamp(2.2rem,6vw,4rem)] drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]">
-              <span style={{ color: "#FFB347" }}>Start the</span> <span style={{ color: "#FF69B4" }}>adventure</span><br />
+              <span style={{ color: "#FFB347" }}>{t("home.cta.title1")}</span> <span style={{ color: "#FF69B4" }}>{t("home.cta.title2")}</span><br />
               <span className="relative inline-block text-white">
-                today
+                {t("home.cta.title3")}
                 <SparkleDecor className="absolute -top-3 -right-6" size={20} />
               </span>
             </h2>
           </Reveal>
           <Reveal delay={0.08}>
             <p className="mt-6 text-[16px] sm:text-[18px] text-white/90 leading-relaxed max-w-lg mx-auto font-medium font-serif italic">
-              &ldquo;And so the three friends said: the story isn&apos;t over yet!
-              There are new songs to sing and new adventures to find...&rdquo;
+              &ldquo;{t("home.cta.quote")}&rdquo;
             </p>
           </Reveal>
           <Reveal delay={0.14}>
@@ -1733,7 +1741,7 @@ function CTASection({ onCtaClick }: { onCtaClick?: (e: React.MouseEvent) => void
                     className="btn-playful btn-shimmer font-btn anim-pulse-glow inline-flex items-center gap-3 rounded-full border-2 px-7 py-3.5 text-[15px] tracking-wide bg-[#F02D8A] text-white border-[#F09EBA] shadow-[4px_4px_0_#F09EBA] hover:shadow-[6px_6px_0_#F09EBA]"
                   >
                     <Youtube className="h-5 w-5 text-red-400" aria-hidden="true" />
-                    Subscribe Now <ArrowRight className="h-4 w-4 arrow-slide" aria-hidden="true" />
+                    {t("home.cta.btn")} <ArrowRight className="h-4 w-4 arrow-slide" aria-hidden="true" />
                   </a>
                 </motion.div>
               </MagneticWrap>
@@ -1742,7 +1750,7 @@ function CTASection({ onCtaClick }: { onCtaClick?: (e: React.MouseEvent) => void
                 variant="ghost"
                 icon={<Heart className="h-4 w-4 text-[#FFD700]" fill="currentColor" aria-hidden="true" />}
               >
-                Support Our Mission
+                {t("home.cta.btn2")}
               </PlayfulButton>
             </div>
           </Reveal>

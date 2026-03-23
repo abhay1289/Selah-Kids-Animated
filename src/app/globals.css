@@ -75,14 +75,30 @@
 
   /* ── FUNCTIONAL UI COLORS ── */
   --ink: #4A4A4A;
+  --ink-muted: #8B7E74;
+  --ink-light: rgba(74, 74, 74, 0.75);
   --white: #FFFFFF;
   --cream: #FFFDF5;
   --outline: #F09EBA;
   --outline-soft: rgba(240, 158, 186, 0.4);
 
-  /* ── DERIVED UTILITY ── */
+  /* ── BRAND ACCENT COLORS ── */
   --cta-primary: #F02D8A;
   --cta-secondary: #2DB84B;
+  --accent-pink: #F02D8A;
+  --accent-amber: #E8890C;
+  --accent-blue: #4A6FCC;
+  --accent-green: #2DB84B;
+  --accent-orange: #F7941D;
+  --accent-teal: #00B5B8;
+  --accent-purple: #7B3FA0;
+  --accent-gold: #FFD700;
+
+  /* ── TYPOGRAPHY SIZES ── */
+  --text-xs: 11px;
+  --text-sm: 13px;
+  --text-base: 16px;
+  --text-lg: 18px;
   --trust-bg: #4A6FCC;
   --highlight: #FFE600;
   --warm-shadow: rgba(248, 148, 29, 0.25);
