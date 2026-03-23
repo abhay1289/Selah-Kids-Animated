@@ -210,7 +210,7 @@ function PlayfulButton({
   const styles = {
     primary: "bg-[#F02D8A] text-white border-[#F09EBA] shadow-[4px_4px_0_#F09EBA] hover:shadow-[6px_6px_0_#F09EBA]",
     secondary: "bg-[#4A6FCC] text-white border-[#4A6FCC]/60 shadow-[4px_4px_0_rgba(74,111,204,0.3)] hover:shadow-[6px_6px_0_rgba(74,111,204,0.3)]",
-    ghost: "bg-transparent text-[#4A4A4A] border-[#F09EBA]/50 hover:text-[#F02D8A] hover:border-[#F02D8A]/50",
+    ghost: "bg-transparent text-white border-[#F09EBA]/50 hover:text-white/80 hover:border-[#F09EBA]",
   };
   const Comp = external ? "a" : Link;
   const props = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
