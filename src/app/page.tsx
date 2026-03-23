@@ -1585,11 +1585,10 @@ function TrustSection() {
                   className="rounded-[16px] bg-white border-2 border-[#F09EBA]/50 p-6 hover:border-[#F09EBA] card-shadow-glow transition-all duration-200 group cursor-default"
                   whileHover={{ y: -6, rotate: 1, transition: SPRING_BOUNCY }}
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <motion.div className="flex h-10 w-10 items-center justify-center rounded-lg border-2 border-[#F09EBA]/50 border-animate group-hover:border-[#F09EBA] transition-colors" whileHover={{ rotate: 15, scale: 1.15 }} transition={SPRING_BOUNCY}>
-                      <item.icon className="h-5 w-5 icon-idle" style={{ color: item.color }} aria-hidden="true" />
+                  <div className="mb-4">
+                    <motion.div className="inline-flex" whileHover={{ rotate: 15, scale: 1.15 }} transition={SPRING_BOUNCY}>
+                      <item.emoji className="h-6 w-6 icon-idle" style={{ color: item.color }} aria-hidden="true" />
                     </motion.div>
-                    <item.emoji className="h-5 w-5" style={{ color: item.color }} aria-hidden="true" />
                   </div>
                   <h3 className="text-[15px] font-subheading text-[#4A4A4A] mb-1">{item.title}</h3>
                   <p className="text-[13px] text-[#8B7E74] leading-[1.7] font-medium">{item.desc}</p>
