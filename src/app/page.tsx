@@ -1551,10 +1551,10 @@ function TrustSection() {
    ════════════════════════════════════════════════════════════ */
 function Testimonials() {
   const items = [
-    { text: "My kids sing these songs ALL day long. Finally, worship music they actually love!", author: "Sarah M.", role: "Mom of 3", rotate: "-2deg", bg: "#FFF5E6", emoji: Music },
-    { text: "The animation quality is incredible. My kids are learning scripture without even realizing it.", author: "David R.", role: "Dad of 2", rotate: "1.5deg", bg: "#EAFAF0", emoji: Sparkles },
-    { text: "Selah Kids has made worship time the highlight of our week. A true blessing!", author: "Maria L.", role: "Mom of 4", rotate: "-1deg", bg: "#FFF0F6", emoji: Heart },
-    { text: "The Spanish songs are amazing! My bilingual family loves worshipping in both languages.", author: "Isabella R.", role: "Mom of 2", rotate: "2deg", bg: "#EEF2FF", emoji: Heart },
+    { text: "My kids sing these songs ALL day long. Finally, worship music they actually love!", author: "Sarah M.", role: "Mom of 3", rotate: "-2deg", bg: "#FFF5E6" },
+    { text: "The animation quality is incredible. My kids are learning scripture without even realizing it.", author: "David R.", role: "Dad of 2", rotate: "1.5deg", bg: "#EAFAF0" },
+    { text: "Selah Kids has made worship time the highlight of our week. A true blessing!", author: "Maria L.", role: "Mom of 4", rotate: "-1deg", bg: "#FFF0F6" },
+    { text: "The Spanish songs are amazing! My bilingual family loves worshipping in both languages.", author: "Isabella R.", role: "Mom of 2", rotate: "2deg", bg: "#EEF2FF" },
   ];
 
   return (
@@ -1582,7 +1582,7 @@ function Testimonials() {
                 whileHover={{ rotate: 0, y: -8, scale: 1.03, transition: SPRING_BOUNCY }}
               >
                 <div className="absolute -top-2 right-6 w-12 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" />
-                <motion.span className="absolute -top-3 -left-2 z-10 text-[#F02D8A]" whileHover={{ scale: 1.3, rotate: 20 }} transition={SPRING_BOUNCY}><t.emoji className="h-5 w-5" /></motion.span>
+
                 <div>
                   <div className="flex gap-0.5 mb-3">
                     {[...Array(5)].map((_, j) => (
