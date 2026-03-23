@@ -553,6 +553,68 @@ function HeroSection() {
       {/* Layer 4: Noise texture overlay — z-[3] */}
       <div className="absolute inset-0 z-[3] pointer-events-none noise-overlay" />
 
+      {/* Layer 4.5: Light rays — z-[4] */}
+      {!reduced && <div className="hero-rays z-[4]" />}
+
+      {/* Layer 4.6: Animated gradient orbs — z-[4] */}
+      {!reduced && (
+        <div className="absolute inset-0 z-[4] pointer-events-none overflow-hidden">
+          <div className="hero-orb absolute w-[300px] h-[300px] top-[10%] left-[5%]" style={{ background: "radial-gradient(circle, rgba(240,45,138,0.12), transparent 70%)", animationDelay: "0s" }} />
+          <div className="hero-orb absolute w-[250px] h-[250px] top-[60%] right-[8%]" style={{ background: "radial-gradient(circle, rgba(74,111,204,0.10), transparent 70%)", animationDelay: "-3s", animationDuration: "8s, 25s" }} />
+          <div className="hero-orb absolute w-[200px] h-[200px] bottom-[15%] left-[40%]" style={{ background: "radial-gradient(circle, rgba(255,215,0,0.08), transparent 70%)", animationDelay: "-6s", animationDuration: "7s, 18s" }} />
+        </div>
+      )}
+
+      {/* Layer 4.7: Dot grid — z-[4] */}
+      {!reduced && <div className="absolute inset-0 z-[4] hero-dot-grid opacity-60" />}
+
+      {/* Layer 4.8: Floating doodles — z-[4] */}
+      {!reduced && (
+        <div className="absolute inset-0 z-[4] pointer-events-none overflow-hidden">
+          {[
+            { Icon: Star, x: "6%", y: "12%", size: 16, color: "rgba(255,215,0,0.12)", delay: "0s", dur: "14s" },
+            { Icon: Heart, x: "90%", y: "20%", size: 14, color: "rgba(240,45,138,0.10)", delay: "-3s", dur: "16s" },
+            { Icon: Music, x: "15%", y: "78%", size: 18, color: "rgba(247,148,29,0.09)", delay: "-7s", dur: "12s" },
+            { Icon: Sparkles, x: "82%", y: "68%", size: 12, color: "rgba(45,184,75,0.10)", delay: "-5s", dur: "18s" },
+            { Icon: Star, x: "50%", y: "5%", size: 10, color: "rgba(123,63,160,0.08)", delay: "-2s", dur: "15s" },
+            { Icon: Heart, x: "35%", y: "88%", size: 13, color: "rgba(74,111,204,0.09)", delay: "-9s", dur: "17s" },
+            { Icon: Zap, x: "72%", y: "42%", size: 11, color: "rgba(255,215,0,0.07)", delay: "-4s", dur: "13s" },
+          ].map((d, i) => (
+            <div
+              key={i}
+              className="absolute hero-doodle"
+              style={{ left: d.x, top: d.y, color: d.color, animationDelay: d.delay, animationDuration: d.dur }}
+            >
+              <d.Icon style={{ width: d.size, height: d.size }} />
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Layer 4.9: Twinkle stars — z-[4] */}
+      {!reduced && (
+        <div className="absolute inset-0 z-[4] pointer-events-none overflow-hidden">
+          {[
+            { x: "8%", y: "25%", size: 4, delay: "0s" },
+            { x: "92%", y: "15%", size: 3, delay: "-1.2s" },
+            { x: "22%", y: "65%", size: 5, delay: "-2.5s" },
+            { x: "78%", y: "80%", size: 3, delay: "-0.8s" },
+            { x: "55%", y: "12%", size: 4, delay: "-3.2s" },
+            { x: "40%", y: "45%", size: 3, delay: "-1.8s" },
+            { x: "68%", y: "35%", size: 5, delay: "-2.1s" },
+            { x: "18%", y: "90%", size: 4, delay: "-0.5s" },
+            { x: "85%", y: "55%", size: 3, delay: "-3.8s" },
+            { x: "30%", y: "20%", size: 4, delay: "-1.5s" },
+          ].map((s, i) => (
+            <div
+              key={i}
+              className="absolute hero-twinkle rounded-full bg-white"
+              style={{ left: s.x, top: s.y, width: s.size, height: s.size, animationDelay: s.delay, animationDuration: `${3 + (i % 3)}s` }}
+            />
+          ))}
+        </div>
+      )}
+
       {/* Layer 5: Rainbow Arcs — z-[5] */}
       {!reduced && (
         <svg
