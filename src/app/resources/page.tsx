@@ -6,8 +6,10 @@ import { PageHero } from "@/components/page-hero";
 import {
   Reveal, StaggerContainer, StaggerItem, PlayfulButton, HandwrittenNote, WavyUnderline, SectionGrain,
   BlurFadeIn, FloatingElement, TiltCard, ScrollScale, ParallaxLayer, CharacterCameo,
+  ScrollProgress, RotateOnScroll,
   SPRING_BOUNCY, EASE, SCENES,
 } from "@/components/storybook-primitives";
+import { WaveDivider } from "@/components/storybook-effects";
 import { useLanguage } from "@/context/language";
 
 const resources = [
@@ -26,6 +28,7 @@ export default function ResourcesPage() {
   const { t } = useLanguage();
   return (
     <>
+      <ScrollProgress />
       <PageHero
         badge={t("resources.badge")}
         badgeIcon={Download}
@@ -35,11 +38,16 @@ export default function ResourcesPage() {
         scene={SCENES.group}
       />
 
+      <div className="relative">
+        <WaveDivider from="#FFFDF5" to="#FFF5F0" position="bottom" />
+      </div>
+
       <section className="relative py-16 sm:py-24 bg-[#FFF5F0] overflow-hidden">
         <div className="absolute inset-0 pointer-events-none striped-bg" />
         <SectionGrain />
+        <ParallaxLayer speed={0.04} className="absolute top-10 right-[5%] w-[200px] h-[200px] rounded-full bg-[#F09EBA]/5 blur-3xl pointer-events-none"><span /></ParallaxLayer>
         <CharacterCameo character="shiloh" side="right" className="top-40" />
-        <FloatingElement className="absolute top-16 right-[5%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={14} duration={7}><Star className="h-8 w-8" /></FloatingElement>
+        <RotateOnScroll degrees={6}><FloatingElement className="absolute top-16 right-[5%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={14} duration={7}><Star className="h-8 w-8" /></FloatingElement></RotateOnScroll>
         <FloatingElement className="absolute bottom-24 left-[4%] text-[#F02D8A]/8 pointer-events-none z-[2]" amplitude={10} duration={6} delay={2}><Music className="h-7 w-7" /></FloatingElement>
 
         <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">

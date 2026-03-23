@@ -7,8 +7,10 @@ import { PageHero } from "@/components/page-hero";
 import {
   Reveal, StaggerContainer, StaggerItem, PlayfulButton, HandwrittenNote, WavyUnderline, SectionGrain, StampBadge,
   BlurFadeIn, FloatingElement, TiltCard, SlideIn, ScrollScale, ParallaxLayer, CharacterCameo,
+  ScrollProgress, RotateOnScroll,
   SPRING_BOUNCY, EASE, SCENES,
 } from "@/components/storybook-primitives";
+import { WaveDivider } from "@/components/storybook-effects";
 import { useLanguage } from "@/context/language";
 
 const quickFacts = [
@@ -31,6 +33,7 @@ export default function PressPage() {
   const { t } = useLanguage();
   return (
     <>
+      <ScrollProgress />
       <PageHero
         badge={t("press.badge")}
         badgeIcon={Newspaper}
@@ -40,10 +43,15 @@ export default function PressPage() {
         scene={SCENES.cinematic}
       />
 
+      <div className="relative">
+        <WaveDivider from="#FFF0F5" to="#FFFDF5" position="bottom" />
+      </div>
+
       <section className="relative py-16 sm:py-24 bg-[#FFFDF5] overflow-hidden paper-texture">
         <SectionGrain />
+        <ParallaxLayer speed={0.04} className="absolute top-10 right-[5%] w-[200px] h-[200px] rounded-full bg-[#F09EBA]/5 blur-3xl pointer-events-none"><span /></ParallaxLayer>
         <CharacterCameo character="andy" side="left" className="top-32" />
-        <FloatingElement className="absolute top-20 left-[6%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={12} duration={7}><Star className="h-8 w-8" /></FloatingElement>
+        <RotateOnScroll degrees={6}><FloatingElement className="absolute top-20 left-[6%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={12} duration={7}><Star className="h-8 w-8" /></FloatingElement></RotateOnScroll>
 
         <div className="relative z-10 mx-auto max-w-5xl px-6 lg:px-10">
           {/* Press Kit + Partnership */}

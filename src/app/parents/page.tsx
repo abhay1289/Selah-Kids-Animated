@@ -7,8 +7,10 @@ import { PageHero } from "@/components/page-hero";
 import {
   Reveal, StaggerContainer, StaggerItem, HandwrittenNote, WavyUnderline, SectionGrain, StampBadge,
   BlurFadeIn, FloatingElement, TiltCard, ParallaxLayer, CharacterCameo,
+  ScrollProgress, RotateOnScroll, ScrollScale,
   EASE, SPRING_BOUNCY, SCENES,
 } from "@/components/storybook-primitives";
+import { WaveDivider } from "@/components/storybook-effects";
 import { useLanguage } from "@/context/language";
 
 const trustBadges = [
@@ -105,6 +107,7 @@ export default function ParentsPage() {
   const { t } = useLanguage();
   return (
     <>
+      <ScrollProgress />
       <PageHero
         badge={t("parents.badge")}
         badgeIcon={Shield}
@@ -151,14 +154,20 @@ export default function ParentsPage() {
         </div>
       </section>
 
+      <div className="relative">
+        <WaveDivider from="#FFFDF5" to="#FFF5F0" position="bottom" />
+      </div>
+
       {/* Accordion Sections */}
       <section className="relative py-16 sm:py-24 bg-[#FFF5F0] overflow-hidden">
         <div className="absolute inset-0 pointer-events-none striped-bg" />
         <SectionGrain />
+        <ParallaxLayer speed={0.04} className="absolute top-10 right-[5%] w-[200px] h-[200px] rounded-full bg-[#F09EBA]/5 blur-3xl pointer-events-none"><span /></ParallaxLayer>
         <CharacterCameo character="libni" side="left" className="bottom-32" />
-        <FloatingElement className="absolute top-16 right-[6%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={14} duration={7}><Star className="h-8 w-8" /></FloatingElement>
+        <RotateOnScroll degrees={6}><FloatingElement className="absolute top-16 right-[6%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={14} duration={7}><Star className="h-8 w-8" /></FloatingElement></RotateOnScroll>
 
         <div className="relative z-10 mx-auto max-w-3xl px-6 lg:px-10">
+          <ScrollScale>
           <BlurFadeIn className="text-center mb-10">
             <h2 className="font-hero-section text-[clamp(2rem,5vw,3.5rem)]">
               <span style={{ color: "#E8890C" }}>A</span> <span style={{ color: "#4A6FCC" }}>parent&apos;s</span><br />
@@ -171,6 +180,7 @@ export default function ParentsPage() {
               ( we&apos;re parents too! <Heart className="h-3 w-3 inline" /> )
             </HandwrittenNote>
           </BlurFadeIn>
+          </ScrollScale>
           <div className="space-y-4">
             {sections.map((s, i) => (
               <AccordionSection key={s.title} section={s} index={i} />

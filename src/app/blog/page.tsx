@@ -7,8 +7,10 @@ import { PageHero } from "@/components/page-hero";
 import {
   Reveal, StaggerContainer, StaggerItem, HandwrittenNote, WavyUnderline, SectionGrain,
   BlurFadeIn, FloatingElement, TiltCard, ClipReveal, CharacterCameo,
+  ScrollProgress, RotateOnScroll, ParallaxLayer, ScrollScale,
   EASE, SPRING_BOUNCY, SCENES,
 } from "@/components/storybook-primitives";
+import { WaveDivider } from "@/components/storybook-effects";
 import { useLanguage } from "@/context/language";
 
 const categories = [
@@ -35,6 +37,7 @@ export default function BlogPage() {
 
   return (
     <>
+      <ScrollProgress />
       <PageHero
         badge={t("blog.badge")}
         badgeIcon={BookOpen}
@@ -44,11 +47,16 @@ export default function BlogPage() {
         scene={SCENES.adventure}
       />
 
+      <div className="relative">
+        <WaveDivider from="#FFFDF5" to="#FFF5F0" position="bottom" />
+      </div>
+
       <section className="relative py-16 sm:py-24 bg-[#FFF5F0] overflow-hidden">
         <div className="absolute inset-0 pointer-events-none striped-bg" />
         <SectionGrain />
+        <ParallaxLayer speed={0.04} className="absolute top-10 right-[5%] w-[200px] h-[200px] rounded-full bg-[#F09EBA]/5 blur-3xl pointer-events-none"><span /></ParallaxLayer>
         <CharacterCameo character="andy" side="right" className="bottom-40" />
-        <FloatingElement className="absolute top-24 left-[5%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={14} duration={6}><Star className="h-8 w-8" /></FloatingElement>
+        <RotateOnScroll degrees={6}><FloatingElement className="absolute top-24 left-[5%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={14} duration={6}><Star className="h-8 w-8" /></FloatingElement></RotateOnScroll>
         <FloatingElement className="absolute bottom-20 right-[7%] text-[#F02D8A]/8 pointer-events-none z-[2]" amplitude={10} duration={8} delay={2}><Music className="h-7 w-7" /></FloatingElement>
 
         <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">
@@ -75,6 +83,7 @@ export default function BlogPage() {
           </BlurFadeIn>
 
           {/* Grid */}
+          <ScrollScale>
           <StaggerContainer className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((post) => (
               <StaggerItem key={post.id}>
@@ -124,6 +133,7 @@ export default function BlogPage() {
               </StaggerItem>
             ))}
           </StaggerContainer>
+          </ScrollScale>
         </div>
       </section>
     </>

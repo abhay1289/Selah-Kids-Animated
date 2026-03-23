@@ -8,8 +8,10 @@ import { PageHero } from "@/components/page-hero";
 import {
   Reveal, ScrapbookCard, HandwrittenNote, WavyUnderline, StaggerContainer, StaggerItem, SectionGrain,
   ParallaxLayer, BlurFadeIn, FloatingElement, SlideIn, ClipReveal, TiltCard,
+  CinematicReveal, ScrollProgress, RotateOnScroll, ScrollScale,
   EASE, SPRING_BOUNCY, CHARACTERS, SCENES,
 } from "@/components/storybook-primitives";
+import { WaveDivider } from "@/components/storybook-effects";
 import { useLanguage } from "@/context/language";
 
 const characters = [
@@ -47,6 +49,7 @@ export default function CharactersPage() {
   const reduced = useReducedMotion();
   return (
     <>
+      <ScrollProgress />
       <PageHero
         badge={t("chars.badge")}
         badgeIcon={Heart}
@@ -58,7 +61,8 @@ export default function CharactersPage() {
 
       <section className="relative bg-[#FFFDF5] overflow-hidden paper-texture">
         <SectionGrain />
-        <FloatingElement className="absolute top-32 right-[5%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={18} duration={8}><Star className="h-10 w-10" /></FloatingElement>
+        <ParallaxLayer speed={0.04} className="absolute top-20 left-[5%] w-[200px] h-[200px] rounded-full bg-[#FFD700]/5 blur-3xl pointer-events-none"><span /></ParallaxLayer>
+        <RotateOnScroll degrees={6}><FloatingElement className="absolute top-32 right-[5%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={18} duration={8}><Star className="h-10 w-10" /></FloatingElement></RotateOnScroll>
         <FloatingElement className="absolute bottom-40 left-[4%] text-[#F02D8A]/8 pointer-events-none z-[2]" amplitude={12} duration={6} delay={3}><Music className="h-8 w-8" /></FloatingElement>
 
         {characters.map((c, i) => {
@@ -90,6 +94,7 @@ export default function CharactersPage() {
                           </motion.span>
 
                           <ClipReveal direction="center">
+                            <CinematicReveal>
                             <div className="relative rounded-[16px] overflow-hidden border-2 border-[#F09EBA]/40 mb-6 aspect-[4/3] img-hover-zoom">
                               <Image src={c.scene} alt={`${c.name}'s world`} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
                               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
@@ -98,6 +103,7 @@ export default function CharactersPage() {
                                 <Image src={c.image} alt={c.name} width={400} height={400} className="object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.3)]" />
                               </FloatingElement>
                             </div>
+                            </CinematicReveal>
                           </ClipReveal>
 
                           <div className="flex items-center gap-3 mb-2">

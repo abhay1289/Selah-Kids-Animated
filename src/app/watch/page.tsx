@@ -8,9 +8,10 @@ import { PageHero } from "@/components/page-hero";
 import {
   Reveal, StaggerContainer, StaggerItem, MagneticWrap, PlayfulButton, HandwrittenNote, WavyUnderline,
   CinematicReveal, ScrapbookCard, SectionGrain, ParallaxLayer, BlurFadeIn, FloatingElement, SlideIn,
-  ClipReveal, TiltCard, ScrollScale, CharacterCameo,
+  ClipReveal, TiltCard, ScrollScale, CharacterCameo, ScrollProgress, RotateOnScroll,
   EASE, SPRING_BOUNCY, SCENES,
 } from "@/components/storybook-primitives";
+import { WaveDivider } from "@/components/storybook-effects";
 import { useLanguage } from "@/context/language";
 
 const categories = [
@@ -64,6 +65,7 @@ export default function WatchPage() {
 
   return (
     <>
+      <ScrollProgress />
       <PageHero
         badge={t("watch.badge")}
         badgeIcon={Tv}
@@ -77,9 +79,10 @@ export default function WatchPage() {
       <section ref={sectionRef} className="relative py-16 sm:py-24 bg-[#FFF5F0] overflow-hidden">
         <motion.div className="absolute inset-0 pointer-events-none striped-bg" style={{ y: stripeBgY }} />
         <SectionGrain />
+        <ParallaxLayer speed={0.04} className="absolute top-10 right-[5%] w-[200px] h-[200px] rounded-full bg-[#F09EBA]/5 blur-3xl pointer-events-none"><span /></ParallaxLayer>
 
         {/* Floating decorative elements */}
-        <FloatingElement className="absolute top-20 left-[8%] text-[#FFD700]/10 pointer-events-none z-[2]" amplitude={15} duration={7}><Music className="h-8 w-8" /></FloatingElement>
+        <RotateOnScroll degrees={5}><FloatingElement className="absolute top-20 left-[8%] text-[#FFD700]/10 pointer-events-none z-[2]" amplitude={15} duration={7}><Music className="h-8 w-8" /></FloatingElement></RotateOnScroll>
         <FloatingElement className="absolute bottom-32 right-[6%] text-[#F02D8A]/10 pointer-events-none z-[2]" amplitude={10} duration={6} delay={2}><Star className="h-7 w-7" /></FloatingElement>
 
         <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">
@@ -176,9 +179,11 @@ export default function WatchPage() {
           <ScrollScale className="mt-20">
             <div className="relative rounded-[20px] overflow-hidden border-3 border-[#F09EBA] shadow-[6px_6px_0_#F09EBA] border-glow">
               <div className="absolute inset-0 z-0">
-                <ParallaxLayer speed={0.1} className="absolute inset-0">
-                  <Image src={SCENES.cinematic} alt="" fill className="object-cover" sizes="100vw" />
-                </ParallaxLayer>
+                <CinematicReveal>
+                  <ParallaxLayer speed={0.1} className="absolute inset-0">
+                    <Image src={SCENES.cinematic} alt="" fill className="object-cover" sizes="100vw" />
+                  </ParallaxLayer>
+                </CinematicReveal>
                 <div className="absolute inset-0 bg-[#F09EBA]/105" />
               </div>
               <div className="absolute inset-0 z-[1] pointer-events-none film-grain opacity-[0.03]" />

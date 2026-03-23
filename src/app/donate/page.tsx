@@ -8,8 +8,10 @@ import { PageHero } from "@/components/page-hero";
 import {
   Reveal, StaggerContainer, StaggerItem, HandwrittenNote, WavyUnderline, SectionGrain, StampBadge,
   BlurFadeIn, FloatingElement, TiltCard, ScrollScale, ParallaxLayer, CharacterCameo,
+  CinematicReveal, ScrollProgress, RotateOnScroll,
   EASE, SPRING_BOUNCY, SCENES,
 } from "@/components/storybook-primitives";
+import { WaveDivider } from "@/components/storybook-effects";
 import { useLanguage } from "@/context/language";
 
 const amounts = [10, 20, 30, 50];
@@ -28,6 +30,7 @@ export default function DonatePage() {
 
   return (
     <>
+      <ScrollProgress />
       <PageHero
         badge={t("donate.badge")}
         badgeIcon={Heart}
@@ -39,8 +42,9 @@ export default function DonatePage() {
 
       <section className="relative py-16 sm:py-24 bg-[#FFFDF5] overflow-hidden paper-texture">
         <SectionGrain />
+        <ParallaxLayer speed={0.04} className="absolute bottom-20 left-[5%] w-[200px] h-[200px] rounded-full bg-[#FFD700]/5 blur-3xl pointer-events-none"><span /></ParallaxLayer>
         <CharacterCameo character="andy" side="right" className="top-32" />
-        <FloatingElement className="absolute top-20 right-[7%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={14} duration={7}><Heart className="h-8 w-8" /></FloatingElement>
+        <RotateOnScroll degrees={5}><FloatingElement className="absolute top-20 right-[7%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={14} duration={7}><Heart className="h-8 w-8" /></FloatingElement></RotateOnScroll>
         <FloatingElement className="absolute bottom-28 left-[5%] text-[#F02D8A]/8 pointer-events-none z-[2]" amplitude={10} duration={5} delay={2}><Star className="h-7 w-7" /></FloatingElement>
 
         <div className="relative z-10 mx-auto max-w-2xl px-6 lg:px-10">

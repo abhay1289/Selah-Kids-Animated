@@ -7,8 +7,10 @@ import { PageHero } from "@/components/page-hero";
 import {
   Reveal, HandwrittenNote, WavyUnderline, SectionGrain,
   BlurFadeIn, FloatingElement, TiltCard, SlideIn, ScrollScale, CharacterCameo,
+  ParallaxLayer, ScrollProgress, RotateOnScroll, CinematicReveal,
   EASE, SPRING_BOUNCY, SCENES,
 } from "@/components/storybook-primitives";
+import { WaveDivider } from "@/components/storybook-effects";
 import { useLanguage } from "@/context/language";
 
 const contactTypes = [
@@ -29,6 +31,7 @@ export default function ContactPage() {
 
   return (
     <>
+      <ScrollProgress />
       <PageHero
         badge={t("contact.badge")}
         badgeIcon={Mail}
@@ -40,13 +43,15 @@ export default function ContactPage() {
 
       <section className="relative py-16 sm:py-24 bg-[#FFFDF5] overflow-hidden paper-texture">
         <SectionGrain />
+        <ParallaxLayer speed={0.04} className="absolute top-10 right-[5%] w-[200px] h-[200px] rounded-full bg-[#F09EBA]/5 blur-3xl pointer-events-none"><span /></ParallaxLayer>
         <CharacterCameo character="libni" side="left" className="bottom-24" />
-        <FloatingElement className="absolute top-24 right-[5%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={14} duration={7}><Star className="h-8 w-8" /></FloatingElement>
+        <RotateOnScroll degrees={5}><FloatingElement className="absolute top-24 right-[5%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={14} duration={7}><Star className="h-8 w-8" /></FloatingElement></RotateOnScroll>
 
         <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">
           <div className="grid lg:grid-cols-5 gap-10">
             {/* Form */}
             <SlideIn from="left" className="lg:col-span-3">
+              <ScrollScale>
               <TiltCard intensity={2}>
                 <div className="group relative rounded-[20px] bg-white p-7 sm:p-9 border-3 border-[#F09EBA] shadow-[6px_6px_0_#F09EBA] border-glow">
                   <motion.div className="absolute -top-2 left-8 w-14 h-5 bg-[#FFD700]/35 rounded-sm z-10 tape-wiggle" style={{ transform: "rotate(-2deg)" }} />
@@ -128,6 +133,7 @@ export default function ContactPage() {
                   )}
                 </div>
               </TiltCard>
+              </ScrollScale>
             </SlideIn>
 
             {/* Sidebar */}

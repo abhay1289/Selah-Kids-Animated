@@ -8,9 +8,10 @@ import { PageHero } from "@/components/page-hero";
 import {
   Reveal, StaggerContainer, StaggerItem, CinematicReveal, HandwrittenNote, WavyUnderline, ScrapbookCard,
   SectionGrain, ParallaxLayer, BlurFadeIn, FloatingElement, SlideIn, ClipReveal, TiltCard, ScrollScale,
-  CharacterCameo,
+  CharacterCameo, ScrollProgress, RotateOnScroll,
   SPRING_BOUNCY, EASE, SCENES, CHARACTERS,
 } from "@/components/storybook-primitives";
+import { WaveDivider } from "@/components/storybook-effects";
 import { useLanguage } from "@/context/language";
 
 const values = [
@@ -29,6 +30,7 @@ export default function AboutPage() {
 
   return (
     <>
+      <ScrollProgress />
       <PageHero
         badge={t("about.badge")}
         badgeIcon={Heart}
@@ -41,7 +43,7 @@ export default function AboutPage() {
       {/* Mission Section */}
       <section className="relative py-16 sm:py-24 bg-[#FFFDF5] overflow-hidden paper-texture">
         <SectionGrain />
-        <FloatingElement className="absolute top-20 right-[6%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={16} duration={7}><Star className="h-10 w-10" /></FloatingElement>
+        <RotateOnScroll degrees={6}><FloatingElement className="absolute top-20 right-[6%] text-[#FFD700]/8 pointer-events-none z-[2]" amplitude={16} duration={7}><Star className="h-10 w-10" /></FloatingElement></RotateOnScroll>
 
         <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-10">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
@@ -72,11 +74,13 @@ export default function AboutPage() {
             <SlideIn from="right" delay={0.15} className="flex-1 w-full">
               <div className="grid grid-cols-2 gap-4">
                 <ClipReveal direction="left">
-                  <TiltCard intensity={6}>
-                    <div className="rounded-[20px] overflow-hidden border-3 border-[#F09EBA] shadow-[5px_5px_0_#F09EBA] border-glow img-hover-zoom">
-                      <Image src={SCENES.vibrant} alt="Selah Kids Animation" width={400} height={400} className="w-full h-full object-cover" />
-                    </div>
-                  </TiltCard>
+                  <CinematicReveal>
+                    <TiltCard intensity={6}>
+                      <div className="rounded-[20px] overflow-hidden border-3 border-[#F09EBA] shadow-[5px_5px_0_#F09EBA] border-glow img-hover-zoom">
+                        <Image src={SCENES.vibrant} alt="Selah Kids Animation" width={400} height={400} className="w-full h-full object-cover" />
+                      </div>
+                    </TiltCard>
+                  </CinematicReveal>
                 </ClipReveal>
                 <ClipReveal direction="right">
                   <TiltCard intensity={6}>
@@ -90,6 +94,10 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <div className="relative">
+        <WaveDivider to="#FFF0E8" position="bottom" />
+      </div>
 
       {/* Animation Quality — Cinematic dark section */}
       <section ref={darkRef} className="relative py-16 sm:py-24 bg-[#FFF0E8] overflow-hidden">
@@ -146,6 +154,7 @@ export default function AboutPage() {
       <section className="relative py-16 sm:py-24 bg-[#FFF5F0] overflow-hidden">
         <div className="absolute inset-0 pointer-events-none striped-bg" />
         <SectionGrain />
+        <ParallaxLayer speed={0.04} className="absolute top-10 left-[5%] w-[200px] h-[200px] rounded-full bg-[#F09EBA]/5 blur-3xl pointer-events-none"><span /></ParallaxLayer>
         <CharacterCameo character="shiloh" side="right" className="top-24" />
         <FloatingElement className="absolute bottom-24 left-[5%] text-[#F02D8A]/8 pointer-events-none z-[2]" amplitude={14} duration={6} delay={1}><Music className="h-8 w-8" /></FloatingElement>
 
