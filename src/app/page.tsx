@@ -480,12 +480,29 @@ function SplitLetters({
 
 function HeroSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const spotlightRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const [ready, setReady] = useState(false);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
 
   const bgY = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const fgY = useTransform(scrollYProgress, [0, 1], [0, -40]);
+
+  useEffect(() => {
+    if (reduced) return;
+    const el = sectionRef.current;
+    const spot = spotlightRef.current;
+    if (!el || !spot) return;
+    const onMove = (e: MouseEvent) => {
+      const rect = el.getBoundingClientRect();
+      const px = ((e.clientX - rect.left) / rect.width) * 100;
+      const py = ((e.clientY - rect.top) / rect.height) * 100;
+      spot.style.setProperty("--mx", `${px}%`);
+      spot.style.setProperty("--my", `${py}%`);
+    };
+    el.addEventListener("mousemove", onMove, { passive: true });
+    return () => el.removeEventListener("mousemove", onMove);
+  }, [reduced]);
 
   useEffect(() => {
     const onLoadingDone = () => {
@@ -614,6 +631,64 @@ function HeroSection() {
           ))}
         </div>
       )}
+
+      {/* Layer 4.91: Bokeh circles — z-[4] */}
+      {!reduced && (
+        <div className="absolute inset-0 z-[4] pointer-events-none overflow-hidden">
+          {[
+            { x: "10%", y: "20%", size: 120, color: "rgba(240,45,138,0.07)", blur: 25, dur: 14 },
+            { x: "75%", y: "15%", size: 90, color: "rgba(255,215,0,0.06)", blur: 20, dur: 18 },
+            { x: "85%", y: "65%", size: 140, color: "rgba(74,111,204,0.05)", blur: 30, dur: 16 },
+            { x: "20%", y: "70%", size: 100, color: "rgba(45,184,75,0.05)", blur: 22, dur: 20 },
+            { x: "50%", y: "40%", size: 80, color: "rgba(247,148,29,0.04)", blur: 18, dur: 12 },
+            { x: "60%", y: "85%", size: 110, color: "rgba(123,63,160,0.05)", blur: 28, dur: 15 },
+          ].map((b, i) => (
+            <div
+              key={i}
+              className="absolute hero-bokeh"
+              style={{
+                left: b.x, top: b.y,
+                width: b.size, height: b.size,
+                background: b.color,
+                "--bokeh-blur": `${b.blur}px`,
+                "--bokeh-dur": `${b.dur}s`,
+                "--bokeh-o": "1",
+                animationDelay: `${-i * 2.5}s`,
+              } as React.CSSProperties}
+            />
+          ))}
+        </div>
+      )}
+
+      {/* Layer 4.92: Shooting stars — z-[4] */}
+      {!reduced && (
+        <div className="absolute inset-0 z-[4] pointer-events-none overflow-hidden">
+          <div className="hero-shooting-star" style={{ top: "15%", left: "10%", "--shoot-dur": "8s" } as React.CSSProperties} />
+          <div className="hero-shooting-star" style={{ top: "35%", left: "55%", "--shoot-dur": "12s", animationDelay: "-4s" } as React.CSSProperties} />
+          <div className="hero-shooting-star" style={{ top: "60%", left: "25%", "--shoot-dur": "15s", animationDelay: "-9s" } as React.CSSProperties} />
+        </div>
+      )}
+
+      {/* Layer 4.93: Animated brushstrokes — z-[4] */}
+      {!reduced && (
+        <svg className="absolute inset-0 w-full h-full z-[4] pointer-events-none" viewBox="0 0 1000 600" preserveAspectRatio="none">
+          <path className="hero-brushstroke" d="M-50,200 Q200,100 400,250 T800,180 T1050,220" fill="none" stroke="#F02D8A" strokeWidth="3" strokeLinecap="round" style={{ "--brush-dur": "12s" } as React.CSSProperties} />
+          <path className="hero-brushstroke" d="M-50,400 Q150,350 350,420 T700,370 T1050,410" fill="none" stroke="#FFD700" strokeWidth="2.5" strokeLinecap="round" style={{ "--brush-dur": "15s", animationDelay: "-5s" } as React.CSSProperties} />
+          <path className="hero-brushstroke" d="M-50,100 Q250,50 500,130 T900,80 T1050,120" fill="none" stroke="#4A6FCC" strokeWidth="2" strokeLinecap="round" style={{ "--brush-dur": "18s", animationDelay: "-10s" } as React.CSSProperties} />
+        </svg>
+      )}
+
+      {/* Layer 4.94: Drifting clouds — z-[4] */}
+      {!reduced && (
+        <div className="absolute inset-0 z-[4] pointer-events-none overflow-hidden">
+          <div className="hero-cloud absolute w-[400px] h-[120px]" style={{ top: "8%", background: "rgba(255,255,255,0.5)", "--cloud-o": "0.035", "--cloud-dur": "40s" } as React.CSSProperties} />
+          <div className="hero-cloud absolute w-[300px] h-[80px]" style={{ top: "55%", background: "rgba(255,220,240,0.4)", "--cloud-o": "0.03", "--cloud-dur": "50s", animationDelay: "-15s" } as React.CSSProperties} />
+          <div className="hero-cloud absolute w-[350px] h-[100px]" style={{ top: "30%", background: "rgba(240,235,255,0.5)", "--cloud-o": "0.025", "--cloud-dur": "45s", animationDelay: "-25s" } as React.CSSProperties} />
+        </div>
+      )}
+
+      {/* Layer 4.95: Mouse-reactive spotlight — z-[4] */}
+      {!reduced && <div ref={spotlightRef} className="absolute inset-0 z-[4] hero-spotlight" />}
 
       {/* Layer 5: Rainbow Arcs — z-[5] */}
       {!reduced && (
